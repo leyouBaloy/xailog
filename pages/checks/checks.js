@@ -1,4 +1,4 @@
-// pages/check/check.js
+// pages/checks/checks.js
 Page({
 
     /**

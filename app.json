@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/stat/stat",
     "pages/mine/mine",
-    "pages/write/write"
+    "pages/write/write",
+    "pages/admins/admins",
+    "pages/checks/checks"
   ],
   "window":{
     "backgroundTextStyle":"light",
