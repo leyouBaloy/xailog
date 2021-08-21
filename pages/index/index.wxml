@@ -16,5 +16,12 @@
 </view> -->
 
 <view class="container">
-    
+    <button wx:if="{{!userInfo}}" class="item" bindtap="Login">授权登录</button>
+    <view wx:else>
+      <view style="text-align: center;"><image class="avatarUrl" src="{{userInfo.avatarUrl}}"></image></view>
+      <view class="nickname">{{userInfo.nickName}}</view>
+      <button style="margin-top: 20px;" class="item" bindtap="Logout">退出登录</button>
+    </view>
 </view>
+
+<view class="bottom_text">XAI 工作室</view>
