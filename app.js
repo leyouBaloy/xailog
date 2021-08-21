@@ -1,10 +1,10 @@
 // app.js
 App({
   onLaunch() {
-    // 展示本地存储能力
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    // 初始化云开发环境
+    wx.cloud.init({
+      env: 'aigroup-2gtja1ym4715274c' //云开发环境id
+    })
 
     // 登录
     wx.login({
