@@ -5,13 +5,28 @@ Page({
      * 页面的初始数据
      */
     data: {
-
-    },
-
+        list:[]
+      },
+    
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        var user_id='123456'
+        // var user_time=options.user_time
+        wx.cloud.database().collection('logs')
+        .where({
+            openid:user_id,
+            // time=user_time
+        })
+        .get()
+        .then(res =>{
+            console.log('返回的数据',res.data)
+            this.setData({
+                list:res.data
+            })
+        }
+            )
 
     },
 

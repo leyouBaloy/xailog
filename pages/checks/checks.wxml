@@ -1,2 +1,19 @@
 <!--pages/checks/checks.wxml-->
-<text>pages/checks/checks.wxml</text>
+<view style="width: 100%; background: #e48934; min-height: 50px">作者</view>
+<view style="display:flex; flex-direction:column; min-height: 150px; padding:10px; margin-bottom: 5px;" wx:for="{{list}}">
+    <view style="background-color: #E6E6E6; flex: 0.1;">内容</view>
+    <view style="background-color: #F1F1F1; flex: 1;">{{item.content}}</view>
+</view>
+
+<view style="display:flex; flex-direction:row; min-height: 30px;">
+<view style="background-color: white; flex: 1;"></view>
+<view style="background-color: white; flex: 1;"></view>
+<view style="background-color:#fafafa; flex: 1;">
+    <button style='width:10px'><image slot="icon" src="../../images/dz.png" style="margin-right: 10px;vertical-align: middle;width:20px; height: 20px;"></image></button>
+</view>
+<view style="background-color:#fafafa; flex: 0.3;">
+    <button style='width:120px'><image slot="icon" src="../../images/ly.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>留言</button>
+</view>
+</view>
+            
+
