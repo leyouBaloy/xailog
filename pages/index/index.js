@@ -31,5 +31,11 @@ Page({
     this.setData({
       userInfo: null
     })
-  }
+  },
+  guanli:function(param){
+    var that = this
+    wx.navigateTo({
+      url: '/pages/guanli/guan'
+    })
+  },
 })
