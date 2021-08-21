@@ -1,4 +1,8 @@
 {
+    "useExtendedLib": {
+      "kbone": true,
+      "weui": true
+    },
   "pages":[
     "pages/index/index",
     "pages/stat/stat",
