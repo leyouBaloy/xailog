@@ -43,3 +43,12 @@ page {
   flex-direction: column;
   align-items: center;
 }
+
+.bottom_text {
+  font-size: 14px;
+  color: #a9a9a9;
+  text-align: center;
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+}
