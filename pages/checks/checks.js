@@ -5,20 +5,25 @@ Page({
      * 页面的初始数据
      */
     data: {
-        list:[]
+        list:[],
+        userInfo: null,
+        user_id:''
       },
     
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        var user_id='123456'
+        this.setData({
+            userInfo: wx.getStorageSync('userInfo'),
+            user_id:'cd045e756120b7b406f45cec4050f728'
+          })
+        var user_id='cd045e756120b7b406f45cec4050f728'
         // var user_time=options.user_time
         wx.cloud.database().collection('logs')
-        .where({
-            openid:user_id,
-            // time=user_time
-        })
+        .doc(user_id
+            // id=id
+        )
         .get()
         .then(res =>{
             console.log('返回的数据',res.data)
@@ -29,53 +34,20 @@ Page({
             )
 
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
+    good(){
+    var user_id='cd045e756120b7b406f45cec4050f728'
+    wx.cloud.database().collection('logs')
+    .doc(user_id
+    )
+    .update(
+        {
+            data:{
+                ifstar:true
+            }
+        }
+    )
+    .then(res =>{
+        console.log('返回的数据',res)
+    })
     }
 })
