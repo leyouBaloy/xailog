@@ -4,7 +4,9 @@ const app = getApp()
 
 Page({
   data: {
-    userInfo: null
+    userInfo: null,
+    statusBarHeight: app.globalData.statusBarHeight,
+    menubutton: null
   },
   onLoad() {
     this.setData({

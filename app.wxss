@@ -8,3 +8,19 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+button::after {
+  border: none;
+}
+
+page {
+  background-color: #EAEBF3;
+}
+
+.bottom_shadow {
+  position: fixed;
+  bottom: 0px;
+  height: 120%;
+  width: 100%;
+  box-shadow: 0px -5px 10px 1px rgba(0, 0, 0,0.1) inset;
+}

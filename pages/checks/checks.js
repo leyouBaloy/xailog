@@ -10,33 +10,15 @@ Page({
       userMessage:"",
       targets:'',
       value:'',
-      name:''
+      name:'',
+      t:0
     },
   
   onLoad: function (options) {
       // var user_id=options.id
-      var t=0
       this.setData({
         targets:'cd045e756120b7b406f45cec4050f728'
     })
-    function find(I) {
-      for (var i =0;i<I.data.length;i++) {
-        t++;
-        var price = 'release['+t+']';
-        this.setData({
-            [price]:I.data})
-        wx.cloud.database().collection('comment')
-        .where({
-          orign:user_id,
-          target:I.data[i]._id
-        })
-        .get()
-        .then(res=>{
-          console.log('rea',this.data.release)
-          return find(res)
-        })
-      }
-    }
     var user_id=this.data.targets
       wx.cloud.database().collection('logs')
       .doc(user_id)
@@ -61,14 +43,35 @@ Page({
       wx.cloud.database().collection('comment')
       .where({
         orign:user_id,
-        targer:''
+        target:""
       })
       .get()
       .then(res =>{
-        find(res)
+        this.find(res)
         console.log('rea',this.data.release)
       })
 
+  },
+  find:function (I) {
+    for (var i =0;i<I.data.length;i++) {
+      var price = 'release['+this.data.t+']';
+      this.setData({
+          [price]:I.data[i]})
+      this.setData({
+        t:this.data.t+1})
+      console.log('1')
+      wx.cloud.database().collection('comment')
+      .where({
+        orign:this.data.targets,
+        target:I.data[i]._id
+      })
+      .get()
+      .then(res=>{
+        this.find(res)
+        console.log('2')
+      })
+      console.log('3')
+    }
   },
   good:function(){
   var user_id=this.data.targets
@@ -145,7 +148,7 @@ wx.cloud.database().collection('comment').add({
 },
 reply(e){
   this.setData({
-      show:false
+      show_2:false
     })
     var myDate = new Date();
     wx.cloud.database().collection('comment').add({

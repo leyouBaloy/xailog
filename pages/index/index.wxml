@@ -1,28 +1,14 @@
 <!--index.wxml-->
-<view class="title">XAI 日报</view>
-<!-- <view class="group">
-  <view class="item" bindtap="XAI">
-    <view class="name">报告</view>
-    <view class="gname">组织名称</view>
-  </view>
-  <view class="item" bindtap="XAI">
-    <view class="name">报告</view>
-    <view class="gname">组织名称</view>
-  </view>
-  <view class="item" bindtap="XAI">
-    <view class="name">报告</view>
-    <view class="gname">组织名称</view>
-  </view>
-</view> -->
-
+<view class="bottom_shadow">　</view>
+<view class="title" style="top: {{statusBarHeight}}px;">XAI 日报</view>
 <view class="container">
     <button wx:if="{{!userInfo}}" class="item" bindtap="Login">授权登录</button>
     <view wx:else>
       <view style="text-align: center;"><image class="avatarUrl" src="{{userInfo.avatarUrl}}"></image></view>
       <view class="nickname">{{userInfo.nickName}}</view>
-      <button style="margin-top: 20px;" class="item" bindtap="writelog">写日志</button>
-      <button style="margin-top: 20px;" class="item" bindtap="guanli">管理页面</button>
-      <button style="margin-top: 20px;" class="item" bindtap="wwj">wwj</button>
+      <button style="margin-top: 30px;" class="item" bindtap="writelog">写日志</button>
+      <button style="margin-top: 30px;" class="item" bindtap="guanli">管理页面</button>
+      <button style="margin-top: 30px;" class="item" bindtap="wwj">wwj</button>
     </view>
 </view>
 
