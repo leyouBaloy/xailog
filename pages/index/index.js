@@ -21,7 +21,6 @@ Page({
         this.setData({
           userInfo: res.userInfo
         })
-        console.log(userInfo)
       }
     })
   },
