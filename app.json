@@ -4,6 +4,7 @@
       "weui": true
     },
   "pages":[
+    "pages/login/login",
     "pages/index/index",
     "pages/stat/stat",
     "pages/mine/mine",

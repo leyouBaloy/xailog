@@ -31,8 +31,7 @@ Page({
       userInfo: null
     })
   },
-  guanli:function(param){
-    var that = this
+  guanli() {
     wx.navigateTo({
       url: '/pages/guanli/guan'
     })
