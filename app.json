@@ -10,7 +10,8 @@
     "pages/mine/mine",
     "pages/write/write",
     "pages/admins/admins",
-    "pages/checks/checks"
+    "pages/checks/checks",
+    "pages/day/day"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -28,11 +29,16 @@
       "pagePath": "pages/index/index",  
       "text": "首页"  
     }, {
+      "selectedIconPath": "images/rz_S.png",  
+      "iconPath": "images/rz.png",  
+      "pagePath": "pages/day/day",  
+      "text": "日志"  
+    }, {
       "selectedIconPath": "images/tj_S.png",  
       "iconPath": "images/tj.png",  
       "pagePath": "pages/checks/checks",  
       "text": "统计"  
-    },{
+    }, {
       "selectedIconPath": "images/wd_S.png",  
       "iconPath": "images/wd.png",  
       "pagePath": "pages/mine/mine",  
