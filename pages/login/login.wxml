@@ -1,0 +1,8 @@
+<!--pages/login/login.wxml-->
+<view class="title">XAI 日报</view>
+
+<view class="container">
+    <button class="item" bindtap="Login">授权登录</button>
+</view>
+
+<view class="bottom_text">XAI 工作室</view>

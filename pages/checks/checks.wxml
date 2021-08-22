@@ -7,14 +7,24 @@
 </view>
 
 <view style="display:flex; flex-direction:row; min-height: 30px;">
+<<<<<<< HEAD
 <view style="background-color: white; flex: 1;"></view>
 <view style="background-color: white; flex: 1;"></view>
 <view style="background-color:#fafafa; flex: 1;">
     <button style='width:10px'><image slot="icon" src="../../images/dz.png" style="margin-right: 10px;vertical-align: middle;width:20px; height: 20px;"></image></button>
+=======
+<view style="background-color: white; flex: 7;"></view>
+<view style="background-color:#fafafa; flex: 0.5;"  bindtap="good">
+    <block wx:if="{{isstar == false}}">
+    <image slot="icon" src="../../images/dz.png" style="margin-right: 16px;vertical-align: right;width:30px; height: 30px;"></image>
+    </block>
+
+    <block wx:elif="{{isstar == true}}" >
+    <image slot="icon" src="../../images/dz_2.png" style="margin-right: 16px;vertical-align:right;width:30px; height:30px;"></image>
+    </block>
+>>>>>>> ebc6906d4d9699337326cd7728f073b6cd3b15b6
 </view>
 <view style="background-color:#fafafa; flex: 0.3;">
     <button style='width:120px'><image slot="icon" src="../../images/ly.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>留言</button>
 </view>
 </view>
-            
-

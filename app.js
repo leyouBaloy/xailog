@@ -14,6 +14,13 @@ App({
         wx.setStorageSync('openid', res.result.openid)
       }
     })
+
+    // 判断用户是否已经授权
+    if (wx.getStorageSync('userInfo')){
+      wx.switchTab({
+        url: 'pages/index/index',
+      })
+    }
   },
   globalData: {
     userInfo: null
