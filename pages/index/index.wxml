@@ -20,7 +20,7 @@
     <view wx:else>
       <view style="text-align: center;"><image class="avatarUrl" src="{{userInfo.avatarUrl}}"></image></view>
       <view class="nickname">{{userInfo.nickName}}</view>
-      <button style="margin-top: 20px;" class="item" bindtap="">写日志</button>
+      <button style="margin-top: 20px;" class="item" bindtap="writelog">写日志</button>
       <button style="margin-top: 20px;" class="item" bindtap="guanli">管理页面</button>
     </view>
 </view>

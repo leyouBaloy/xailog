@@ -1,21 +1,19 @@
-<view class="table">
-  <view class="tr bg-w">
-    <view class="th">姓名</view>
-    <view class="th">日志</view>
-  </view>
-	<block wx:for="{{listData}}" wx:key="{{code}}" 
-	wx:if="{{weidu=='true'}}" >
-    <view class="tr bg-g" wx:if="{{item.type == true}}">
-      <view class="td">{{item.code}}</view>
-      <view class="td" bindtap="detail">{{item.text}}</view>
-  	</view>
-	</block>
+<!-- 时间和日志内容 -->
+<van-cell-group>
+<van-cell title="选择日期" value="{{ date }}" bind:click="onDisplay" is-link/>
+<van-calendar show="{{ show }}" bind:close="onClose" bind:confirm="onConfirm" />
+<van-field
+    value="{{ content }}"
+    label="日志内容"
+    type="textarea"
+    placeholder="今天做了什么？\n 有哪些收获？"
+    autosize
+    bind:change = "contentOnChange"
+  />
+</van-cell-group>
 
-	<block wx:for="{{listData}}" wx:key="{{code}}" 
-	wx:if="{{quanbu=='true'}}" >
-    <view class="tr bg-g">
-      <view class="td">{{item.code}}</view>
-      <view class="td" bindtap="detail">{{item.text}}</view>
-  	</view>
-	</block>
-</view>
+<!-- 上传附件 -->
+<van-uploader file-list="{{ fileList }}" bind:after-read="afterRead" />
+
+<!-- 提交 -->
+<button class="item" bindtap="guanli">提交</button>

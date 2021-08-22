@@ -14,7 +14,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#f7f7f7",
-    "navigationBarTitleText": "",
+    "navigationBarTitleText": "XAI日报",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {  

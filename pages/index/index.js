@@ -38,4 +38,9 @@ Page({
       url: '/pages/guanli/guan'
     })
   },
+  writelog: function(param){
+    wx.navigateTo({
+      url: '/pages/write/write',
+    })
+  }
 })
