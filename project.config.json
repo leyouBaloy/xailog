@@ -30,7 +30,6 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-<<<<<<< Updated upstream
     "enableEngineNative": false,
     "useIsolateContext": true,
     "userConfirmedBundleSwitch": false,
@@ -62,42 +61,6 @@
   "condition": {
     "search": {
       "list": []
-=======
-    "setting": {
-        "urlCheck": true,
-        "es6": true,
-        "enhance": true,
-        "postcss": true,
-        "preloadBackgroundData": false,
-        "minified": true,
-        "newFeature": false,
-        "coverView": true,
-        "nodeModules": true,
-        "autoAudits": false,
-        "showShadowRootInWxmlPanel": true,
-        "scopeDataCheck": false,
-        "uglifyFileName": false,
-        "checkInvalidKey": true,
-        "checkSiteMap": true,
-        "uploadWithSourceMap": true,
-        "compileHotReLoad": false,
-        "lazyloadPlaceholderEnable": false,
-        "useMultiFrameRuntime": false,
-        "useApiHook": false,
-        "useApiHostProcess": false,
-        "babelSetting": {
-            "ignore": [],
-            "disablePlugins": [],
-            "outputPath": ""
-        },
-        "enableEngineNative": false,
-        "useIsolateContext": true,
-        "userConfirmedBundleSwitch": false,
-        "packNpmManually": false,
-        "packNpmRelationList": [],
-        "minifyWXSS": true,
-        "showES6CompileOption": false
->>>>>>> Stashed changes
     },
     "conversation": {
       "list": []
@@ -105,7 +68,6 @@
     "game": {
       "list": []
     },
-<<<<<<< Updated upstream
     "plugin": {
       "list": []
     },
@@ -114,32 +76,6 @@
     },
     "miniprogram": {
       "list": []
-=======
-    "isGameTourist": false,
-    "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
-    "cloudfunctionRoot": "cloud/",
-    "simulatorType": "wechat",
-    "simulatorPluginLibVersion": {},
-    "condition": {
-        "search": {
-            "list": []
-        },
-        "conversation": {
-            "list": []
-        },
-        "game": {
-            "list": []
-        },
-        "plugin": {
-            "list": []
-        },
-        "gamePlugin": {
-            "list": []
-        },
-        "miniprogram": {
-            "list": []
-        }
->>>>>>> Stashed changes
     }
   }
 }
