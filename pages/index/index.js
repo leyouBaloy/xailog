@@ -40,5 +40,11 @@ Page({
     wx.navigateTo({
       url: '/pages/write/write',
     })
-  }
+  },
+  wwj:function(param){
+    var that = this
+    wx.navigateTo({
+      url: '/pages/checks/checks'
+    })
+  },
 })
