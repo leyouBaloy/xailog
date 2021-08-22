@@ -3,14 +3,11 @@ Page({
     data: {
 
     },
-    onLoad: function (options) {},
-    onReady: function () {},
-    onShow: function () {},
-    onHide: function () {},
-    onUnload: function () {},
-    onPullDownRefresh: function () {},
-    onReachBottom: function () {},
-
-    onShareAppMessage: function () {}
+    bgslpm(){
+        console.log("点我干啥(报告数量排名)")
+    },
+    dzcspm(){
+        console.log("点我干啥(点赞次数排名)")
+    }
 })
 

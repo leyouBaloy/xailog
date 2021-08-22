@@ -1,5 +1,14 @@
-<text>pages/stat/stat.wxml</text>
-<!--    <view class="button-sp-area">-->
-
+<view class="box">
+    <view class="item2" bindtap="bgslpm">
+        <image src="../../images/bgsl.png" mode="widthFix"></image>
+        <view class="text">报告数量排名</view>
+        <view class="more">更多</view>
+    </view>
+    <view class="item2" bindtap="dzcspm">
+        <image src="../../images/dzpm.png" mode="widthFix"></image>
+        <view class="text">点赞次数排名</view>
+        <view class="more">更多</view>
+    </view>
+</view>
 
 
