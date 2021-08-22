@@ -1,68 +1,79 @@
-<!--pages/checks/checks.wxml-->
-<view style="width: 100%; background: #e48934; min-height: 50px">作者</view>
-<view style="display:flex; flex-direction:column; min-height: 150px; padding:10px; margin-bottom: 5px;"
-    wx:for="{{list}}">
-    <view style="background-color: #E6E6E6; flex: 0.1;">内容</view>
-    <view style="background-color: #F1F1F1; flex: 1;">{{item.content}}</view>
-</view>
 
+<!--pages/checks/checks.wxml-->
+<view style="display:flex; flex-direction:column; min-height: 150px; padding:10px; margin-bottom: 5px;"> 
+    <view style="width: 100%; background: #e48934; min-height: 50px">作者:{{list.name}}</view> 
+    <view style="background-color: #E6E6E6; flex: 0.1;">内容</view>
+    <view style="background-color: #F1F1F1; flex: 5;">{{list.content}}</view>
+</view>
 <view style="display:flex; flex-direction:row; min-height: 30px;">
     <view style="background-color: white; flex: 1;"></view>
-    <view style="background-color: white; flex: 1;"></view>
-    <view style="background-color:#fafafa; flex: 1;">
-        <button style='width:10px'>
-            <image slot="icon" src="../../images/dz.png"
-                style="margin-right: 10px;vertical-align: middle;width:20px; height: 20px;"></image>
-        </button>
-        <view style="background-color: white; flex: 7;"></view>
-        <view style="background-color:#fafafa; flex: 0.5;" bindtap="good">
-            <block wx:if="{{isstar == false}}">
-                <image slot="icon" src="../../images/dz.png"
-                    style="margin-right: 16px;vertical-align: right;width:30px; height: 30px;"></image>
-            </block>
+    <view style="background-color: white; flex: 7;"></view>
+<view style="background-color:#fafafa; flex: 0.5;"  bindtap="good">
+    <block wx:if="{{isstar == false}}">
+    <image slot="icon" src="../../images/dz.png" style="margin-right: 16px;vertical-align: right;width:30px; height: 30px;"></image>
+    </block>
 
-            <block wx:elif="{{isstar == true}}">
-                <image slot="icon" src="../../images/dz_2.png"
-                    style="margin-right: 16px; vertical-align: right; width: 90rpx; height: 83rpx; display: inline-block; box-sizing: border-box; left: NaNrpx; top: NaNrpx">
-                </image>
-            </block>
-        </view>
-    </view>
-        <view style="background-color:#fafafa; flex: 0.3;">
-            <button class="weui-btn" type="primary" bindtap="open" style='width:120px'>
-                <image slot="icon" src="../../images/ly.png"
-                    style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>留言
-            </button>
-        </view>
-    </view>
-    <view wx:if='{{release.length == 0}}'>
-        暂无评论
-    </view>
-    <view wx:else>
-        <view wx:for="{{release}}">
-            <view name="reply" value='{{item._id}}'>{{item.name}}:{{item.content}}<button style="margin-top: 20px;"
-                    class="item">回复</button></view>
-            <view name="reply" value='{{item._id}}'>{{item.time}}</view>
-        </view>
-    </view>
+    <block wx:elif="{{isstar == true}}" >
+    <image slot="icon" src="../../images/dz_2.png" style="margin-right: 16px; vertical-align: right; width: 90rpx; height: 83rpx; display: inline-block; box-sizing: border-box; left: NaNrpx; top: NaNrpx"></image>
+    </block>
+</view>
+<view style="background-color:#fafafa; flex: 0.3;">
+    <button class="weui-btn" type="primary" bindtap="open" style='width:120px'><image slot="icon" src="../../images/ly.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>留言</button>
+</view>
+</view>
+<view wx:if='{{release.length == 0}}'>
+    暂无评论
+</view>
+<view wx:else>
+<view wx:for="{{release}}">
+<view name="reply" >{{item.name}}:{{item.content}}<button data-value="{{item._id}}" style="margin-top: 20px;" class="item" bindtap="open_2">回复</button></view>
+<view name="reply">{{item.time}}</view>
+</view>
+</view>
 
-    <mp-half-screen-dialog bindbuttontap="buttontap" show="{{show}}" maskClosable="{{false}}" title="请留言">
-        <view slot='desc' class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
-            <form bindsubmit="submitForm">
-                <view class="page-section">
-                    <view class="weui-cells weui-cells_after-title">
-                        <view class="weui-cell weui-cell_input">
-                            <view class="weui-cell__bd" style="margin: 30rpx 0">
-                                <textarea class="weui-textarea" name="input" placeholder="请输入文本" value='{{userMessage}}'
-                                    style="height: 5em" />
-                            </view>
-                        </view>
+<mp-half-screen-dialog 
+  bindbuttontap="buttontap"
+  show="{{show}}"
+  maskClosable="{{false}}" 
+  title="请留言" 
+>
+<view  slot='desc' class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+    <form  bindsubmit="submitForm">
+        <view class="page-section">
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__bd" style="margin: 30rpx 0" >
+                        <textarea class="weui-textarea" name="input" placeholder="请输入文本"  value='{{userMessage}}' style="height: 5em" />
                     </view>
                 </view>
-
-                <view class="btn-area">
-                    <button class="weui-btn" type="primary" formType="submit">确定</button>
-                </view>
-            </form>
+            </view>
         </view>
-    </mp-half-screen-dialog>
+
+        <view class="btn-area">
+            <button class="weui-btn" type="primary" formType="submit" >确定</button>
+        </view>
+    </form>
+</view></mp-half-screen-dialog>
+<mp-half-screen-dialog
+  bindbuttontap="buttontap"
+  show="{{show_2}}"
+  maskClosable="{{false}}"
+  title="请回复"
+>
+<view  slot='desc' class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+    <form  bindsubmit="reply">
+        <view class="page-section">
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__bd" style="margin: 30rpx 0" >
+                        <textarea class="weui-textarea" name="input" placeholder="请输入文本"  value='@{{name}}' style="height: 5em" />
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="btn-area">
+            <button class="weui-btn" type="primary" formType="submit" >确定</button>
+        </view>
+    </form>
+</view></mp-half-screen-dialog>
