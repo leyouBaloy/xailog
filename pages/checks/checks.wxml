@@ -1,3 +1,4 @@
+
 <!--pages/checks/checks.wxml-->
 <view style="width: 100%; background: #e48934; min-height: 50px">作者</view>
 <view style="display:flex; flex-direction:column; min-height: 150px; padding:10px; margin-bottom: 5px;" wx:for="{{list}}">
