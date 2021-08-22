@@ -36,7 +36,7 @@
     }, {
       "selectedIconPath": "images/tj_S.png",  
       "iconPath": "images/tj.png",  
-      "pagePath": "pages/checks/checks",  
+      "pagePath": "pages/stst/stat",  
       "text": "统计"  
     }, {
       "selectedIconPath": "images/wd_S.png",  
