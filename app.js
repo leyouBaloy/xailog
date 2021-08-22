@@ -21,8 +21,20 @@ App({
         url: 'pages/index/index',
       })
     }
+
+    // 获取手机信息
+    wx.getSystemInfo({
+      success: (res) => {
+        this.globalData.statusBarHeight = res.statusBarHeight
+      }
+    })
+
+    // 获取胶囊信息
+    this.globalData.menubutton = wx.getMenuButtonBoundingClientRect()
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    statusBarHeight: null,
+    menubutton: null
   }
 })

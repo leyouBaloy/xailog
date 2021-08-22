@@ -1,14 +1,11 @@
 /**index.wxss**/
-page {
-    background-color: #f7f7f7;
-  }
-  
+
  .title {
+  position: relative;
   text-align: center;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 5px;
 }
   
 .group {
@@ -16,10 +13,16 @@ page {
 }
 
 .item {
-  border-radius: 10px;
-  background-color: #ffffff;
+  width: 180px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border-radius: 15px;
+  background-color: #EAEBF3;
   margin: 10px;
-  box-shadow: 0px 0px 5px 5px #f0f0f0;
+  box-shadow: -5px 0px 10px 1px rgba(255, 255, 255,0.8),/*左*/
+  0px -5px 10px 1px rgba(255, 255, 255,0.8),/*上*/
+  5px 0px 10px 1px rgba(0, 0, 0,0.1),/*右*/
+  0px 5px 10px 1px rgba(0, 0, 0,0.1);/*下*/
 }
   
 .name {

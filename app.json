@@ -15,13 +15,14 @@
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#f7f7f7",
+    "navigationBarBackgroundColor": "#EAEBF3",
     "navigationBarTitleText": "XAI日报",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {  
     "color": "#a9b7b7",  
     "selectedColor": "#11cd6e",  
+    "backgroundColor": "#EAEBF3",
     "borderStyle": "white" ,
     "list": [{  
       "selectedIconPath": "images/sy_S.png",  
@@ -46,6 +47,5 @@
     }
     ]  
   } ,
-  "style": "v2",
   "sitemapLocation": "sitemap.json"
 }
