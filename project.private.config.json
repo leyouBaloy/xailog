@@ -1,4 +1,5 @@
 {
+  "setting": {},
   "condition": {
     "plugin": {
       "list": []
@@ -11,6 +12,12 @@
     },
     "miniprogram": {
       "list": [
+        {
+          "name": "pages/write/write",
+          "pathName": "pages/write/write",
+          "query": "",
+          "scene": null
+        },
         {
           "name": "pages/write/write",
           "pathName": "pages/write/write",
