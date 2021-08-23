@@ -12,7 +12,7 @@ Page({
       targets:'',
       value:'',
       name:'',
-      t:0
+      t:0,
     },
   
   onLoad: function (options) {
@@ -43,35 +43,40 @@ Page({
       })
       wx.cloud.database().collection('comment')
       .where({
-        orign:user_id,
-        target:""
+        orign:user_id
       })
       .get()
       .then(res =>{
         this.find(res)
-        console.log('rea',this.data.release)
       })
+      
 
   },
-  find:function (I) {
-    for (var i =0;i<I.data.length;i++) {
-      var price = 'release['+this.data.t+']';
-      this.setData({
-          [price]:I.data[i]})
-      this.setData({
-        t:this.data.t+1})
-      console.log('1')
-      wx.cloud.database().collection('comment')
-      .where({
-        orign:this.data.targets,
-        target:I.data[i]._id
-      })
-      .get()
-      .then(res=>{
-        this.find(res)
-        console.log('2')
-      })
-      console.log('3')
+  find:function (I) { 
+    for (var i=0;i<I.data.length;i++ ){
+      if ( I.data[i].target==""){
+        if(!(I.data[i] in this.data.release)){
+          let p='release['+this.data.t+']'
+          this.setData({
+            [p]:I.data[i],
+            t:this.data.t+1
+          })
+        }
+        this.cirl(I,I.data[i])
+      }
+    }
+  }, 
+  cirl:function(I,i){
+    for(var j=0;j<I.data.length;j++){
+      if((I.data[j].target==i._id)&(!(I.data[j] in this.data.release))){
+        let p="release["+this.data.t+"]"
+        this.setData({
+          [p]:I.data[j],
+          t:this.data.t+1
+        })
+        this.cirl(I,I.data[j])
+      }
+      
     }
   },
   good:function(){
