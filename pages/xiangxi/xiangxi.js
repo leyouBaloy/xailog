@@ -40,7 +40,6 @@ Page({
           console.log(kind);
       wx.navigateTo({url: '/pages/checks/checks?kind='+kind})
     },
-
     inputgetname:function(e){
       this.setData({
         getname:e.detail.value

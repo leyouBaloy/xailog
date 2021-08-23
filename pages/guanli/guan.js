@@ -24,7 +24,6 @@ Page({
       url: '/pages/xiangxi/xiangxi?ageData=' + that.data.quanbu
     })
   },
-
   onShareAppMessage: function () {}
 })
 
