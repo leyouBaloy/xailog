@@ -4,6 +4,9 @@
     <view style="width: 100%; background: #e48934; min-height: 50px">作者:{{list.name}}</view> 
     <view style="background-color: #E6E6E6; flex: 0.1;">内容</view>
     <view style="background-color: #F1F1F1; flex: 5;">{{list.content}}</view>
+    <view wx:if="{{list.fileIDs !=[]}}" >
+        <image mode='widthFix' class="image"bindtap="imgYu" data-list="{{item}}" data-src="{{list.fileIDs}}"  wx:for="{{list.fileIDs}}" wx:for-item="item" src="{{item}}"></image>
+    </view>
 </view>
 <view style="display:flex; flex-direction:row; min-height: 30px;">
     <view style="background-color: white; flex: 1;"></view>

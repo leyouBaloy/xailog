@@ -1,1 +1,6 @@
 /* pages/checks/checks.wxss */
+
+.image {
+    width: 230rpx;
+  }
+  
