@@ -1,51 +1,56 @@
-{
-    "useExtendedLib": {
-      "kbone": true,
-      "weui": true
-    },
-  "pages":[
-    "pages/login/login",
-    "pages/index/index",
-    "pages/stat/stat",
-    "pages/mine/mine",
-    "pages/write/write",
-    "pages/admins/admins",
-    "pages/checks/checks",
-    "pages/day/day"
-  ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#EAEBF3",
-    "navigationBarTitleText": "XAI日报",
-    "navigationBarTextStyle":"black"
-  },
-  "tabBar": {  
-    "color": "#a9b7b7",  
-    "selectedColor": "#11cd6e",  
-    "backgroundColor": "#EAEBF3",
-    "borderStyle": "white" ,
-    "list": [{  
-      "selectedIconPath": "images/sy_S.png",  
-      "iconPath": "images/sy.png",  
-      "pagePath": "pages/index/index",  
-      "text": "首页"  
-    }, {
-      "selectedIconPath": "images/rz_S.png",  
-      "iconPath": "images/rz.png",  
-      "pagePath": "pages/day/day",  
-      "text": "日志"  
-    }, {
-      "selectedIconPath": "images/tj_S.png",  
-      "iconPath": "images/tj.png",  
-      "pagePath": "pages/stat/stat",  
-      "text": "统计"  
-    }, {
-      "selectedIconPath": "images/wd_S.png",  
-      "iconPath": "images/wd.png",  
-      "pagePath": "pages/mine/mine",  
-      "text": "我的"  
-    }
-    ]  
-  } ,
-  "sitemapLocation": "sitemap.json"
+{  
+  "useExtendedLib": {  
+    "kbone": true,  
+    "weui": true  
+  },  
+"pages":[  
+  "pages/login/login",  
+  "pages/index/index",  
+  "pages/stat/stat",  
+  "pages/mine/mine",  
+  "pages/write/write",  
+  "pages/admins/admins",  
+  "pages/checks/checks",  
+  "pages/day/day",
+  "pages/bgslpm/bgslpm"
+],  
+"window":{  
+  "backgroundTextStyle":"light",  
+  "navigationBarBackgroundColor": "#EAEBF3",  
+  "navigationBarTitleText": "XAI日报",  
+  "navigationBarTextStyle":"black"  
+},  
+"tabBar": {    
+  "color": "#a9b7b7",    
+  "selectedColor": "#11cd6e",    
+  "backgroundColor": "#EAEBF3",  
+  "borderStyle": "white" ,  
+  "list": [{    
+    "selectedIconPath": "images/sy_S.png",    
+    "iconPath": "images/sy.png",    
+    "pagePath": "pages/index/index",    
+    "text": "首页"    
+  }, {  
+    "selectedIconPath": "images/rz_S.png",    
+    "iconPath": "images/rz.png",    
+    "pagePath": "pages/day/day",    
+    "text": "日志"    
+  }, {  
+    "selectedIconPath": "images/tj_S.png",    
+    "iconPath": "images/tj.png",    
+    "pagePath": "pages/stat/stat",    
+    "text": "统计"    
+  }, {  
+    "selectedIconPath": "images/wd_S.png",    
+    "iconPath": "images/wd.png",    
+    "pagePath": "pages/mine/mine",    
+    "text": "我的"    
+  }  
+  ]    
+} ,  
+"sitemapLocation": "sitemap.json",
+"usingComponents": {
+  "van-cell": "@vant/weapp/cell/index",
+  "van-cell-group": "@vant/weapp/cell-group/index"
 }
+} 

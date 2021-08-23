@@ -1,0 +1,58 @@
+<view class="item2" style="height: 44px;">
+    <view class="text" bindtap="showPopup">{{date}}</view>
+    <image bindtap="download" src="../../images/excel.png" mode="widthFix"></image>
+</view>
+
+<view class="box">
+    <table>
+        <tr>
+            <td style="font-weight: bold;">姓名</td>
+            <td style="font-weight: bold;" class="td_center">本月报告</td>
+            <td style="font-weight: bold;" class="td_center">今日报告</td>
+            <td style="font-weight: bold;" class="td_center"></td>
+        </tr>
+        <tr>
+            <td>徐朔</td>
+            <td class="td_center">1</td>
+            <td class="td_center">1</td>
+            <td class="td_center">更多</td>
+        </tr>
+        <tr>
+            <td>孙百乐</td>
+            <td class="td_center">1</td>
+            <td class="td_center"></td>
+            <td class="td_center">更多</td>
+        </tr>
+        <tr>
+            <td>王文婕</td>
+            <td class="td_center">1</td>
+            <td class="td_center">1</td>
+            <td class="td_center">更多</td>
+        </tr>
+        <tr>
+            <td>廖集秀</td>
+            <td class="td_center">1</td>
+            <td class="td_center">1</td>
+            <td class="td_center">更多</td>
+        </tr>
+        <tr style="border: none;">
+            <td>李传兰</td>
+            <td class="td_center">1</td>
+            <td class="td_center">1</td>
+            <td class="td_center">更多</td>
+        </tr>
+    </table>
+</view>
+
+<van-popup
+  show="{{ show }}"
+  position="bottom"
+  custom-style="height: 40%;"
+  bind:close="onClose">
+    <van-datetime-picker
+    type="year-month"
+    visible-item-count="5"
+    value="{{ currentDate }}"
+    bind:confirm="onConfirm"
+    bind:cancel="onClose"/>
+</van-popup>
