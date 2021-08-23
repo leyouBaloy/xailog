@@ -1,0 +1,22 @@
+<view class="table">
+  <view class="tr bg-w">
+    <view class="th">姓名</view>
+    <view class="th">日志</view>
+  </view>
+  <view wx:if="{{weidu=='true'}}">
+      <block wx:for="{{listData}}" wx:key="{{id}}" >
+        <view class="tr bg-g" wx:if="{{item.type == false}}">
+          <view class="td">{{item.code}}</view>
+          <a catchtap="gotoresult" id="{{item.id}}">{{item.text}}</a>
+        </view>
+      </block>
+  </view>
+  <view wx:else>
+      <block wx:for="{{listData}}" wx:key="{{id}}">
+        <view class="tr bg-g" >
+          <view class="td">{{item.code}}</view>
+          <a catchtap="gotoresult" id="{{item.id}}">{{item.text}}</a>
+        </view>
+      </block>
+  </view>
+</view>

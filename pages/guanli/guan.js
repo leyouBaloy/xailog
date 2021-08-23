@@ -15,16 +15,15 @@ Page({
   weidu: function(param){
     var that = this
     wx.navigateTo({
-      url: '/pages/write/write?nameData=' + that.data.weidu
+      url: '/pages/xiangxi/xiangxi?nameData=' + that.data.weidu
     })
   },
   quanbu: function(param){
     var that = this
     wx.navigateTo({
-      url: '/pages/write/write?ageData=' + that.data.quanbu
+      url: '/pages/xiangxi/xiangxi?ageData=' + that.data.quanbu
     })
   },
-
   onShareAppMessage: function () {}
 })
 
