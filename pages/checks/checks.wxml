@@ -9,13 +9,13 @@
     <view style="background-color: white; flex: 1;"></view>
     <view style="background-color: white; flex: 7;"></view>
 <view style="background-color:#fafafa; flex: 0.5;"  bindtap="good">
-    <block wx:if="{{isstar == false}}">
+    <button wx:if="{{isstar == false}}">
     <image slot="icon" src="../../images/dz.png" style="margin-right: 16px;vertical-align: right;width:30px; height: 30px;"></image>
-    </block>
+    </button>
 
-    <block wx:elif="{{isstar == true}}" >
+    <button wx:elif="{{isstar == true}}" >
     <image slot="icon" src="../../images/dz_2.png" style="margin-right: 16px; vertical-align: right; width: 90rpx; height: 83rpx; display: inline-block; box-sizing: border-box; left: NaNrpx; top: NaNrpx"></image>
-    </block>
+    </button>
 </view>
 <view style="background-color:#fafafa; flex: 0.3;">
     <button class="weui-btn" type="primary" bindtap="open" style='width:120px'><image slot="icon" src="../../images/ly.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>留言</button>

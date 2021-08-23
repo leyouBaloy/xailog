@@ -18,7 +18,7 @@ Page({
   onLoad: function (options) {
       // var user_id=options.id
       this.setData({
-        targets:'cd045e756120b7b406f45cec4050f728'
+        targets:options.kind
     })
     var user_id=this.data.targets
       wx.cloud.database().collection('logs')
@@ -49,8 +49,6 @@ Page({
       .then(res =>{
         this.find(res)
       })
-      
-
   },
   find:function (I) { 
     for (var i=0;i<I.data.length;i++ ){
@@ -81,35 +79,29 @@ Page({
   },
   good:function(){
   var user_id=this.data.targets
-  wx.cloud.database().collection('logs').doc(user_id)
-  .get()
-  .then(res =>{
-      if (res.data.ifstar==true){
-          wx.cloud.database().collection('logs').doc(user_id).update({
-              // data 传入需要局部更新的数据
-              data: {
-                // 表示将 done 字段置为 true
-                ifstar: false
-              },
-              success: function(res) {
-              console.log(res)
-              }
-            })
-      }else{
-          wx.cloud.database().collection('logs').doc(user_id).update({
-              // data 传入需要局部更新的数据
-              data: {
-                // 表示将 done 字段置为 true
-                ifstar: true
-              },
-              success: function(res) {
-              console.log(res)
-              }
-            })
-      }
-      
-      
-  })
+  if (this.data.isstar==true){
+      wx.cloud.database().collection('logs').doc(user_id).update({
+          // data 传入需要局部更新的数据
+          data: {
+            // 表示将 done 字段置为 true
+            ifstar: false
+          }
+        })
+      this.setData({
+        isstar:false
+    })
+  }else{
+      wx.cloud.database().collection('logs').doc(user_id).update({
+          // data 传入需要局部更新的数据
+          data: {
+            // 表示将 done 字段置为 true
+            ifstar: true
+          }
+        })
+        this.setData({
+          isstar:true
+        })
+  }
   },
   open: function () {
     this.setData({

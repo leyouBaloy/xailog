@@ -23,7 +23,7 @@ Page({
       {"id":"76","code":"王五","text":"text3","type":true},
       {"id":"560","code":"小王","text":"text4","type":true},
       {"id":"79","code":"小徐","text":"text5","type":true},
-      {"id":"78","code":"小廖","text":"text6","type":false},
+      {"id":"cd045e756120b7b406f45cec4050f728","code":"小廖","text":"text6","type":false},
       {"id":"63","code":"乐乐","text":"text7","type":false}
     ]},
   
