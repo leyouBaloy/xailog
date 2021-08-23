@@ -1,3 +1,4 @@
+
 Page({
   data: {
     //日历
@@ -10,6 +11,7 @@ Page({
     accept:'image',//上传内容格式，video
     fileList: [], //上传文件临时存储
     fileIDs: [],//文件上传后获取云数据中的位置
+    reject: [],//用于uploadfilepromise的promise判断是否上传图片成功
   },
 
   // 日历
@@ -42,10 +44,14 @@ Page({
 // 上传附件
 afterRead(event) {
   const { file } = event.detail;
+  console.log("上传图片event:",event)
   // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-  console.log("afterread中的file",file)
   //更新 fileList
+  for(let val of file){
+    val.name = val.url.replace("http://tmp/","")
+  };
   this.setData({fileList: file});
+  console.log("fileList的值",this.data.fileList)
 },
 // 删除其中一张图片
 Delete(event) {
@@ -63,49 +69,70 @@ Delete(event) {
         that.setData({
           fileList: that.data.fileList
         })
-
       }
+      console.log("fileList",this.data.fileList)
     }
   })
 },
-upload(that){
-  let _fileIDs = [];
-  for(let val of that.data.fileList) {
-    console.log("上传图片的临时地址", val.url);
-    wx.cloud.uploadFile({
-      cloudPath: "tmp.jpg",
-      filePath: val.url,
-      success: res => {
-        console.log("上传成功", res)
-        _fileIDs.push(res.fileID)
-        that.setData({fileIDs:_fileIDs})
-      },
-      fail(err) {
-        console.log("上传失败", res)
+// 提交
+submit() {
+  // 先上传图片
+  var that = this;
+  let fileList= this.data.fileList;
+  if (false) {
+    // wx.showToast({ title: '请选择图片', icon: 'none' });
+  } else {
+    const uploadTasks = fileList.map(item => this.uploadFilePromise(item.name,item.url,that));
+    // console.log("submit里的uploadTaks内容",uploadTasks);
+    Promise.all(uploadTasks)
+      .then(data => {
+        wx.showToast({ title: '上传成功', icon: 'none' });
+        //再提交数据到数据库
+    wx.cloud.database().collection("logs")
+    .add({
+      data: {
+        time: that.data.date,
+        content: that.data.content,
+        fileIDs: that.data.fileIDs
       }
     })
+    .then(res => {
+      console.log("添加数据库成功", res);
+      wx.switchTab({
+        url: '/pages/day/day',
+      })
+    })
+    .catch(res => {
+      console.log("添加数据库失败", res)
+    })
+      })
+      .catch(e => {
+        wx.showToast({ title: '上传失败', icon: 'none' });
+        console.log(e);
+      });
   }
 },
 
-// 提交
-submit() {
-  // 上传云存储
-  var that = this;
-  (this.upload(that)).then(
-  //提交数据到数据库
-  wx.cloud.database().collection("logs")
-  .add({
-    data: {
-      time: this.data.date,
-      content: this.data.content,
-      fileIDs: this.data.fileIDs
+uploadFilePromise(fileName, url, that) {
+  wx.cloud.uploadFile({
+    cloudPath: "appendix/"+fileName,
+    filePath: url,
+    success: res => {
+      // console.log("uploadfile成功的res:", res);
+      // resFileID = res.fileID;
+      let _fileIDs = that.data.fileIDs;
+      _fileIDs.push(res.fileID);
+      that.setData({fileIDs: _fileIDs});
+      console.log("fileIDs的值", that.data.fileIDs);
+      // console.log("临时fileIDs的值", _fileIDs);
+      that.data.setData({reject:Promise.resolve("成功")})
+
+    },
+    fail(err) {
+      console.log("上传失败", res);
+      that.data.setData({reject:Promise.reject("失败")})
     }
-  })
-  .then(res => {
-    console.log("添加数据库成功", res)
-  })
-  .catch(res => {
-    console.log("添加数据库失败", res)
-  }))
+  });
+  return that.data.reject
 },
 })
