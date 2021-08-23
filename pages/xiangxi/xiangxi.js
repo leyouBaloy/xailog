@@ -1,12 +1,4 @@
 Page({
-  data: {
-    date: "",
-    show: false,
-    value: "",
-    content: "",
-    fileList: [],
-  },
-
   /**
    * 页面的初始数据
    */
@@ -33,38 +25,13 @@ Page({
     that.setData({
       weidu:options.nameData,
       quanbu:options.ageData
-    }) },
+    }) 
+  },
 
     gotoresult:function (e) {
       var kind = e.target.id
           console.log(kind);
       wx.navigateTo({url: '/pages/checks/checks?kind='+kind})
-    },
-    inputgetname:function(e){
-      this.setData({
-        getname:e.detail.value
-      })
-    },
-    searchDataNameFn:function(){
-      wx.cloud.callFunction({
-        name:'useroption',
-        data:{
-          option:'get',
-          getname:this.data.getname
-        },
-        success: res => {
-          this.setData({
-            array:res.result.data
-          })
-          wx.showToast({
-            title:"我好累",
-          })
-          console.log(res.result.data)
-        },
-        fail:err => {
-          console.log(err)
-        }
-      })
     },
 
   onReady: function () {},
