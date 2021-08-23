@@ -1,24 +1,19 @@
-<!--pages/day/day.wxml-->
 <view class="table">
+
   <view class="tr bg-w">
     <view class="th">时间</view>
-    <view class="th">日志</view>
+    <view class="th">内容</view>
     <view class="th">是否已读</view>
-    <view class="th">评论</view>
+    <view class="th">是否有昕</view>
   </view>
 
-	<block wx:for="{{shuju}}">
-    <view class="tr bg-g" wx:if="{{item._openid == 'oYYzo5bOK3I-6KWZCI3Z3NtuIVk8'}}">
+  <block wx:for="{{shuju}}" wx:if="{{item._openid == 'oYYzo5bOK3I-6KWZCI3Z3NtuIVk8'}}">
+    <view class="tr bg-g"  >
       <view class="td">{{item.time}}</view>
-      <view class="td" bindtap="detail">{{item.content}}</view>
+      <a catchtap="detail" id="{{item.id}}">{{item.content}}</a>
       <view class="td">{{item.ifread}}</view>
       <view class="td">{{item.ifstar}}</view>
-  	</view>
-	</block>
-
-<view wx:for="{{shuju}}">
-  <text>{{item.content}}</text>
-  <text>数据么</text>
-</view>
+    </view>
+  </block>
 
 </view>

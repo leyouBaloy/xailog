@@ -1,4 +1,8 @@
 /* pages/day/day.wxss */
+page{
+  width: 100%;
+  height: 100%;
+}
 .table {
   border: 0px solid darkgray;
 }
@@ -6,7 +10,7 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  height: 3rem;
+  height: 5rem;
   align-items: center;
 }
 .td {
@@ -37,3 +41,4 @@
   height: 3rem;
   align-items: center;
 }
+ 

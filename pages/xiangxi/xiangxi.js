@@ -1,3 +1,7 @@
+const app = getApp()
+const db = wx.cloud.database({});
+const book = db.collection('logs')
+const MAX_LIMIT = 20
 Page({
   /**
    * 页面的初始数据
@@ -6,27 +10,30 @@ Page({
     weidu:null,
     quanbu:null, 
     shuju:[],
-    listData:[
-      {"id":"4545","code":"张三","text":"今天我吃了很多大学，学习了核对的知识，深度学习真难啊","type":true},
-      {"id":"45","code":"张三","text":"wewe今天我吃了很多大学，学习了核对的知识，深度学习真难啊","type":true},
-      {"id":"445","code":"张三","text":"未读今天我吃了很多大学，学习了核对的知识，深度学习真难啊","type":true},
-      {"id":"545","code":"张三","text":"请问今天我吃了很多大学，学习了核对的知识，深度学习真难啊","type":true},
-      {"id":"230","code":"李四","text":"text2","type":true},
-      {"id":"76","code":"王五","text":"text3","type":true},
-      {"id":"560","code":"小王","text":"text4","type":true},
-      {"id":"79","code":"小徐","text":"text5","type":true},
-      {"id":"cd045e756120b7b406f45cec4050f728","code":"小廖","text":"text6","type":false},
-      {"id":"63","code":"乐乐","text":"text7","type":false}
-    ]},
+    },
   
-  onLoad: function (options) {
-    console.log('onLoad') 
-    var that = this
-    that.setData({
-      weidu:options.nameData,
-      quanbu:options.ageData
-    }) 
-  },
+    onLoad: function (options) {
+      var that = this
+        that.setData({
+          weidu:options.nameData,
+          quanbu:options.ageData
+        })
+        db.collection('logs').count().then(async res =>{
+        let total = res.total;
+        // 计算需分几次取
+        const batchTimes = Math.ceil(total / MAX_LIMIT)
+        // 承载所有读操作的 promise 的数组
+        for (let i = 0; i < batchTimes; i++) {
+          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(async res => {
+            let new_data = res.data
+            let old_data = that.data.shuju
+            that.setData({
+              shuju : old_data.concat(new_data)
+            })
+          })
+        }
+      })
+    },
 
     gotoresult:function (e) {
       var kind = e.target.id
