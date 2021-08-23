@@ -1,6 +1,6 @@
 <!-- 时间和日志内容 -->
 <van-cell-group>
-  <van-cell title="选择单个日期" value="{{ date }}" bind:click="onDisplay" />
+  <van-cell title="选择日期" value="{{ date }}" bind:click="onDisplay" />
 <van-calendar show="{{ show }}" bind:close="onClose" bind:confirm="onConfirm" />
 
 <van-field
@@ -26,5 +26,7 @@
 </view>
 
 <!-- 提交 -->
-<button class="item" bindtap="submit">提交</button>
+<button class="item" style="margin-top:30px" bindtap="submit">提交</button>
+<!-- 测试 -->
+<view>{{fileIDs}}</view>
 

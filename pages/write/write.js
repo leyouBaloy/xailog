@@ -79,8 +79,8 @@ submit() {
   // 先上传图片
   var that = this;
   let fileList= this.data.fileList;
-  if (false) {
-    // wx.showToast({ title: '请选择图片', icon: 'none' });
+  if (that.data.date.length==0 || that.data.content==0) {
+    wx.showToast({ title: '请完善内容', icon: 'none' });
   } else {
     const uploadTasks = fileList.map(item => this.uploadFilePromise(item.name,item.url,that));
     // console.log("submit里的uploadTaks内容",uploadTasks);
