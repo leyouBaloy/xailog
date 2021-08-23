@@ -1,4 +1,3 @@
-
 Page({
 
   data: {
@@ -12,7 +11,7 @@ Page({
       targets:'',
       value:'',
       name:'',
-      t:0,
+      t:0
     },
   
   onLoad: function (options) {
@@ -49,6 +48,7 @@ Page({
       .then(res =>{
         this.find(res)
       })
+      
   },
   find:function (I) { 
     for (var i=0;i<I.data.length;i++ ){
@@ -125,10 +125,11 @@ open_2: function (event) {
 submitForm(e) {
 this.setData({ 
   show:false,
-  userMessage:''
+  userMessage:'',
+  t:0,
+  release:[]
 })
 var myDate = new Date();
-console.log(e.detail.value.input)
 wx.cloud.database().collection('comment').add({
   // data 传入需要局部更新的数据
   data: {
@@ -138,15 +139,25 @@ wx.cloud.database().collection('comment').add({
     orign:this.data.targets,
     target:'',
     time:myDate.toLocaleString( )
-  },
-  success: function(res) {
-  console.log(res)
-  }
-})
+  }})
+  wx.cloud.database().collection('comment')
+  .where({
+    orign:this.data.targets
+  })
+  .get()
+  .then(res =>{
+    this.find(res)
+    this.setData({
+      release:this.data.release
+    })
+    })
+
 },
 reply(e){
   this.setData({
-      show_2:false
+      show_2:false,
+      t:0,
+      release:[]
     })
     var myDate = new Date();
     wx.cloud.database().collection('comment').add({
@@ -158,10 +169,18 @@ reply(e){
         orign:this.data.targets,
         target:this.data.value,
         time:myDate.toLocaleString( )
-      },
-      success: function(res) {
-      console.log(res)
       }
+    })
+    wx.cloud.database().collection('comment')
+    .where({
+      orign:this.data.targets
+    })
+    .get()
+    .then(res =>{
+      this.find(res)
+      this.setData({
+        release:this.data.release
+      })
     })
 
 }
