@@ -14,7 +14,17 @@
 </van-cell-group>
 
 <!-- 上传附件 -->
-<van-uploader file-list="{{ fileList }}" bind:after-read="afterRead" />
+<view class="imageRootAll">
+<van-uploader
+  file-list="{{ fileList }}"
+  accept="{{accept}}"
+  multiple="true"
+  compressed="false"
+  bind:delete="Delete"
+  bind:after-read="afterRead"
+/>
+</view>
 
 <!-- 提交 -->
 <button class="item" bindtap="submit">提交</button>
+
