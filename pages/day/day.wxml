@@ -1,4 +1,5 @@
-<!--pages/mine/mine.wxml-->
+<wxs src="/pages/day/filter.wxs" module="filters"/>
+
 <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
     <input value='{{time}}' placeholder='选择时间'/>
   </picker>
@@ -14,7 +15,7 @@
 
   <block wx:for="{{shuju}}" wx:if="{{item._openid == 'oYYzo5bOK3I-6KWZCI3Z3NtuIVk8'}}">
     <view class="tr bg-g"  >
-      <view class="td">{{item.time}}</view>
+      <view class="td">{{filters.formatDate(item.time)}}</view>
       <a catchtap="detail" id="{{item._id}}">{{item.content}}</a>
       <view class="td">{{item.ifread}}</view>
       <view class="td">{{item.ifstar}}</view>
@@ -22,3 +23,5 @@
   </block>
 
 </view>
+
+

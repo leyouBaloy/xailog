@@ -41,17 +41,13 @@ Page({
   onLoad: function() {
     console.log('onLoad')
     var that = this
-        db.collection('logs').where({//条件查询
-                        time:_.gte(new Date(new Date().toLocaleDateString()).getTime())
-                      }).count().then(async res =>{
+        db.collection('logs').count().then(async res =>{
         let total = res.total;
         // 计算需分几次取
         const batchTimes = Math.ceil(total / MAX_LIMIT)
         // 承载所有读操作的 promise 的数组
         for (let i = 0; i < batchTimes; i++) {
-          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where({//条件查询
-            time: _.gte(new Date(new Date().toLocaleDateString()).getTime())
-          }).get().then(async res => {
+          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(async res => {
             let new_data = res.data
             let old_data = that.data.shuju
             that.setData({
@@ -60,7 +56,6 @@ Page({
           })
         }
       })
-    
     var year = date.getFullYear()-2021, month = date.getMonth(), day = date.getDate()-1
         that.setData({
             multiIndex:[year,month,day]
@@ -80,23 +75,34 @@ Page({
 
     console.log(`${year}-${month}-${day}`);
     this.setData({
-      time: year + '-' + month + '-' + day
+      time: year + '-' + month + '-' + day,
+      shuju:[]
     });
     var shijian=new Date(year + '-' + month + '-' + day)
     var time1 = shijian.getTime()-28800000
-    wx.cloud.database().collection('logs')  //拿到表。双引号也行
-      .where({//条件查询
-        time: _.eq(time1)
+     db.collection('logs').where({//条件查询
+      time:_.eq(time1)
+    }).count().then(async res =>{
+    let total = res.total;
+    // 计算需分几次取
+    const batchTimes = Math.ceil(total / MAX_LIMIT)
+    // 承载所有读操作的 promise 的数组
+    for (let i = 0; i < batchTimes; i++) {
+      await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where({//条件查询
+          time: _.eq(time1)
+          }).get().then(async res => {
+              let new_data = res.data
+              let old_data = this.data.shuju
+              this.setData({
+                  shuju : old_data.concat(new_data)
+                  })
+              })
+        }
+    })
+    .catch(err=>{//请求失败
+      console.log('请求失败',err)
       })
-      .get()
-      .then(res=>{//请求成功
-        this.setData({
-          shuju:res.data
-        })
-      })
-       .catch(err=>{//请求失败
-console.log('请求失败',err)
-       })
+   
   },
   //监听picker的滚动事件
   bindMultiPickerColumnChange: function(e) {
