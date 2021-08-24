@@ -10,7 +10,7 @@
   <block wx:for="{{shuju}}" wx:if="{{item._openid == 'oYYzo5bOK3I-6KWZCI3Z3NtuIVk8'}}">
     <view class="tr bg-g"  >
       <view class="td">{{item.time}}</view>
-      <a catchtap="detail" id="{{item.id}}">{{item.content}}</a>
+      <a catchtap="detail" id="{{item._id}}">{{item.content}}</a>
       <view class="td">{{item.ifread}}</view>
       <view class="td">{{item.ifstar}}</view>
     </view>

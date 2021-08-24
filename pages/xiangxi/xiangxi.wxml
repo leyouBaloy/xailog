@@ -8,7 +8,7 @@
       <block wx:for="{{shuju}}" wx:key="{{id}}" >
         <view class="tr bg-g" wx:if="{{item.ifread == false}}">
           <view class="td">{{item.name}}</view>
-          <a catchtap="gotoresult" id="{{item.id}}">{{item.content}}</a>
+          <a catchtap="gotoresult" id="{{item._id}}">{{item.content}}</a>
         </view>
       </block>
   </view>
@@ -16,7 +16,7 @@
       <block wx:for="{{shuju}}" wx:key="{{id}}">
         <view class="tr bg-g" >
           <view class="td">{{item.name}}</view>
-          <a catchtap="gotoresult" id="{{item.id}}">{{item.content}}</a>
+          <a catchtap="gotoresult" id="{{item._id}}">{{item.content}}</a>
         </view>
       </block>
   </view>

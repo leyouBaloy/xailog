@@ -36,8 +36,9 @@ Page({
     },
 
     gotoresult:function (e) {
+      console.log('e',e.target)
       var kind = e.target.id
-          console.log(kind);
+          console.log('kind',kind);
       wx.navigateTo({url: '/pages/checks/checks?kind='+kind})
     },
 
