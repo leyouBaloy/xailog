@@ -93,7 +93,10 @@ submit() {
       data: {
         time: that.data.datestamp,
         content: that.data.content,
-        fileIDs: that.data.fileIDs
+        fileIDs: that.data.fileIDs,
+        is_delete:0,
+        ifread:0,
+        ifstar:0,
       }
     })
     .then(res => {
