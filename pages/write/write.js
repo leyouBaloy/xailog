@@ -91,7 +91,7 @@ submit() {
     wx.cloud.database().collection("logs")
     .add({
       data: {
-        time: that.data.date,
+        time: that.data.datestamp,
         content: that.data.content,
         fileIDs: that.data.fileIDs
       }
