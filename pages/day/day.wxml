@@ -4,8 +4,6 @@
     <input value='{{time}}' placeholder='选择时间'/>
   </picker>
 
-  <view class="table">
-
 <view class="tr bg-w">
   <view class="th">时间</view>
   <view class="th">内容</view>
@@ -13,15 +11,17 @@
   <view class="th">是否有昕</view>
 </view>
 
-  <block wx:for="{{shuju}}" wx:if="{{item._openid == 'oYYzo5bOK3I-6KWZCI3Z3NtuIVk8'}}">
+<scroll-view scroll-y="{{isScroll}}" style='height:{{windowHeight}}px'>
+    <block wx:key="item" wx:for="{{shuju}}" wx:if="{{item._openid == 'oYYzo5bOK3I-6KWZCI3Z3NtuIVk8'}}">
     <view class="tr bg-g"  >
-      <view class="td">{{filters.formatDate(item.time)}}</view>
-      <a catchtap="detail" id="{{item._id}}">{{item.content}}</a>
-      <view class="td">{{item.ifread}}</view>
-      <view class="td">{{item.ifstar}}</view>
+    <view data-index='{{index}}' class="order-item" bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx"> 
+        <view class="td">{{filters.formatDate(item.time)}}</view>
+        <a catchtap="detail" id="{{item._id}}">{{item.content}}</a>
+        <view class="td">{{item.ifread}}</view>
+        <view class="td">{{item.ifstar}}</view>
+        <view class="remove" bindtap="delItem" data-index="{{index}}">删除 </view>
     </view>
-  </block>
-
-</view>
-
+  </view>
+    </block>
+</scroll-view>
 
