@@ -1,11 +1,16 @@
-<view class="table">
+<!--pages/mine/mine.wxml-->
+<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+    <input value='{{time}}' placeholder='选择时间'/>
+  </picker>
 
-  <view class="tr bg-w">
-    <view class="th">时间</view>
-    <view class="th">内容</view>
-    <view class="th">是否已读</view>
-    <view class="th">是否有昕</view>
-  </view>
+  <view class="table">
+
+<view class="tr bg-w">
+  <view class="th">时间</view>
+  <view class="th">内容</view>
+  <view class="th">是否已读</view>
+  <view class="th">是否有昕</view>
+</view>
 
   <block wx:for="{{shuju}}" wx:if="{{item._openid == 'oYYzo5bOK3I-6KWZCI3Z3NtuIVk8'}}">
     <view class="tr bg-g"  >
