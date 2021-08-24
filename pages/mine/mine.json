@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-
+    "van-toast": "@vant/weapp/toast/index",
+    "mp-dialog": "weui-miniprogram/dialog/dialog",
+    "mp-form": "weui-miniprogram/form/form"
   }
 }

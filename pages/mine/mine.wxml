@@ -1,1 +1,20 @@
 <!--pages/mine/mine.wxml-->
+<view class="bottom_shadow">　</view>
+<view class="container">
+      <view style="text-align: left;"><image class="avatarUrl" src="{{userInfo.avatarUrl}}"></image></view>
+      <view class="nickname">{{userInfo.name}}<button class="weui-btn" type="default" bindtap="openConfirm">修改</button>
+      </view>
+      <mp-dialog title="修改姓名" show="{{dialogShow}}"  >
+        <view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+            <van-toast id="van-toast" />
+            <form  bindsubmit="tapDialogButton">
+                <input class="weui-input" name="input" value='{{userMessage}}' placeholder="请输入名字" />
+                <view class="weui-btn-area">
+                <button class="weui-btn" type="primary"formType="submit">修改</button>
+                </view>
+            </form>
+        </view>
+      </mp-dialog>
+</view>
+
+<view class="bottom_text">XAI 工作室</view>

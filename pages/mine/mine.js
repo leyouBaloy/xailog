@@ -1,65 +1,63 @@
 // pages/mine/mine.js
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
+      openid:null,
+      userInfo:null,
+      dialogShow: false,
+      userMessage:"",
       },
-    
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad: function (options) {
+      this.setData({
+        openid: wx.getStorageSync('openid')
+      })
+      wx.cloud.database().collection('mine').where({
+        _openid:this.data.openid
+      })
+      .get()
+      .then(res=>{
+        this.setData({
+          userInfo:res.data[0]
+        })
+        console.log(this.data.userInfo)
+      })
         
     },
+    openConfirm: function () {
+      this.setData({
+          dialogShow: true
+      })
+  },
+  tapDialogButton(e) {
+      if(e.detail.value.input){
+        wx.cloud.database().collection('mine').doc(
+          this.data.userInfo._id
+        )
+        .update({
+          data:{
+            name:e.detail.value.input
+          }})
+        .then(res=> {
+            wx.cloud.database().collection('mine').where({
+              _openid:this.data.openid
+            })
+            .get()
+            .then(res=>{
+              this.setData({
+                userInfo:res.data[0],
+                dialogShow: false
+              })
+            })
+        })
+      }
+      else{
+        Toast.fail('请输入名字后确定');
+      }
+  }
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
 
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    }
-})
+  })

@@ -1,1 +1,38 @@
 /* pages/mine/mine.wxss */
+.title {
+    position: relative;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px;
+  }
+    
+  .group {
+    padding: 10px;
+  }
+    
+  .name {
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-left: 20px;
+    margin-bottom: 5px;
+  }
+    
+  .gname {
+    padding-left: 20px;
+    padding-bottom: 10px;
+  }
+  
+  .avatarUrl {
+    width: 150rpx;
+    height: 150rpx;
+    border-radius: 50%;
+    text-align: left;
+  }
+  
+  .nickname {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: right;
+  }
