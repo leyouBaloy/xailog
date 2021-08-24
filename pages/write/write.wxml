@@ -1,7 +1,7 @@
 <!-- 时间和日志内容 -->
 <van-cell-group>
   <van-cell title="选择日期" value="{{ date }}" bind:click="onDisplay" />
-<van-calendar show="{{ show }}" bind:close="onClose" bind:confirm="onConfirm" />
+<van-calendar show="{{ show }}" bind:close="onClose" bind:confirm="onConfirm" min-date="{{mindate}}" max-date="{{maxdate}}" />
 
 <van-field
     value="{{ content }}"

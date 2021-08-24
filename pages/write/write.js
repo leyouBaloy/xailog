@@ -5,6 +5,8 @@ Page({
     show: false,
     date: "",
     datestamp:1,
+    mindate: new Date(2021,6,1).getTime(),
+    maxdate: new Date().getTime(),
     //日志内容
     content: "",
     //附件
