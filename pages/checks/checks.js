@@ -1,3 +1,5 @@
+const app = getApp()
+
 Page({
 
   data: {
@@ -11,12 +13,14 @@ Page({
       targets:'',
       value:'',
       name:'',
-      t:0
+      t:0,
+      safeArea: (app.globalData.screenHeight-app.globalData.safeBottom+44)
     },
   
   onLoad: function (options) {
       // var user_id=options.id
       this.setData({
+        userInfo: wx.getStorageSync('userInfo'),
         targets:options.kind
     })
     var user_id=this.data.targets

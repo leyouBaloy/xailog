@@ -52,3 +52,26 @@ page {
   bottom: 20px;
   width: 100%;
 }
+
+.bottom_bar {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  background-color: #f7f7f7;
+}
+
+.bottom_menu {
+  display: flex;
+  height: 44px;
+  width: 100;
+}
+
+.bottom_menu_value {
+  width: 100%;
+  text-align: center;
+}
+
+.bottom_menu_img {
+  width: 28px;
+  margin: 8px;
+}

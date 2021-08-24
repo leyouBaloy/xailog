@@ -1,6 +1,51 @@
 
 <!--pages/checks/checks.wxml-->
-<view style="display:flex; flex-direction:column; min-height: 150px; padding:10px; margin-bottom: 5px;"> 
+<!-- 头像与姓名 -->
+<view class="box">
+    <view class="title_bar">
+        <!-- 头像 -->
+        <image class="touxiang" src="{{userInfo.avatarUrl}}"></image>
+        <!-- 姓名 -->
+        <view class="name">{{userInfo.nickName}}</view>
+    </view>
+</view>
+<!-- 日志主体部分 -->
+<view class="box">
+    <!-- 日志对应日期 -->
+    <view class="title_bar" style="background-color: #EAEBF3;">
+        <view class="date">2021年8月23日</view>
+    </view>
+    <!-- 日志内容 -->
+    <view class="text_bar">
+        <view class="text">吃饭啦\n饭好吃\n123</view>
+    </view>
+    <!-- 日志发表时间 -->
+    <view class="text_bar">
+        <view class="push_date">
+            2021-08-23 10:17 周一
+        </view>
+    </view>
+</view>
+<!-- 评论区 -->
+<view class="box">
+    <view class="text_bar">
+        <view class="comment_bar">
+            <view class="comment">
+                <view class="comment_text"><font style="color: #2e4e7e;">徐朔：</font>这里是评论！这里是评论！这里是评论！\n这里是评论！\n这里是评论！</view>
+            </view>
+        </view>
+    </view>
+</view>
+
+<view class="bottom_bar" style="height: {{safeArea}}px;">
+    <view class="bottom_menu">
+        <view class="bottom_menu_value"><image class="bottom_menu_img" mode="widthFix" src="../../images/comment.png"></image></view>
+        <view class="bottom_menu_value"><image class="bottom_menu_img" mode="widthFix" src="../../images/good.png"></image></view>
+        <view class="bottom_menu_value"><image class="bottom_menu_img" mode="widthFix" src="../../images/share.png"></image></view>
+    </view>
+</view>
+
+<!-- <view style="display:flex; flex-direction:column; min-height: 150px; padding:10px; margin-bottom: 5px;"> 
     <view style="width: 100%; background: #e48934; min-height: 50px">作者:{{list.name}}</view> 
     <view style="background-color: #E6E6E6; flex: 0.1;">内容</view>
     <view style="background-color: #F1F1F1; flex: 5;">{{list.content}}</view>
@@ -79,4 +124,4 @@
             <button class="weui-btn" type="primary" formType="submit" >确定</button>
         </view>
     </form>
-</view></mp-half-screen-dialog>
+</view></mp-half-screen-dialog> -->

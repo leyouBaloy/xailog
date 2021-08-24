@@ -26,6 +26,8 @@ App({
     wx.getSystemInfo({
       success: (res) => {
         this.globalData.statusBarHeight = res.statusBarHeight
+        this.globalData.screenHeight = res.screenHeight
+        this.globalData.safeBottom = res.safeArea.bottom
       }
     })
 
@@ -35,6 +37,8 @@ App({
   globalData: {
     userInfo: null,
     statusBarHeight: null,
+    screenHeight: null,
+    safeBottom: null,
     menubutton: null
   }
 })
