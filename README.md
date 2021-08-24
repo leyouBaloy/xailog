@@ -22,3 +22,28 @@
 | 备注 |   自动生成   |                  |          |                      | 例如“8月23日” |      |
 
 ### mine表
+
+
+
+# 模板
+
+在wxml里面引用:
+```html
+<view class="bottom_bar" style="height: {{safeArea}}px;">
+    <view class="bottom_menu">
+        <view class="bottom_menu_value"><image class="bottom_menu_img" mode="widthFix" src="../../images/comment.png"></image></view>
+        <view class="bottom_menu_value"><image class="bottom_menu_img" mode="widthFix" src="../../images/good.png"></image></view>
+        <view class="bottom_menu_value"><image class="bottom_menu_img" mode="widthFix" src="../../images/share.png"></image></view>
+    </view>
+</view>
+```
+
+加到当前页面js的data里面:
+
+```javascript
+safeArea: (app.globalData.screenHeight-app.globalData.safeBottom+44)
+```
+
+效果：
+
+![./readmeimgs/1.png](C:\Users\华为\Desktop\XAIlog\1.png)
