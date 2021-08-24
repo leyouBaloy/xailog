@@ -4,25 +4,25 @@
 <view class="box">
     <view class="title_bar">
         <!-- 头像 -->
-        <image class="touxiang" src="{{userInfo.avatarUrl}}"></image>
+        <image class="touxiang" src="{{Info.avatarUrl}}"></image>
         <!-- 姓名 -->
-        <view class="name">{{userInfo.nickName}}</view>
+        <view class="name">{{Info.name}}</view>
     </view>
 </view>
 <!-- 日志主体部分 -->
 <view class="box">
     <!-- 日志对应日期 -->
     <view class="title_bar" style="background-color: #EAEBF3;">
-        <view class="date">2021年8月23日</view>
+        <view class="date">{{Y}}年{{M}}月{{D}}日</view>
     </view>
     <!-- 日志内容 -->
     <view class="text_bar">
-        <view class="text">吃饭啦\n饭好吃\n123</view>
+        <view class="text">{{list.content}}</view>
     </view>
     <!-- 日志发表时间 -->
     <view class="text_bar">
         <view class="push_date">
-            2021-08-23 10:17 周一
+            {{Y}}-{{M}}-{{D}} {{h}}:{{m}}
         </view>
     </view>
 </view>
@@ -31,7 +31,15 @@
     <view class="text_bar">
         <view class="comment_bar">
             <view class="comment">
-                <view class="comment_text"><font style="color: #2e4e7e;">徐朔：</font>这里是评论！这里是评论！这里是评论！\n这里是评论！\n这里是评论！</view>
+                <view  class="comment_text" wx:if='{{release.length == 0}}'>
+                    暂无评论
+                </view>
+                <view class="comment_text" wx:else >
+                    <view class="comment_text" wx:for="{{release}}" ><font style="color: #2e4e7e;">{{item.name}}：</font>{{item.content}}
+                        <view class="bottom_menu_value"><image class="bottom_menu_img" bindtap="open_2"  data-value="{{item._id}}"  mode="widthFix" src="../../images/comment.png"></image></view>
+                    </view>
+
+                </view>
             </view>
         </view>
     </view>
@@ -39,12 +47,58 @@
 
 <view class="bottom_bar" style="height: {{safeArea}}px;">
     <view class="bottom_menu">
-        <view class="bottom_menu_value"><image class="bottom_menu_img" mode="widthFix" src="../../images/comment.png"></image></view>
-        <view class="bottom_menu_value"><image class="bottom_menu_img" mode="widthFix" src="../../images/good.png"></image></view>
+        <view class="bottom_menu_value"><image class="bottom_menu_img" bindtap="open" mode="widthFix" src="../../images/comment.png"></image></view>
+        <view class="bottom_menu_value" wx:if="{{isstar == false}}"><image class="bottom_menu_img"  bindtap="good" mode="widthFix" src="../../images/good.png"></image></view>
+        <view class="bottom_menu_value" wx:elif="{{isstar == true}}"><image class="bottom_menu_img"   bindtap="good" mode="widthFix" src="../../images/dz_2.png"></image></view>
         <view class="bottom_menu_value"><image class="bottom_menu_img" mode="widthFix" src="../../images/share.png"></image></view>
     </view>
 </view>
+<mp-half-screen-dialog 
+  bindbuttontap="buttontap"
+  show="{{show}}"
+  maskClosable="{{false}}" 
+  title="请留言" 
+>
+<view  slot='desc' class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+    <form  bindsubmit="submitForm">
+        <view class="page-section">
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__bd" style="margin: 30rpx 0" >
+                        <textarea class="weui-textarea" name="input" placeholder="请输入文本"  value='{{userMessage}}' style="height: 5em" />
+                    </view>
+                </view>
+            </view>
+        </view>
 
+        <view class="btn-area">
+            <button class="weui-btn" type="primary" formType="submit" >确定</button>
+        </view>
+    </form>
+</view></mp-half-screen-dialog>
+<mp-half-screen-dialog
+  bindbuttontap="buttontap"
+  show="{{show_2}}"
+  maskClosable="{{false}}"
+  title="请回复"
+>
+<view  slot='desc' class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+    <form  bindsubmit="reply">
+        <view class="page-section">
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__bd" style="margin: 30rpx 0" >
+                        <textarea class="weui-textarea" name="input" placeholder="请输入文本"  value='@{{name}}' style="height: 5em" />
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="btn-area">
+            <button class="weui-btn" type="primary" formType="submit" >确定</button>
+        </view>
+    </form>
+</view></mp-half-screen-dialog>
 <!-- <view style="display:flex; flex-direction:column; min-height: 150px; padding:10px; margin-bottom: 5px;"> 
     <view style="width: 100%; background: #e48934; min-height: 50px">作者:{{list.name}}</view> 
     <view style="background-color: #E6E6E6; flex: 0.1;">内容</view>

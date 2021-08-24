@@ -4,7 +4,10 @@ Page({
 
   data: {
       list:[],
+      openid:null,
+      userid:null,
       userInfo: null,
+      Info:null,
       isstar:'',
       release:[],
       show: false,
@@ -20,9 +23,19 @@ Page({
   onLoad: function (options) {
       // var user_id=options.id
       this.setData({
-        userInfo: wx.getStorageSync('userInfo'),
-        targets:options.kind
+        targets:options.kind,
+        userid: wx.getStorageSync('openid')
     })
+    wx.cloud.database().collection('mine').where({
+      _openid:this.data.userid
+    })
+    .get()
+    .then(res=>{
+      this.setData({
+        userInfo:res.data[0]
+      })
+    })
+    let that=this
     var user_id=this.data.targets
       wx.cloud.database().collection('logs')
       .doc(user_id)
@@ -31,27 +44,46 @@ Page({
           console.log('返回的数据',res.data)
           this.setData({
               list:res.data,
-              isstar:res.data.ifstar
+              isstar:res.data.ifstar,
+              openid:res.data._openid
           })
-          wx.cloud.database().collection('logs').doc(user_id).update({
-            // data 传入需要局部更新的数据
-            data: {
-              // 表示将 done 字段置为 true
-              ifread: true
-            },
-            success: function(res) {
-            console.log(res)
-            }
+          var date = new Date(this.data.list.time);
+          this.setData({
+          Y:date.getFullYear(),
+          M :(date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) ,
+          D : date.getDate() ,
+          h : date.getHours(),
+          m : date.getMinutes(),
+          s :date.getSeconds()
           })
-      })
-      
-      wx.cloud.database().collection('comment')
-      .where({
-        orign:user_id
-      })
-      .get()
-      .then(res =>{
-        this.find(res)
+          wx.cloud.database().collection('mine').where({
+            _openid:this.data.openid
+          })
+          .get()
+          .then(res=>{
+            this.setData({
+              Info:res.data[0]
+            })
+            wx.cloud.database().collection('logs').doc(user_id).update({
+              // data 传入需要局部更新的数据
+              data: {
+                // 表示将 done 字段置为 true
+                ifread: true
+              },
+              success: function(res) {
+              console.log(res)
+              wx.cloud.database().collection('comment')
+              .where({
+                orign:user_id
+              })
+              .get()
+              .then(res =>{
+                that.find(res)
+              })
+              }
+            })
+          })
+          
       })
       
   },
@@ -134,16 +166,15 @@ this.setData({
   t:0,
   release:[]
 })
-var myDate = new Date();
 wx.cloud.database().collection('comment').add({
   // data 传入需要局部更新的数据
   data: {
     // 表示将 done 字段置为 true
-    name:wx.getStorageSync('userInfo').nickName,
+    name:this.data.userInfo.name,
     content:e.detail.value.input,
     orign:this.data.targets,
     target:'',
-    time:myDate.toLocaleString( )
+    time:new Date().getTime()
   }})
   wx.cloud.database().collection('comment')
   .where({
@@ -169,11 +200,11 @@ reply(e){
       // data 传入需要局部更新的数据
       data: {
         // 表示将 done 字段置为 true
-        name:wx.getStorageSync('userInfo').nickName,
+        name:this.data.userInfo.name,
         content:e.detail.value.input,
         orign:this.data.targets,
         target:this.data.value,
-        time:myDate.toLocaleString( )
+        time:new Date().getTime()
       }
     })
     wx.cloud.database().collection('comment')
