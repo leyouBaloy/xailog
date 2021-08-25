@@ -23,6 +23,18 @@
           "pathName": "pages/write/write",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/checks/checks",
+          "pathName": "pages/checks/checks",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/stat/stat",
+          "pathName": "pages/stat/stat",
+          "query": "",
+          "scene": null
         }
       ]
     }

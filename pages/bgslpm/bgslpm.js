@@ -64,15 +64,17 @@ Page({
           for (var openid of openids){
             for (var data of res.data){
               if(openid==data._openid){
-                let _date = new Date(val.time);
+                let _date = new Date(data.time);
                 let _year = _date.getFullYear();
                 let _month = _date.getMonth();
                 let _day = _date.getDate();
                 if (_year==currentYear && _month==currentMonth){
                   tmp_cnt_by_month += 1;
-                }
-                if (_year==currentYear && _month==currentMonth && _date==currentDay){
-                  tmp_cnt_by_day += 1;
+                  // console.log("currentMonth的值", currentMonth,"_month的值", _month);
+                  if (_day == currentDay) {
+                    // console.log("currentDay的值", currentDay,"_day的值", _day);
+                    tmp_cnt_by_day += 1;
+                  }
                 }
               }
             }
