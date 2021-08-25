@@ -23,6 +23,12 @@
 
 ### mine表
 
+| 字段 | _openid  |  name  | avator                   |      |      |
+| ---- | -------- | :----: | ------------------------ | ---- | ---- |
+| 说明 | 不解释了 |  名字  | 头像                     |      |      |
+| 类型 |          |  str   | str                      |      |      |
+| 备注 |          | 可修改 | 头像的链接（本地or云端？ |      |      |
+
 
 
 # 模板
@@ -47,3 +53,8 @@ safeArea: (app.globalData.screenHeight-app.globalData.safeBottom+44)
 效果：
 
 ![./readmeimgs/1.png](C:\Users\华为\Desktop\XAIlog\1.png)
+
+### 获取openid
+
+`wx.getStorageSync('openid')`
+
