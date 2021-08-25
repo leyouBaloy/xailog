@@ -1,26 +1,25 @@
-<wxs src="/pages/xiangxi/filter.wxs" module="filters"/>
+<wxs src="/pages/day/filter.wxs" module="filters"/>
 
 <!-- 下拉菜单 -->
 <van-dropdown-menu>
   <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" bind:change="try"/>
-  <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}"> 
-  <a class='wei'><input value='{{time}}' placeholder='选择时间' /> </a>
-</picker> 
+  <van-dropdown-item id="item" title="{{ itemTitle }}">
+          <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}"> 
+          <input value='{{time}}' placeholder='选择时间'/> 
+        </picker> 
+</van-dropdown-item>
 </van-dropdown-menu>
 
-<!-- 分割线 -->
-<!-- <van-divider /> -->
 <!-- 商品卡片 -->
 <block wx:key="item" wx:for="{{shuju}}" >
 
   <scroll-view scroll-y="{{isScroll}}" style='height:300rpx'>
-    <view data-index='{{index}}' class="order-item" bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx"> 
-
-        <van-card  >
+    <view data-index='{{index}}' data-id='{{item._id}}' bindtap="detail" class="order-item" bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx"> 
+        <van-card bindtap="">
           <view slot="title" >
             {{item.name}}:
           </view>
-          <view slot="desc" class='td'>
+          <view slot="desc" class='td' >
             {{item.content}}
           </view>
           <div slot="bottom">
@@ -31,11 +30,10 @@
             <text>{{filters.formatDate(item.time)}}</text>
           </view> 
       </van-card>
-      <view class="remove" bindtap="delItem" data-id="{{item._id}}">删除 </view>
+      <view class="remove" bindtap="delItem" data-id="{{item._id}}"  data-open="{{item._openid}}">删除 </view>
 
   </view>
 </scroll-view> 
-<!-- <van-divider />  -->
-
 
 </block> 
+

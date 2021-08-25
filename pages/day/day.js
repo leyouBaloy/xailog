@@ -36,8 +36,6 @@ Page({
     ],
     value1: 0,
     // 其它
-    weidu:null,
-    quanbu:null, 
     time: '',
     multiArray: [years, months, days],
     multiIndex: [0, 0, 0],
@@ -48,7 +46,6 @@ Page({
     delBtnWidth:160,
     isScroll:true,
     windowHeight:0,
-    tryy:''
   },
   try: function(e) {
     console.log(e.detail)
@@ -323,7 +320,7 @@ Page({
     this.setData(data);
   },
   detail:function (e) {
-    var kind = e.target.id
+    var kind = e.currentTarget.dataset.id
         console.log(kind);
     wx.navigateTo({url: '/pages/checks/checks?kind='+kind})
   },
@@ -382,14 +379,24 @@ Page({
   delItem: function (e) {
     console.log('删除')
     var id = e.currentTarget.dataset.id;
+    var open= e.currentTarget.dataset.open;
+    var openid = wx.getStorageSync('openid');
     console.log(id)
-    db.collection('logs').doc(id).update({
+    if(open==openid){
+      db.collection('logs').doc(id).update({
       data: {
           is_delete:true
       },
       success: console.log,
       fail: console.log
     })
+    this.onLoad()
+    this.setData({
+      value1:0
+    });
+  }else{
+    console.log('不能删除别人的')
+  }
   },
 
     onReady: function () {},

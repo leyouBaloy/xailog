@@ -31,8 +31,13 @@ Page({
    * 页面的初始数据
    */
   data:  {
-    weidu:null,
-    quanbu:null, 
+    // 下拉菜单
+    itemTitle: '日期选择',
+    option1: [
+      { text: '未读', value: 0 },
+      { text: '全部', value: 1 },
+    ],
+    value1: 0,
     time: '',
     multiArray: [years, months, days],
     multiIndex: [0, 0, 0],
@@ -41,25 +46,108 @@ Page({
     shuju:[],
     shuju_num:0
     },
-  
-    onLoad: function (options) {
-      var that = this
-        that.setData({
-          weidu:options.nameData,
-          quanbu:options.ageData
-        })
-         db.collection('logs').where({//条件查询
-          time:_.gte(new Date(new Date().toLocaleDateString()).getTime())
-        }).count().then(async res =>{
+    try: function(e) {
+      console.log(e.detail)
+      var value = e.detail
+      var that = this
+      var openid = wx.getStorageSync('openid');
+      that.setData({
+        shuju:[]
+      });
+      if (value==0) {
+         db.collection('logs').where(
+          _.and([
+            {
+              ifread:false,
+            },
+            {
+              is_delete:false,
+            }
+          ])).count().then(async res =>{
         let total = res.total;
         // 计算需分几次取
         const batchTimes = Math.ceil(total / MAX_LIMIT)
         // 承载所有读操作的 promise 的数组
         for (let i = 0; i < batchTimes; i++) {
-          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where({//条件查询
-              time: _.gte(new Date(new Date().toLocaleDateString()).getTime()),
-              is_delete:false
-              }).get().then(async res => {
+          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
+            _.and([
+              {
+                ifread:false,
+              },
+              {
+                is_delete:false,
+              }
+            ])).get().then(async res => {
+                  let new_data = res.data
+                  let old_data = this.data.shuju
+                  this.setData({
+                      shuju : old_data.concat(new_data)
+                      })
+                  })
+            }
+        })
+        .catch(err=>{//请求失败
+          console.log('请求失败',err)
+          })
+       
+     } else {
+       db.collection('logs').where(
+        _.and([
+          {
+            is_delete:false,
+          }
+        ])).count().then(async res =>{
+      let total = res.total;
+      // 计算需分几次取
+      const batchTimes = Math.ceil(total / MAX_LIMIT)
+      // 承载所有读操作的 promise 的数组
+      for (let i = 0; i < batchTimes; i++) {
+        await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
+          _.and([
+            {
+              is_delete:false,
+            }
+          ])).get().then(async res => {
+                let new_data = res.data
+                let old_data = this.data.shuju
+                this.setData({
+                    shuju : old_data.concat(new_data)
+                    })
+                })
+          }
+      })
+      .catch(err=>{//请求失败
+        console.log('请求失败',err)
+        })
+     } 
+  
+    },
+  
+    onLoad: function (options) {
+      var that = this
+         db.collection('logs').where(
+          _.and([
+            {
+              time:_.gte(new Date(new Date().toLocaleDateString()).getTime())
+            },
+            {
+              is_delete:false,
+            }
+          ])).count().then(async res =>{
+        let total = res.total;
+        // 计算需分几次取
+        const batchTimes = Math.ceil(total / MAX_LIMIT)
+        // 承载所有读操作的 promise 的数组
+        for (let i = 0; i < batchTimes; i++) {
+          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
+            _.and([
+              {
+                time:_.gte(new Date(new Date().toLocaleDateString()).getTime())
+              },
+              {
+                is_delete:false,
+              }
+            ])).get().then(async res => {
                   let new_data = res.data
                   let old_data = that.data.shuju
                   that.setData({
@@ -92,20 +180,29 @@ Page({
     });
     var shijian=new Date(year + '-' + month + '-' + day)
     var time1 = shijian.getTime()-28800000
-     db.collection('logs').where({//条件查询
-      time:_.eq(time1),
-      is_delete:false
-    }).count().then(async res =>{
+     db.collection('logs').where(
+      _.and([
+        {
+          time:_.eq(time1),
+        },
+        {
+          is_delete:false,
+        }
+      ])).count().then(async res =>{
     let total = res.total;
     // 计算需分几次取
     const batchTimes = Math.ceil(total / MAX_LIMIT)
     // 承载所有读操作的 promise 的数组
     for (let i = 0; i < batchTimes; i++) {
-      await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where({//条件查询
-          time: _.eq(time1),
-          is_delete:false
-
-          }).get().then(async res => {
+      await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
+        _.and([
+          {
+            time:_.eq(time1),
+          },
+          {
+            is_delete:false,
+          }
+        ])).get().then(async res => {
               let new_data = res.data
               let old_data = this.data.shuju
               this.setData({
@@ -188,12 +285,10 @@ Page({
       this.setData(data);
     },
     gotoresult:function (e) {
-      console.log('e',e.target)
-      var kind = e.target.id
-          console.log('kind',kind);
+      var kind = e.currentTarget.dataset.id
+          console.log(kind);
       wx.navigateTo({url: '/pages/checks/checks?kind='+kind})
     },
-    
 
   onReady: function () {},
   onShow: function () {},

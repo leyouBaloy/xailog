@@ -7,6 +7,7 @@
       <view style="text-align: center;"><image class="avatarUrl" src="{{userInfo.avatarUrl}}"></image></view>
       <view class="nickname">{{userInfo.nickName}}</view>
       <button style="margin-top: 30px;" class="item" bindtap="writelog">写日志</button>
+      <button style="margin-top: 30px;" class="item" bindtap="xiangxi">管理页面</button>
     </view>
 </view>
 

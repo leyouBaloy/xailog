@@ -33,7 +33,11 @@ Page({
       userInfo: null
     })
   },
-  
+  xiangxi() {
+    wx.navigateTo({
+      url: '/pages/xiangxi/xiangxi'
+    })
+  },
   writelog: function(param){
     wx.navigateTo({
       url: '/pages/write/write',

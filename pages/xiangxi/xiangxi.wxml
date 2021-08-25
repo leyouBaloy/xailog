@@ -1,28 +1,36 @@
 <wxs src="/pages/xiangxi/filter.wxs" module="filters"/>
 
-<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-    <input value='{{time}}' placeholder='选择时间'/>
-</picker>
+<!-- 下拉菜单 -->
+<van-dropdown-menu>
+  <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" bind:change="try"/>
+  <van-dropdown-item id="item" title="{{ itemTitle }}">
+          <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}"> 
+          <input value='{{time}}' placeholder='选择时间'/> 
+        </picker> 
+</van-dropdown-item>
+</van-dropdown-menu>
 
-<view class="table">
-  <view class="tr bg-w">
-    <view class="th">姓名</view>
-    <view class="th">日志</view>
+<!-- 商品卡片 -->
+<block wx:key="item" wx:for="{{shuju}}" >
+
+  <scroll-view scroll-y="{{isScroll}}" style='height:300rpx'>
+    <view data-index='{{index}}' data-id='{{item._id}}' class="order-item"  bindtap="gotoresult" bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx"> 
+      
+        <van-card >
+          <view slot="title" >
+            {{item.name}}:
+          </view>
+          <view slot="desc" class='td'> {{item.content}} </view>
+          <div slot="bottom">
+            <van-tag plain type="danger">{{item.ifread}}</van-tag>
+            <van-tag plain type="danger">{{item.ifstar}}</van-tag>
+          </div>
+          <view slot="footer">
+            <text>{{filters.formatDate(item.time)}}</text>
+          </view> 
+      </van-card>
+      <view class="remove" bindtap="delItem" data-id="{{item._id}}"  data-open="{{item._openid}}">删除 </view>
   </view>
-  <view wx:if="{{weidu=='true'}}">
-      <block wx:for="{{shuju}}" wx:key="{{id}}" >
-        <view class="tr bg-g" wx:if="{{item.ifread == false}}">
-          <view class="td">{{item.name}}</view>
-          <a catchtap="gotoresult" id="{{item._id}}">{{item.content}}</a>
-        </view>
-      </block>
-  </view>
-  <view wx:else>
-      <block wx:for="{{shuju}}" wx:key="{{id}}">
-        <view class="tr bg-g" >
-          <view class="td">{{item.name}}</view>
-          <a catchtap="gotoresult" id="{{item._id}}">{{item.content}}</a>
-        </view>
-      </block>
-  </view>
-</view>
+</scroll-view> 
+
+</block> 
