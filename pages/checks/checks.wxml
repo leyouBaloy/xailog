@@ -13,7 +13,7 @@
 <view class="box">
     <!-- 日志对应日期 -->
     <view class="title_bar" style="background-color: #EAEBF3;">
-        <view class="date">{{Y}}年{{M}}月{{D}}日</view>
+        <view class="date">{{Y_2}}年{{M_2}}月{{D_2}}日</view>
     </view>
     <!-- 日志内容 -->
     <view class="text_bar">

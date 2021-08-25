@@ -47,8 +47,12 @@ Page({
               isstar:res.data.ifstar,
               openid:res.data._openid
           })
-          var date = new Date(this.data.list.time);
+          var date_2 = new Date(this.data.list.time);
+          var date=new Date(this.data.list.create_time);
           this.setData({
+          Y_2:date_2.getFullYear(),
+          M_2 :(date_2.getMonth()+1 < 10 ? '0'+(date_2.getMonth()+1) : date_2.getMonth()+1) ,
+          D_2 : date_2.getDate() ,
           Y:date.getFullYear(),
           M :(date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) ,
           D : date.getDate() ,
