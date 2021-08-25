@@ -12,6 +12,7 @@
   "pages/admins/admins",  
   "pages/checks/checks",  
   "pages/day/day",
+  "pages/xiangxi/xiangxi",
   "pages/bgslpm/bgslpm"
 ],  
 "window":{  

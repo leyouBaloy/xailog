@@ -27,16 +27,3 @@
   display: flex;
   position: relative;
 }
-
-.remove{  
-  width: 220rpx;  
-  height: 285rpx;  
-  background-color: red; 
-  color: white; 
-  position: absolute;  
-  top: 0;  
-  right: -220rpx;  
-  display: flex;  
-  justify-content: center;  
-  align-items: center;  
-}  

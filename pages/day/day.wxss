@@ -29,13 +29,13 @@
 }
 
 .remove{  
-  width: 220rpx;  
-  height: 285rpx;  
-  background-color: red; 
+  width: 240rpx;  
+  height: 260rpx;  
+  background-color: rgb(45, 92, 146); 
   color: white; 
   position: absolute;  
   top: 0;  
-  right: -220rpx;  
+  right: -240rpx;  
   display: flex;  
   justify-content: center;  
   align-items: center;  

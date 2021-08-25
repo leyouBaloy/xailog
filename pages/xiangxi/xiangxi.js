@@ -216,80 +216,12 @@ Page({
       })
 
   },
-      //监听picker的滚动事件
-    bindMultiPickerColumnChange: function(e) {
-      //获取年份
-      if (e.detail.column == 0) {
-        let choose_year = this.data.multiArray[e.detail.column][e.detail.value];
-        console.log(choose_year);
-        this.setData({
-          choose_year
-        })
-      }
-      //console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
-      if (e.detail.column == 1) {
-        let num = parseInt(this.data.multiArray[e.detail.column][e.detail.value]);
-        let temp = [];
-        if (num == 1 || num == 3 || num == 5 || num == 7 || num == 8 || num == 10 || num == 12) { //判断31天的月份
-          for (let i = 1; i <= 31; i++) {
-            if (i < 10) {
-              i = "0" + i;
-            }
-            temp.push("" + i);
-          }
-          this.setData({
-            ['multiArray[2]']: temp
-          });
-        } else if (num == 4 || num == 6 || num == 9 || num == 11) { //判断30天的月份
-          for (let i = 1; i <= 30; i++) {
-            if (i < 10) {
-              i = "0" + i;
-            }
-            temp.push("" + i);
-          }
-          this.setData({
-            ['multiArray[2]']: temp
-          });
-        } else if (num == 2) { //判断2月份天数
-          let year = parseInt(this.data.choose_year);
-          console.log(year);
-          if (((year % 400 == 0) || (year % 100 != 0)) && (year % 4 == 0)) {
-            for (let i = 1; i <= 29; i++) {
-              if (i < 10) {
-                i = "0" + i;
-              }
-              temp.push("" + i);
-            }
-            this.setData({
-              ['multiArray[2]']: temp
-            });
-          } else {
-            for (let i = 1; i <= 28; i++) {
-              if (i < 10) {
-                i = "0" + i;
-              }
-              temp.push("" + i);
-            }
-            this.setData({
-              ['multiArray[2]']: temp
-            });
-          }
-        }
-        console.log(this.data.multiArray[2]);
-      }
-      var data = {
-        multiArray: this.data.multiArray,
-        multiIndex: this.data.multiIndex
-      };
-      data.multiIndex[e.detail.column] = e.detail.value;
-      this.setData(data);
-    },
+
     gotoresult:function (e) {
       var kind = e.currentTarget.dataset.id
           console.log(kind);
       wx.navigateTo({url: '/pages/checks/checks?kind='+kind})
     },
-
   onReady: function () {},
   onShow: function () {},
   onHide: function () {},
