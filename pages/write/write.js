@@ -99,6 +99,7 @@ submit() {
         is_delete:0,
         ifread:0,
         ifstar:0,
+        create_time:new Date().getTime(),
       }
     })
     .then(res => {
