@@ -29,11 +29,10 @@ for (let i = 1; i <= 31; i++) {
 Page({
   data: {
     // 下拉菜单
-    switchTitle1: '时间',
-    itemTitle: '筛选',
+    itemTitle: '日期选择',
     option1: [
-      { text: '全部日志', value: 0 },
-      { text: '我的日志', value: 1 },
+      { text: '我的日志', value: 0 },
+      { text: '全部日志', value: 1 },
     ],
     value1: 0,
     // 其它
@@ -49,6 +48,89 @@ Page({
     delBtnWidth:160,
     isScroll:true,
     windowHeight:0,
+    tryy:''
+  },
+  try: function(e) {
+    console.log(e.detail)
+    var value = e.detail
+    var that = this
+    var openid = wx.getStorageSync('openid');
+    that.setData({
+      shuju:[]
+    });
+    if (value==0) {
+       db.collection('logs').where(
+        _.and([
+          {
+            _openid:openid,
+          },
+          {
+            is_delete:false,
+          }
+        ])).count().then(async res =>{
+      let total = res.total;
+      // 计算需分几次取
+      const batchTimes = Math.ceil(total / MAX_LIMIT)
+      // 承载所有读操作的 promise 的数组
+      for (let i = 0; i < batchTimes; i++) {
+        await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
+          _.and([
+            {
+              _openid:openid,
+            },
+            {
+              is_delete:false,
+            }
+          ])).get().then(async res => {
+                let new_data = res.data
+                let old_data = this.data.shuju
+                this.setData({
+                    shuju : old_data.concat(new_data)
+                    })
+                })
+          }
+      })
+      .catch(err=>{//请求失败
+        console.log('请求失败',err)
+        })
+     
+   } else {
+     db.collection('logs').where(
+      _.and([
+        {
+          is_public:true,
+        },
+        {
+          is_delete:false,
+        }
+      ])).count().then(async res =>{
+    let total = res.total;
+    // 计算需分几次取
+    const batchTimes = Math.ceil(total / MAX_LIMIT)
+    // 承载所有读操作的 promise 的数组
+    for (let i = 0; i < batchTimes; i++) {
+      await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
+        _.and([
+          {
+            is_public:true,
+          },
+          {
+            is_delete:false,
+          }
+        ])).get().then(async res => {
+              let new_data = res.data
+              let old_data = this.data.shuju
+              this.setData({
+                  shuju : old_data.concat(new_data)
+                  })
+              })
+        }
+    })
+    .catch(err=>{//请求失败
+      console.log('请求失败',err)
+      })
+   } 
+
   },
     // 下拉菜单
     menuOnConfirm() {
@@ -62,25 +144,42 @@ Page({
     menuOnSwitch2Change({ detail }) {
       this.setData({ switch2: detail });
     },
+
   onLoad: function() {
     console.log('onLoad')
     var that = this
+    var openid = wx.getStorageSync('openid');
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
-          windowHeight: res.windowHeight
+          windowHeight: res.windowHeight,
+          shuju:[]
         });
       }
     });
-        db.collection('logs').count().then(async res =>{
+        db.collection('logs').where(
+            _.and([
+              {
+                _openid:openid,
+              },
+              {
+                is_delete:false,
+              }
+            ])).count().then(async res =>{
         let total = res.total;
         // 计算需分几次取
         const batchTimes = Math.ceil(total / MAX_LIMIT)
         // 承载所有读操作的 promise 的数组
         for (let i = 0; i < batchTimes; i++) {
-          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where({//条件查询 
-            is_delete:false
-          }).get().then(async res => {
+          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
+            _.and([
+              {
+                _openid:openid,
+              },
+              {
+                is_delete:false,
+              }
+            ])).get().then(async res => {
             let new_data = res.data
             let old_data = that.data.shuju
             that.setData({
@@ -105,7 +204,7 @@ Page({
     const year = this.data.multiArray[0][index[0]];
     const month = this.data.multiArray[1][index[1]];
     const day = this.data.multiArray[2][index[2]];
-
+    var openid = wx.getStorageSync('openid');
     console.log(`${year}-${month}-${day}`);
     this.setData({
       time: year + '-' + month + '-' + day,
@@ -113,19 +212,35 @@ Page({
     });
     var shijian=new Date(year + '-' + month + '-' + day)
     var time1 = shijian.getTime()-28800000
-     db.collection('logs').where({//条件查询
-      time:_.eq(time1),
-      is_delete:false,
-    }).count().then(async res =>{
+     db.collection('logs').where(
+      _.and([
+        {
+          is_public:true,
+        },
+        {
+          time:_.eq(time1),
+        },
+        {
+          is_delete:false,
+        }
+      ])).count().then(async res =>{
     let total = res.total;
     // 计算需分几次取
     const batchTimes = Math.ceil(total / MAX_LIMIT)
     // 承载所有读操作的 promise 的数组
     for (let i = 0; i < batchTimes; i++) {
-      await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where({//条件查询
-          time: _.eq(time1),
-          is_delete:false,
-          }).get().then(async res => {
+      await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
+        _.and([
+          {
+            is_public:true,
+          },
+          {
+            time:_.eq(time1),
+          },
+          {
+            is_delete:false,
+          }
+        ])).get().then(async res => {
               let new_data = res.data
               let old_data = this.data.shuju
               this.setData({
@@ -266,15 +381,14 @@ Page({
   },
   delItem: function (e) {
     console.log('删除')
-    var index=e.currentTarget.dataset.index;
-    db.collection('logs').where({
-      _id:index               //我用openid来查询指定数据
-    }).update({
+    var id = e.currentTarget.dataset.id;
+    console.log(id)
+    db.collection('logs').doc(id).update({
       data: {
-      is_delete:true                   //这里就是重点看下面的解释
+          is_delete:true
       },
       success: console.log,
-      fail: console.log('no')
+      fail: console.log
     })
   },
 
