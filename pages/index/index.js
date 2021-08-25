@@ -12,6 +12,19 @@ Page({
     this.setData({
       userInfo: wx.getStorageSync('userInfo')
     })
+    const db = wx.cloud.database({});
+    var openid = wx.getStorageSync('openid');
+    var ne = false
+    var that = this
+    db.collection('mine').field({_openid:openid}).get({
+      //如果查询成功的话
+     success:res =>{     
+      console.log(res.data[0].is_admin),
+       that.setData({
+        ne:res.data[0].is_admin
+       })
+     }
+     })
   },
   //登录
   Login() {
@@ -33,11 +46,14 @@ Page({
       userInfo: null
     })
   },
+
   xiangxi() {
-    wx.navigateTo({
-      url: '/pages/xiangxi/xiangxi'
-    })
+      wx.navigateTo({
+        url: '/pages/xiangxi/xiangxi'
+      })
   },
+
+  
   writelog: function(param){
     wx.navigateTo({
       url: '/pages/write/write',
