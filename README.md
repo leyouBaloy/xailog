@@ -8,11 +8,11 @@
 | 类型 |     str      | str              | str      | array，元素为str     | num      |
 | 备注 |   自动生成   |                  |          |                      | 时间戳   |
 
-| is_delete        |ifread      |ifstar      |      |      |      |
+| is_delete        |ifread      |ifstar      | create_time |      |      |
 | ---------------- | ---- | ---- | ---- | ---- | ---- |
-| 是否删除         |是否已读      |是否有星      |      |      |      |
-| boolean          |boolean      |boolean      |      |      |      |
-| 1表示删除，0反之 | 1表示已读，0反之| 1表示有星，0反之 |      |      |      |
+| 是否删除         |是否已读      |是否有星      | 提交日志的时间 |      |      |
+| boolean          |boolean      |boolean      | number |      |      |
+| 1表示删除，0反之 | 1表示已读，0反之| 1表示有星，0反之 | 时间戳 |      |      |
 
 ### comment表
 | 字段 |     _id      | _openid          | content  |target              | time          |origin|
