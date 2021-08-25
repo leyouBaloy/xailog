@@ -11,6 +11,11 @@ Page({
       dialogShow: false,
       userMessage:"",
       },
+      guanli() {
+        wx.navigateTo({
+          url: '/pages/guanli/guan'
+        })
+      },
     onLoad: function (options) {
       this.setData({
         openid: wx.getStorageSync('openid')

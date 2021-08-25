@@ -33,11 +33,7 @@ Page({
       userInfo: null
     })
   },
-  guanli() {
-    wx.navigateTo({
-      url: '/pages/guanli/guan'
-    })
-  },
+  
   writelog: function(param){
     wx.navigateTo({
       url: '/pages/write/write',
