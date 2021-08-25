@@ -52,7 +52,7 @@ Page({
         let tmp_cnt_by_month = 0;
         let tmp_cnt_by_day = 0;
         wx.cloud.database().collection("logs")
-        .where({is_delete:0})
+        .where({is_delete:false})
         .get()
         .then(res => {
           console.log("查询logs成功", res)
