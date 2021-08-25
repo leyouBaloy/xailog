@@ -68,24 +68,36 @@ Page({
             this.setData({
               Info:res.data[0]
             })
-            wx.cloud.database().collection('logs').doc(user_id).update({
-              // data 传入需要局部更新的数据
-              data: {
-                // 表示将 done 字段置为 true
-                ifread: true
-              },
-              success: function(res) {
-              console.log(res)
-              wx.cloud.database().collection('comment')
-              .where({
-                orign:user_id
-              })
-              .get()
-              .then(res =>{
-                that.find(res)
-              })
-              }
+            if(this.data.userInfo.is_admin==true){
+              wx.cloud.database().collection('logs').doc(user_id).update({
+                // data 传入需要局部更新的数据
+                data: {
+                  // 表示将 done 字段置为 true
+                  ifread: true
+                },
+                success: function(res) {
+                console.log(res)
+                wx.cloud.database().collection('comment')
+                .where({
+                  orign:user_id
+                })
+                .get()
+                .then(res =>{
+                  that.find(res)
+                })
+                }
             })
+            }
+            else{
+              wx.cloud.database().collection('comment')
+                .where({
+                  orign:user_id
+                })
+                .get()
+                .then(res =>{
+                  that.find(res)
+                })
+            }
           })
           
       })
