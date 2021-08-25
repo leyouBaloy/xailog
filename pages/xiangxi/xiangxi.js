@@ -57,7 +57,8 @@ Page({
         // 承载所有读操作的 promise 的数组
         for (let i = 0; i < batchTimes; i++) {
           await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where({//条件查询
-              time: _.gte(new Date(new Date().toLocaleDateString()).getTime())
+              time: _.gte(new Date(new Date().toLocaleDateString()).getTime()),
+              is_delete:false
               }).get().then(async res => {
                   let new_data = res.data
                   let old_data = that.data.shuju
@@ -92,7 +93,8 @@ Page({
     var shijian=new Date(year + '-' + month + '-' + day)
     var time1 = shijian.getTime()-28800000
      db.collection('logs').where({//条件查询
-      time:_.eq(time1)
+      time:_.eq(time1),
+      is_delete:false
     }).count().then(async res =>{
     let total = res.total;
     // 计算需分几次取
@@ -100,7 +102,9 @@ Page({
     // 承载所有读操作的 promise 的数组
     for (let i = 0; i < batchTimes; i++) {
       await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where({//条件查询
-          time: _.eq(time1)
+          time: _.eq(time1),
+          is_delete:false
+
           }).get().then(async res => {
               let new_data = res.data
               let old_data = this.data.shuju

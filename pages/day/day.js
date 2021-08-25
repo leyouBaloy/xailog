@@ -36,18 +36,30 @@ Page({
     choose_year: '',
     choose_month:'',
     shuju:[],
-    shuju_num:0
+    shuju_num:0,
+    delBtnWidth:160,
+    isScroll:true,
+    windowHeight:0,
   },
   onLoad: function() {
     console.log('onLoad')
     var that = this
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          windowHeight: res.windowHeight
+        });
+      }
+    });
         db.collection('logs').count().then(async res =>{
         let total = res.total;
         // 计算需分几次取
         const batchTimes = Math.ceil(total / MAX_LIMIT)
         // 承载所有读操作的 promise 的数组
         for (let i = 0; i < batchTimes; i++) {
-          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(async res => {
+          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where({//条件查询 
+            is_delete:false
+          }).get().then(async res => {
             let new_data = res.data
             let old_data = that.data.shuju
             that.setData({
@@ -81,7 +93,8 @@ Page({
     var shijian=new Date(year + '-' + month + '-' + day)
     var time1 = shijian.getTime()-28800000
      db.collection('logs').where({//条件查询
-      time:_.eq(time1)
+      time:_.eq(time1),
+      is_delete:false,
     }).count().then(async res =>{
     let total = res.total;
     // 计算需分几次取
@@ -89,7 +102,8 @@ Page({
     // 承载所有读操作的 promise 的数组
     for (let i = 0; i < batchTimes; i++) {
       await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where({//条件查询
-          time: _.eq(time1)
+          time: _.eq(time1),
+          is_delete:false,
           }).get().then(async res => {
               let new_data = res.data
               let old_data = this.data.shuju
@@ -177,6 +191,72 @@ Page({
         console.log(kind);
     wx.navigateTo({url: '/pages/checks/checks?kind='+kind})
   },
+  drawStart: function (e) {
+    // console.log("drawStart");  
+    var touch = e.touches[0]
+
+    for(var index in this.data.shuju) {
+      var item = this.data.shuju[index]
+      item.right = 0
+    }
+    this.setData({
+      shuju: this.data.shuju,
+      startX: touch.clientX,
+    })
+
+  },
+  drawMove: function (e) {
+    var touch = e.touches[0]
+    var item = this.data.shuju[e.currentTarget.dataset.index]
+    var disX = this.data.startX - touch.clientX
+    
+    if (disX >= 20) {
+      if (disX > this.data.delBtnWidth) {
+        disX = this.data.delBtnWidth
+      }
+      item.right = disX
+      this.setData({
+        isScroll: false,
+        shuju: this.data.shuju
+      })
+    } else {
+      item.right = 0
+      this.setData({
+        isScroll: true,
+        shuju: this.data.shuju
+      })
+    }
+  },  
+  drawEnd: function (e) {
+    var item = this.data.shuju[e.currentTarget.dataset.index]
+    if (item.right >= this.data.delBtnWidth/2) {
+      item.right = this.data.delBtnWidth
+      this.setData({
+        isScroll: true,
+        shuju: this.data.shuju,
+      })
+    } else {
+      item.right = 0
+      this.setData({
+        isScroll: true,
+        shuju: this.data.shuju,
+      })
+    }
+  },
+  delItem: function (e) {
+    console.log('删除')
+    var index=e.currentTarget.dataset.index;
+    db.collection('logs').where({
+      _id:index               //我用openid来查询指定数据
+    }).update({
+      data: {
+      is_delete:true                   //这里就是重点看下面的解释
+      },
+      success: console.log,
+      fail: console.log('no')
+    })
+  },
+
     onReady: function () {},
     onShow: function () {},
     onHide: function () {},
