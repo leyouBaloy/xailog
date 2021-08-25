@@ -14,6 +14,8 @@ Page({
     fileList: [], //上传文件临时存储
     fileIDs: [],//文件上传后获取云数据中的位置
     reject: [],//用于uploadfilepromise的promise判断是否上传图片成功
+    // 公开
+    checked: true,
   },
 
   // 日历
@@ -100,6 +102,7 @@ submit() {
         ifread:0,
         ifstar:0,
         create_time:new Date().getTime(),
+        is_public:that.data.checked,
       }
     })
     .then(res => {
@@ -140,5 +143,11 @@ uploadFilePromise(fileName, url, that) {
     }
   });
   return that.data.reject
+},
+// 开关
+switchOnChange({ detail }) {
+  // 需要手动对 checked 状态进行更新
+  this.setData({ checked: detail });
+  console.log("开关checked的值", this.data.checked)
 },
 })

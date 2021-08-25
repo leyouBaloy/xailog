@@ -25,8 +25,11 @@
 />
 </view>
 
+<!-- 开关 -->
+<van-cell title="是否公开"><van-switch checked="{{ checked }}" bind:change="switchOnChange" /></van-cell>
+
+
 <!-- 提交 -->
 <button class="item" style="margin-top:30px" bindtap="submit">提交</button>
-<!-- 测试 -->
-<view>{{fileIDs}}</view>
+
 
