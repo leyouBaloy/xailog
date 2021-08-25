@@ -28,6 +28,15 @@ for (let i = 1; i <= 31; i++) {
 }
 Page({
   data: {
+    // 下拉菜单
+    switchTitle1: '时间',
+    itemTitle: '筛选',
+    option1: [
+      { text: '全部日志', value: 0 },
+      { text: '我的日志', value: 1 },
+    ],
+    value1: 0,
+    // 其它
     weidu:null,
     quanbu:null, 
     time: '',
@@ -41,6 +50,18 @@ Page({
     isScroll:true,
     windowHeight:0,
   },
+    // 下拉菜单
+    menuOnConfirm() {
+      this.selectComponent('#item').toggle();
+    },
+  
+    menuOnSwitch1Change({ detail }) {
+      this.setData({ switch1: detail });
+    },
+  
+    menuOnSwitch2Change({ detail }) {
+      this.setData({ switch2: detail });
+    },
   onLoad: function() {
     console.log('onLoad')
     var that = this
