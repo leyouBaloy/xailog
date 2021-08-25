@@ -35,8 +35,7 @@
                     暂无评论
                 </view>
                 <view class="comment_text" wx:else >
-                    <view class="comment_text" wx:for="{{release}}" ><font style="color: #2e4e7e;">{{item.name}}：</font>{{item.content}}
-                        <view class="bottom_menu_value"><image class="bottom_menu_img" bindtap="open_2"  data-value="{{item._id}}"  mode="widthFix" src="../../images/comment.png"></image></view>
+                    <view class="comment_text" bindtap="open_2" data-value="{{item._id}}"  wx:for="{{release}}" ><font style="color: #2e4e7e;">{{item.name}}：</font>{{item.content}}
                     </view>
 
                 </view>
