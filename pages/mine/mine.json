@@ -5,6 +5,7 @@
     "mp-form": "weui-miniprogram/form/form",
     "van-cell": "@vant/weapp/cell/index",
   "van-cell-group": "@vant/weapp/cell-group/index",
-  "van-divider": "@vant/weapp/divider/index"
+  "van-divider": "@vant/weapp/divider/index",
+  "van-dialog": "@vant/weapp/dialog/index"
   }
 }
