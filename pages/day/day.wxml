@@ -4,11 +4,13 @@
 <van-dropdown-menu>
   <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" bind:change="try"/>
   <van-dropdown-item id="item" title="{{ itemTitle }}">
+  <van-cell title="选择时间" is-link>
     <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}"> 
           <input placeholder='                                                                '/> 
           <input value='{{time}}' placeholder='                                                        选择时间'/> 
           <input  placeholder='                                                               '/> 
         </picker> 
+      </van-cell>
 </van-dropdown-item>
 </van-dropdown-menu>
 
