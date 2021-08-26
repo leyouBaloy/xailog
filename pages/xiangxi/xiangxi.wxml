@@ -1,32 +1,46 @@
-<wxs src="/pages/xiangxi/filter.wxs" module="filters"/>
+<wxs src="/pages/day/filter.wxs" module="filters"/>
 
 <!-- 下拉菜单 -->
+
 <van-dropdown-menu>
   <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" bind:change="try"/>
   <van-dropdown-item id="item" title="{{ itemTitle }}">
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}"> 
-          <input placeholder='                                                                '/> 
-          <input value='{{time}}' placeholder='                                                        选择时间'/> 
-          <input  placeholder='                                                               '/> 
-        </picker> 
-
+    <van-cell title="选择时间" is-link > 
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">  
+          <input value='{{time}}' placeholder='' disabled/>  
+        </picker>  
+      </van-cell> 
+      <van-cell title="全部日期" bind:click="quanbu" is-link> 
+      </van-cell> 
 </van-dropdown-item>
+<view style="padding: 5px 16px;"> 
+    <van-button type="danger"  data-changshi="{{changshi}}" data-time1="{{time1}}" data-time2="{{time2}}" block round bind:click="onConfirm">
+      确认
+    </van-button>
+</view>
 </van-dropdown-menu>
 
 <!-- 商品卡片 -->
-<block wx:key="item" wx:for="{{shuju}}" >
-        <van-card data-id='{{item._id}}' bindtap="gotoresult" >
-          <view slot="title" >
-            {{item.name}}:
+<block wx:key="item" wx:for="{{shuju}}" wx:for-item="item">
+  <scroll-view scroll-y="{{isScroll}}" style='height:300rpx'>
+        <van-card data-id='{{item._id}}' bindtap="detail">
+          <view slot="title" wx:for="{{nameall}}" wx:for-item="item2">
+            <view wx:if="{{item._openid==item2._openid}}"> {{item2.name}}</view>
+            <view wx:else></view>
           </view>
-          <view slot="desc" class='td'> {{item.content}} </view>
+          <view slot="desc" class='td' >
+            {{item.content}}
+          </view>
           <div slot="bottom">
-            <van-tag plain type="danger">{{item.ifread}}</van-tag>
-            <van-tag plain type="danger">{{item.ifstar}}</van-tag>
+            <van-tag plain type="danger" wx:if="{{item.ifread}}">已读</van-tag>
+            <van-tag plain type="danger" wx:else="{{item.ifread}}">未读</van-tag>
+            <van-tag plain type="danger" wx:if="{{item.ifstar}}">小昕星</van-tag>
           </div>
           <view slot="footer">
             <text>{{filters.formatDate(item.time)}}</text>
           </view> 
       </van-card>
-      <van-divider /> 
+
+</scroll-view> 
 </block> 
+

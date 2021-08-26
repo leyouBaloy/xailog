@@ -170,6 +170,7 @@ Page({
       time2:1
     })
    },
+
    //确认按钮
   onConfirm:function(e) {
     var time1 = e.currentTarget.dataset.time1
@@ -429,44 +430,45 @@ Page({
     })
 
   },
-  drawMove: function (e) {
-    var touch = e.touches[0]
-    var item = this.data.shuju[e.currentTarget.dataset.index]
-    var disX = this.data.startX - touch.clientX
-    
-    if (disX >= 20) {
-      if (disX > this.data.delBtnWidth) {
-        disX = this.data.delBtnWidth
-      }
-      item.right = disX
-      this.setData({
-        isScroll: false,
-        shuju: this.data.shuju
-      })
-    } else {
-      item.right = 0
-      this.setData({
-        isScroll: true,
-        shuju: this.data.shuju
-      })
-    }
-  },  
-  drawEnd: function (e) {
-    var item = this.data.shuju[e.currentTarget.dataset.index]
-    if (item.right >= this.data.delBtnWidth/2) {
-      item.right = this.data.delBtnWidth
-      this.setData({
-        isScroll: true,
-        shuju: this.data.shuju,
-      })
-    } else {
-      item.right = 0
-      this.setData({
-        isScroll: true,
-        shuju: this.data.shuju,
-      })
-    }
-  },
+  drawMove: function (e) { 
+    var touch = e.touches[0] 
+    var item = this.data.shuju[e.currentTarget.dataset.index] 
+    var disX = this.data.startX - touch.clientX 
+     
+    if (disX >= 20) { 
+      if (disX > this.data.delBtnWidth) { 
+        disX = this.data.delBtnWidth 
+      } 
+      item.right = disX 
+      this.setData({ 
+        isScroll: false, 
+        shuju: this.data.shuju 
+      }) 
+    } else { 
+      item.right = 0 
+      this.setData({ 
+        isScroll: true, 
+        shuju: this.data.shuju 
+      }) 
+    } 
+  },   
+  drawEnd: function (e) { 
+    var item = this.data.shuju[e.currentTarget.dataset.index] 
+    if (item.right >= this.data.delBtnWidth/2) { 
+      item.right = this.data.delBtnWidth 
+      this.setData({ 
+        isScroll: true, 
+        shuju: this.data.shuju, 
+      }) 
+    } else { 
+      item.right = 0 
+      this.setData({ 
+        isScroll: true, 
+        shuju: this.data.shuju, 
+      }) 
+    } 
+  }, 
+ 
   delItem: function (e) {
     console.log('删除')
     var id = e.currentTarget.dataset.id;

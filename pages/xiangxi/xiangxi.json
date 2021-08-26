@@ -1,4 +1,7 @@
 {
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "onReachBottomDistance":50,
   "usingComponents": {
     "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
     "van-dropdown-item": "@vant/weapp/dropdown-item/index",
@@ -7,5 +10,5 @@
     "van-tag": "@vant/weapp/tag/index",
     "van-divider": "@vant/weapp/divider/index"
   }
-}
 
+}

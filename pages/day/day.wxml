@@ -5,9 +5,9 @@
 <van-dropdown-menu>
   <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" bind:change="try"/>
   <van-dropdown-item id="item" title="{{ itemTitle }}">
-    <van-cell title="选择时间" is-link> 
+    <van-cell title="选择时间" is-link > 
     <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">  
-          <input value='{{time}}' placeholder=''/>  
+          <input value='{{time}}' placeholder='' disabled/>  
         </picker>  
       </van-cell> 
       <van-cell title="全部日期" bind:click="quanbu" is-link> 
@@ -23,12 +23,11 @@
 <!-- 商品卡片 -->
 <block wx:key="item" wx:for="{{shuju}}" wx:for-item="item">
   <scroll-view scroll-y="{{isScroll}}" style='height:300rpx'>
-    <view data-index='{{item._id}}'  class="order-item" bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx"> 
+    <view data-index='{{index}}' class="order-item" bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx"> 
         <van-card data-id='{{item._id}}' bindtap="detail">
           <view slot="title" wx:for="{{nameall}}" wx:for-item="item2">
-            <view wx:if="{{item._openid==item2._openid}}">
-              {{item2.name}}:
-            </view>
+            <view wx:if="{{item._openid==item2._openid}}"> {{item2.name}}</view>
+            <view wx:else></view>
           </view>
           <view slot="desc" class='td' >
             {{item.content}}
@@ -43,9 +42,7 @@
           </view> 
       </van-card>
   <view class="remove" bindtap="delItem" data-id="{{item._id}}"  data-open="{{item._openid}}">删除 </view>
-
   </view>
 </scroll-view> 
-
 </block> 
 

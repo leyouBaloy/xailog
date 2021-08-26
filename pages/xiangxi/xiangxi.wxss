@@ -27,3 +27,16 @@
   display: flex;
   position: relative;
 }
+
+.remove{  
+  width: 240rpx;  
+  height: 260rpx;  
+  background-color: rgb(45, 92, 146); 
+  color: white; 
+  position: absolute;  
+  top: 0;  
+  right: -240rpx;  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+}  
