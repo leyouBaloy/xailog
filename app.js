@@ -17,6 +17,16 @@ App({
       })
     }
 
+    // 读取数据库个人信息写入缓存
+    var openid = wx.getStorageSync('openid')
+    wx.cloud.database().collection('mine').where({
+      _openid: openid
+    })
+    .get()
+    .then(res=>{
+      wx.setStorageSync('user', res.data[0])
+    })
+
     // 判断用户是否已经授权
     if (wx.getStorageSync('userInfo')){
       wx.switchTab({
