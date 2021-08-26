@@ -6,11 +6,10 @@
   <van-dropdown-item id="item" title="{{ itemTitle }}">
   <van-cell title="选择时间" is-link>
     <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}"> 
-          <input placeholder='                                                                '/> 
-          <input value='{{time}}' placeholder='                                                        选择时间'/> 
-          <input  placeholder='                                                               '/> 
+          <input value='{{time}}' /> 
         </picker> 
       </van-cell>
+      <van-cell title="全部日期" is-link ></van-cell>
 </van-dropdown-item>
 </van-dropdown-menu>
 
@@ -27,8 +26,10 @@
             {{item.content}}
           </view>
           <div slot="bottom">
-            <van-tag plain type="danger">{{item.ifread}}</van-tag>
-            <van-tag plain type="danger">{{item.ifstar}}</van-tag>
+            <van-tag plain type="danger" wx:if="{{item.ifread}}">已读</van-tag>
+            <van-tag plain type="danger" wx:else="{{item.ifread}}">未读</van-tag>
+            <van-tag plain type="danger" wx:if="{{item.ifstar}}">小昕星</van-tag>
+      
           </div>
           <view slot="footer">
             <text>{{filters.formatDate(item.time)}}</text>
