@@ -98,9 +98,9 @@ submit() {
         time: that.data.datestamp,
         content: that.data.content,
         fileIDs: that.data.fileIDs,
-        is_delete:0,
-        ifread:0,
-        ifstar:0,
+        is_delete:false,
+        ifread:false,
+        ifstar:false,
         create_time:new Date().getTime(),
         is_public:that.data.checked,
       }
