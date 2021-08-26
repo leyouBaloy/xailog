@@ -15,7 +15,9 @@
 <van-cell-group inset>
   <van-cell title="修改名字" value="修改" bind:click="openConfirm" is-link />
   <van-cell title="更新头像" value="更新" bind:click="changeAvatar" is-link />
-  <van-cell title="管理日志" value="进入" label="只有管理员才能进入哦" bind:click="guanli" is-link />
+  <view wx:if="{{ne==true}}">
+    <van-cell title="管理日志" value="进入" label="只有管理员才能进入哦" bind:click="xiangxi" is-link />
+  </view>
 </van-cell-group>
 
 
@@ -37,3 +39,4 @@
 
 
 <view class="bottom_text">XAI 工作室</view>
+
