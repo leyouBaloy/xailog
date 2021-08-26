@@ -11,34 +11,10 @@
             <td style="font-weight: bold;" class="td_center">今日报告</td>
             <td style="font-weight: bold;" class="td_center"></td>
         </tr>
-        <tr>
-            <td>徐朔</td>
-            <td class="td_center">1</td>
-            <td class="td_center">1</td>
-            <td class="td_center">更多</td>
-        </tr>
-        <tr>
-            <td>孙百乐</td>
-            <td class="td_center">1</td>
-            <td class="td_center"></td>
-            <td class="td_center">更多</td>
-        </tr>
-        <tr>
-            <td>王文婕</td>
-            <td class="td_center">1</td>
-            <td class="td_center">1</td>
-            <td class="td_center">更多</td>
-        </tr>
-        <tr>
-            <td>廖集秀</td>
-            <td class="td_center">1</td>
-            <td class="td_center">1</td>
-            <td class="td_center">更多</td>
-        </tr>
-        <tr style="border: none;">
-            <td>李传兰</td>
-            <td class="td_center">1</td>
-            <td class="td_center">1</td>
+        <tr wx:for="{{cnt_table}}" wx:for-item="i">
+            <td>{{i[0]}}</td>
+            <td class="td_center">{{i[1]}}</td>
+            <td class="td_center">{{i[2]}}</td>
             <td class="td_center">更多</td>
         </tr>
     </table>

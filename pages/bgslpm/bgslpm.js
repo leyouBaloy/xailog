@@ -7,6 +7,7 @@ Page({
         openids:[],
         cnt_by_month:[],
         cnt_by_day:[],
+        cnt_table:[],//把列表列转行，便于渲染
       },
 
       onLoad() {
@@ -59,7 +60,8 @@ Page({
           for (var val of res.data){
             openids.add(val._openid);
           };
-          console.log("查到的openids",openids);//找到openids，放进集合里
+          openids = [...openids]; //转成数组
+          console.log("查到的openids",openids);//找到openids
           that.setData({openids:openids});//数据库暂时没有name，用openid代替
           for (var openid of openids){
             for (var data of res.data){
@@ -87,9 +89,23 @@ Page({
           that.setData({cnt_by_month:cnt_by_month});
           console.log("cnt_by_day的值", cnt_by_day);
           that.setData({cnt_by_day:cnt_by_day});
+
+          // 转置,由三个列表获得一个cnt_table嵌套列表
+            let inner_arr = [];
+            let outer_arr = [];
+            // let that = this
+            // console.log("this.data", this.data)
+            for(var j=0;j<this.data.openids.length;j++){
+              // console.log("this.data.openid[j]的值", this.data.openids[j]);
+              outer_arr.push([this.data.openids[j], this.data.cnt_by_month[j], this.data.cnt_by_day[j]]);
+            }
+            this.setData({cnt_table:outer_arr});
+            console.log("outer_arr/cnt_table的值", outer_arr);
         })
         .catch(err => {
           console.log("查询logs失败", err)
         })
-      }
+      },
+
+
 })
