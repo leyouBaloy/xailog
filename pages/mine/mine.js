@@ -20,17 +20,8 @@ Page({
       },
     onLoad: function (options) {
       this.setData({
-        openid: wx.getStorageSync('openid')
-      })
-      wx.cloud.database().collection('mine').where({
-        _openid:this.data.openid
-      })
-      .get()
-      .then(res=>{
-        this.setData({
-          userInfo:res.data[0]
-        })
-        console.log(this.data.userInfo)
+        openid: wx.getStorageSync('openid'),
+        userInfo: wx.getStorageSync('user')
       })
         
     },
@@ -57,6 +48,7 @@ Page({
             this.setData({
               userInfo:tem
             })
+            wx.setStorageSync('user', this.data.userInfo)
           })
         })
         .catch(() => {
@@ -84,6 +76,7 @@ Page({
             userInfo:tem,
             dialogShow: false
           })
+          wx.setStorageSync('user', this.data.userInfo)
         })
       }
       else{
