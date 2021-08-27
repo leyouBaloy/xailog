@@ -25,6 +25,9 @@
             {{Y}}-{{M}}-{{D}} {{h}}:{{m}}
         </view>
     </view>
+    <view wx:if="{{list.fileIDs !=[]}}" >
+        <image mode='widthFix' class="image"bindtap="imgYu" data-list="{{item}}" data-src="{{list.fileIDs}}"  wx:for="{{list.fileIDs}}" wx:for-item="item" src="{{item}}"></image>
+    </view>
 </view>
 <!-- 评论区 -->
 <view class="box">
@@ -43,12 +46,12 @@
         </view>
     </view>
 </view>
-
 <view class="bottom_bar" style="height: {{safeArea}}px;">
     <view class="bottom_menu">
+        <van-toast id="van-toast" />
         <view class="bottom_menu_value"><image class="bottom_menu_img" bindtap="open" mode="widthFix" src="../../images/comment.png"></image></view>
-        <view class="bottom_menu_value" wx:if="{{isstar == false}}"><image class="bottom_menu_img"  bindtap="good" mode="widthFix" src="../../images/good.png" wx:if="{{userInfo.is_admin == true}}"></image><image class="bottom_menu_img"  mode="widthFix" src="../../images/good.png" wx:else></image></view>
-        <view class="bottom_menu_value" wx:elif="{{isstar == true}}"><image class="bottom_menu_img"   bindtap="good" mode="widthFix" src="../../images/dz_2.png" wx:if="{{userInfo.is_admin == true}}"></image><image class="bottom_menu_img"  mode="widthFix" src="../../images/dz_2.png" wx:else></image></view>
+        <view class="bottom_menu_value" wx:if="{{isstar == false}}"><image class="bottom_menu_img"  bindtap="good" mode="widthFix" src="../../images/good.png" ></image></view>
+        <view class="bottom_menu_value" wx:elif="{{isstar == true}}"><image class="bottom_menu_img"   bindtap="good" mode="widthFix" src="../../images/dz_2.png"></image></view>
         <view class="bottom_menu_value"><image class="bottom_menu_img" mode="widthFix" src="../../images/share.png"></image></view>
     </view>
 </view>

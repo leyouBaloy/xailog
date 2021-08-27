@@ -1,3 +1,4 @@
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 const app = getApp()
 
 Page({
@@ -132,7 +133,8 @@ Page({
   },
   good:function(){
   var user_id=this.data.targets
-  if (this.data.isstar==true){
+  if(this.data.userInfo.is_admin==true){
+    if (this.data.isstar==true){
       wx.cloud.database().collection('logs').doc(user_id).update({
           // data 传入需要局部更新的数据
           data: {
@@ -143,18 +145,22 @@ Page({
       this.setData({
         isstar:false
     })
+    }else{
+        wx.cloud.database().collection('logs').doc(user_id).update({
+            // data 传入需要局部更新的数据
+            data: {
+              // 表示将 done 字段置为 true
+              ifstar: true
+            }
+          })
+          this.setData({
+            isstar:true
+          })
+    }
   }else{
-      wx.cloud.database().collection('logs').doc(user_id).update({
-          // data 传入需要局部更新的数据
-          data: {
-            // 表示将 done 字段置为 true
-            ifstar: true
-          }
-        })
-        this.setData({
-          isstar:true
-        })
+    Toast.fail('只有管理员才能点击');
   }
+  
   },
   open: function () {
     this.setData({
@@ -192,6 +198,7 @@ wx.cloud.database().collection('comment').add({
     target:'',
     time:new Date().getTime()
   }})
+  Toast.success('评论成功！');
   wx.cloud.database().collection('comment')
   .where({
     orign:this.data.targets
@@ -223,6 +230,7 @@ reply(e){
         time:new Date().getTime()
       }
     })
+    Toast.success('回复成功！');
     wx.cloud.database().collection('comment')
     .where({
       orign:this.data.targets
