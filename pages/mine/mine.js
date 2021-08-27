@@ -25,6 +25,11 @@ Page({
       })
         
     },
+    xiangxi: function (options) {
+      wx.navigateTo({
+        url: '/pages/xiangxi/xiangxi'
+      })
+    },
     changeAvatar() {
       Dialog.confirm({
         message: '是否更新头像为当前微信头像\n(需重新授权)',
