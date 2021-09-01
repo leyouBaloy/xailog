@@ -3,7 +3,7 @@ App({
   onLaunch() {
     // 初始化云开发环境
     wx.cloud.init({
-        env: 'aigroup-2gtja1ym4715274c' //云开发环境id
+        env: 'aigroup-5gsmkvvy34505c6a' //云开发环境id
     })
 
     // 获取openid写入缓存
@@ -11,8 +11,7 @@ App({
       wx.cloud.callFunction({
         name: "login",
         success(res) {
-          // console.log(res.result.openid)
-          wx.setStorageSync('openid', res.result.openid)
+          wx.setStorageSync('openid', res.result.userInfo.openId)
         }
       })
     }
