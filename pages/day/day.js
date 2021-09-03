@@ -35,6 +35,9 @@ Page({
       { text: '全部日志', value: 1 },
     ],
     value1: 0,
+    // 缓存信息
+    openid:null,
+    userInfo:null,
     // 其它
     time: '',
     time2:0,
@@ -63,6 +66,10 @@ Page({
       this.setData({ switch2: detail });
     },
   onLoad: function() {
+    this.setData({
+      openid: wx.getStorageSync('openid'),
+      userInfo: wx.getStorageSync('user')
+    });
     console.log('onLoad')
     db.collection('mine').count().then(async res =>{
       let total = res.total;

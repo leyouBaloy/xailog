@@ -26,19 +26,19 @@
     <view data-index='{{index}}' class="order-item" bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx"> 
         <van-card data-id='{{item._id}}' bindtap="detail">
           <view slot="title" wx:for="{{nameall}}" wx:for-item="item2">
-            <view wx:if="{{item._openid==item2._openid}}"> {{item2.name}}</view>
-            <view wx:else></view>
+            <view wx:if="{{item._openid==item2._openid}}" class="setting"> <image class="touxiang" src="{{item2.avatar}}"></image><text style="font-weight:bold">为什么这里空出来一块 {{item2.name}}</text></view>
+            <!-- <view wx:else></view> -->
           </view>
           <view slot="desc" class='td' >
+            
             {{item.content}}
+
           </view>
-          <div slot="bottom">
+          <view slot="footer">
+            <text>{{filters.formatDate(item.time)}}</text>
             <van-tag plain type="danger" wx:if="{{item.ifread}}">已读</van-tag>
             <van-tag plain type="danger" wx:else="{{item.ifread}}">未读</van-tag>
             <van-tag plain type="danger" wx:if="{{item.ifstar}}">小昕星</van-tag>
-          </div>
-          <view slot="footer">
-            <text>{{filters.formatDate(item.time)}}</text>
           </view> 
       </van-card>
   <view class="remove" bindtap="delItem" data-id="{{item._id}}"  data-open="{{item._openid}}">删除 </view>
