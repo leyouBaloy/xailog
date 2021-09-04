@@ -31,6 +31,15 @@ Page({
                 name: res.userInfo.nickName
               }
             })
+            wx.cloud.database().collection('mine')
+            .where({_openid: wx.getStorageSync('openid')})
+            .get()
+            .then(resss=>{
+              wx.setStorageSync('user', resss)
+            })
+          }
+          else{
+            wx.setStorageSync('user', ress)
           }
         })
         wx.switchTab({
