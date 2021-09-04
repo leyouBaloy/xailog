@@ -3,7 +3,7 @@
 <!-- 下拉菜单 -->
 
 <van-dropdown-menu>
-  <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" data-time1="{{time1}}" data-time2="{{time2}}" block round bind:change="try"/>
+  <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" data-time1="{{time1}}" data-time2="{{time2}}" block round bind:change="try" />
   <van-dropdown-item id="item" title="{{ itemTitle }}">
     <van-cell title="选择时间" is-link > 
     <picker mode="multiSelector" data-changshi="{{changshi}}" block round bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">  
@@ -17,8 +17,8 @@
 
 <!-- 商品卡片 -->
 <block wx:key="item" wx:for="{{shuju}}" wx:for-item="item">
-  <scroll-view scroll-y="{{isScroll}}" style='height:300rpx'>
-    <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65 }}">
+  <scroll-view scroll-y="{{isScroll}}" style='height:300rpx'> 
+    <view data-index='{{index}}' class="order-item" bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx">  
         <van-card data-id='{{item._id}}' bindtap="detail">
           <view slot="title" wx:for="{{nameall}}" wx:for-item="item2">
             <view wx:if="{{item._openid==item2._openid}}" class="setting"> <image class="touxiang" src="{{item2.avatar}}"></image><text style="font-weight:bold">{{item2.name}}</text></view>
@@ -34,8 +34,8 @@
             <van-tag plain type="danger" wx:if="{{item.ifstar}}">小昕星</van-tag>
           </view> 
       </van-card>
-      <view slot="right" bindtap="delItem" data-id="{{item._id}}"  data-open="{{item._openid}}">删除</view>
-</van-swipe-cell>
+      <view class="remove" bindtap="delItem" data-id="{{item._id}}" data-open="{{item._openid}}">删除</view>
+    </view>
 </scroll-view> 
 </block> 
 

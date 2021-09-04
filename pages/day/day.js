@@ -7,6 +7,8 @@ const db = wx.cloud.database({});
 const book = db.collection('logs');
 const MAX_LIMIT = 20;
 const _ = db.command
+import Dialog from '@vant/weapp/dialog/dialog'; 
+
 
 //获取年
 for (let i = 2021; i <= date.getFullYear() + 5; i++) {
@@ -125,6 +127,7 @@ Page({
         })
         
   },
+  
   //获取未读还是全部
   try: function(e) {
     var openid = wx.getStorageSync('openid');
@@ -569,6 +572,59 @@ Page({
   },
 
   //左滑删除的代码
+  drawStart: function (e) { 
+    // console.log("drawStart");   
+    var touch = e.touches[0] 
+ 
+    for(var index in this.data.shuju) { 
+      var item = this.data.shuju[index] 
+      item.right = 0 
+    } 
+    this.setData({ 
+      shuju: this.data.shuju, 
+      startX: touch.clientX, 
+    }) 
+ 
+  }, 
+  drawMove: function (e) { 
+    var touch = e.touches[0] 
+    var item = this.data.shuju[e.currentTarget.dataset.index] 
+    var disX = this.data.startX - touch.clientX 
+     
+    if (disX >= 20) { 
+      if (disX > this.data.delBtnWidth) { 
+        disX = this.data.delBtnWidth 
+      } 
+      item.right = disX 
+      this.setData({ 
+        isScroll: false, 
+        shuju: this.data.shuju 
+      }) 
+    } else { 
+      item.right = 0 
+      this.setData({ 
+        isScroll: true, 
+        shuju: this.data.shuju 
+      }) 
+    } 
+  },   
+  drawEnd: function (e) { 
+    var item = this.data.shuju[e.currentTarget.dataset.index] 
+    if (item.right >= this.data.delBtnWidth/2) { 
+      item.right = this.data.delBtnWidth 
+      this.setData({ 
+        isScroll: true, 
+        shuju: this.data.shuju, 
+      }) 
+    } else { 
+      item.right = 0 
+      this.setData({ 
+        isScroll: true, 
+        shuju: this.data.shuju, 
+      }) 
+    } 
+  }, 
+
   delItem: function (e) {
     console.log('删除')
     var id = e.currentTarget.dataset.id;
@@ -588,10 +644,13 @@ Page({
     });
   }else{
     console.log('不能删除别人的')
+    this.setData({
+      value1:0
+    });
   }
   this.onLoad()
-  },
-  //左滑删除到这里结束
+  
+},
 
     onReady: function () {},
     onShow: function () {},
