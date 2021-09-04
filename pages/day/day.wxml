@@ -14,10 +14,37 @@
       </van-cell> 
 </van-dropdown-item>
 <view style="padding: 5px 16px;"> 
-    <van-button type="danger"  data-changshi="{{changshi}}" data-time1="{{time1}}" data-time2="{{time2}}" block round bind:click="onConfirm">
+    <van-button type="default" plain hairline data-changshi="{{changshi}}" data-time1="{{time1}}" data-time2="{{time2}}" block round bind:click="onConfirm">
       确认
     </van-button>
 </view>
+</van-dropdown-menu>
+<!-- 新下拉菜单 -->
+<van-dropdown-menu>
+  <van-dropdown-item id="item" title="筛选">
+    <van-cell title="选择时间" is-link > 
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">  
+          <input value='{{time}}' placeholder='' disabled/>  
+        </picker>  
+      </van-cell> 
+      <van-cell title="清空时间" is-link></van-cell>
+    <van-cell title="只看我的">
+      <van-switch
+        slot="right-icon"
+        size="24px"
+        style="height: 26px"
+        checked="{{ switch2 }}"
+        active-color="#ee0a24"
+        bind:change="onSwitch2Change"
+      />
+    </van-cell>
+    
+    <view style="padding: 5px 16px;">
+      <van-button type="danger" block round bind:click="onConfirm">
+        确认
+      </van-button>
+    </view>
+  </van-dropdown-item>
 </van-dropdown-menu>
 
 <!-- 商品卡片 -->
