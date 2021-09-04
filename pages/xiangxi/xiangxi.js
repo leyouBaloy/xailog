@@ -37,7 +37,9 @@ Page({
     value1: 0,
     // 其它
     time: '',
+    time1:0,
     time2:0,
+    changshi:0,
     multiArray: [years, months, days],
     multiIndex: [0, 0, 0],
     choose_year: '',
@@ -47,7 +49,6 @@ Page({
     delBtnWidth:160,
     isScroll:true,
     windowHeight:0,
-    changshi:0,
     nameall:[]
   },
 
@@ -61,7 +62,7 @@ Page({
       for (let i = 0; i < batchTimes; i++) {
         await db.collection('mine').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(async res => {
                 let new_data = res.data
-                let old_data = that.data.shuju
+                let old_data = that.data.nameall
                 that.setData({
                     nameall : old_data.concat(new_data)
                     })
@@ -75,7 +76,9 @@ Page({
         that.setData({
           windowHeight: res.windowHeight,
           shuju:[],
+          time1:0,
           time2:0,
+          changshi:0,
           nameall:[]
         });
       }
@@ -123,16 +126,169 @@ Page({
     console.log(e.detail)
     var value = e.detail
     var that = this
+    //time2是全部日期，默认为0选中，未选中为1
     that.setData({
+      shuju:[],
       changshi:value
     });
+    var time1 = e.currentTarget.dataset.time1
+    var time2 = e.currentTarget.dataset.time2
+    var openid = wx.getStorageSync('openid');
+    console.log(time1)
+    console.log("changshi value")
+    console.log(value)
+    if(time2==0){
+    if(value==0){
+      db.collection('logs').where(
+        _.and([
+          {
+            is_delete:false,
+          }
+        ])).count().then(async res =>{
+      let total = res.total;
+      // 计算需分几次取
+      const batchTimes = Math.ceil(total / MAX_LIMIT)
+      // 承载所有读操作的 promise 的数组
+      for (let i = 0; i < batchTimes; i++) {
+        await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
+          _.and([ 
+            {
+              is_delete:false,
+            }
+          ])).orderBy('time','desc').get().then(async res => {
+                let new_data = res.data
+                let old_data = this.data.shuju
+                this.setData({
+                    shuju : old_data.concat(new_data)
+                    })
+                })
+          }
+      })
+      .catch(err=>{//请求失败
+        console.log('请求失败',err)
+        })
+    }else{
+      db.collection('logs').where(
+        _.and([
+          {
+            ifread:false,
+          },
+          {
+            is_delete:false,
+          }
+        ])).count().then(async res =>{
+      let total = res.total;
+      // 计算需分几次取
+      const batchTimes = Math.ceil(total / MAX_LIMIT)
+      // 承载所有读操作的 promise 的数组
+      for (let i = 0; i < batchTimes; i++) {
+        await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
+          _.and([
+            {
+              ifread:false,
+            },
+            {
+              is_delete:false,
+            }
+          ])).orderBy('time','desc').get().then(async res => {
+                let new_data = res.data
+                let old_data = this.data.shuju
+                console.log(res.data[0]._openid)
+                this.setData({
+                    shuju : old_data.concat(new_data)
+                    })
+                })
+          }
+      })
+      .catch(err=>{//请求失败
+        console.log('请求失败',err)
+        })
+    }}else{
+      if(value==0){
+        db.collection('logs').where(
+          _.and([
+            {
+              time:_.eq(time1),
+            },
+            {
+              is_delete:false,
+            }
+          ])).count().then(async res =>{
+        let total = res.total;
+        // 计算需分几次取
+        const batchTimes = Math.ceil(total / MAX_LIMIT)
+        // 承载所有读操作的 promise 的数组
+        for (let i = 0; i < batchTimes; i++) {
+          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
+            _.and([
+              {
+                time:_.eq(time1),
+              },
+              {
+                is_delete:false,
+              }
+            ])).orderBy('time','desc').get().then(async res => {
+                  let new_data = res.data
+                  let old_data = this.data.shuju
+                  this.setData({
+                      shuju : old_data.concat(new_data)
+                      })
+                  })
+            }
+        })
+        .catch(err=>{//请求失败
+          console.log('请求失败',err)
+          })
+      }else{
+        db.collection('logs').where(
+          _.and([
+            {
+              time:_.eq(time1),
+            },
+            {
+              ifread:false,
+            },
+            {
+              is_delete:false,
+            }
+          ])).count().then(async res =>{
+        let total = res.total;
+        // 计算需分几次取
+        const batchTimes = Math.ceil(total / MAX_LIMIT)
+        // 承载所有读操作的 promise 的数组
+        for (let i = 0; i < batchTimes; i++) {
+          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
+            _.and([
+              {
+                time:_.eq(time1),
+              },
+              {
+                ifread:false,
+              },
+              {
+                is_delete:false,
+              }
+            ])).orderBy('time','desc').get().then(async res => {
+                  let new_data = res.data
+                  let old_data = this.data.shuju
+                  console.log(res.data[0]._openid)
+                  this.setData({
+                      shuju : old_data.concat(new_data)
+                      })
+                  })
+            }
+        })
+        .catch(err=>{//请求失败
+          console.log('请求失败',err)
+          })
+      }}
   },
    //获取哪天的日期
   bindMultiPickerChange: function(e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
+    var that = this
+    this.selectComponent('#item').toggle();
     this.setData({
-      time1:0,
-      time2:0,
       multiIndex: e.detail.value
     })
     const index = this.data.multiIndex;
@@ -145,30 +301,15 @@ Page({
     var time1 = shijian.getTime()-28800000
     this.setData({
       time: year + '-' + month + '-' + day,
-      time1:time1
-    });
-
-  },
-   //获取全部日期
-   quanbu: function(e) {
-    this.setData({
-      time2:1
-    })
-   },
-
-   //确认按钮
-  onConfirm:function(e) {
-    var time1 = e.currentTarget.dataset.time1
-    var time2 = e.currentTarget.dataset.time2
-    var changshi = e.currentTarget.dataset.changshi
-    var openid = wx.getStorageSync('openid');
-    var that = this
-    that.setData({
+      time1:time1,
+      time2:1,
       shuju:[],
     });
-    console.log(time1)
+    var changshi = e.currentTarget.dataset.changshi
+    console.log("changshi")
     console.log(changshi)
-    if(time2==0){
+    var openid = wx.getStorageSync('openid');
+    console.log(time1)
     if(changshi==0){
       db.collection('logs').where(
         _.and([
@@ -237,7 +378,6 @@ Page({
                 let new_data = res.data
                 let old_data = this.data.shuju
                 console.log(res.data[0]._openid)
-                console.log('是这个吗')
                 this.setData({
                     shuju : old_data.concat(new_data)
                     })
@@ -247,38 +387,65 @@ Page({
       .catch(err=>{//请求失败
         console.log('请求失败',err)
         })
-    }}else{
-      if(changshi==0){
-        db.collection('logs').where(
+    }
+
+  },
+   //获取全部日期
+   quanbu: function(e) {
+    this.selectComponent('#item').toggle();
+    var changshi = e.currentTarget.dataset.changshi
+    var openid = wx.getStorageSync('openid');
+    var that = this
+    that.setData({
+      shuju:[],
+      time2:0
+    });
+    console.log(changshi)
+    if(changshi==0){
+      db.collection('logs').where(
+        _.and([
+          {
+            is_delete:false,
+          }
+        ])).count().then(async res =>{
+      let total = res.total;
+      // 计算需分几次取
+      const batchTimes = Math.ceil(total / MAX_LIMIT)
+      // 承载所有读操作的 promise 的数组
+      for (let i = 0; i < batchTimes; i++) {
+        await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
           _.and([
             {
               is_delete:false,
             }
-          ])).count().then(async res =>{
-        let total = res.total;
-        // 计算需分几次取
-        const batchTimes = Math.ceil(total / MAX_LIMIT)
-        // 承载所有读操作的 promise 的数组
-        for (let i = 0; i < batchTimes; i++) {
-          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
-            _.and([
-              {
-                is_delete:false,
-              }
-            ])).orderBy('time','desc').get().then(async res => {
-                  let new_data = res.data
-                  let old_data = this.data.shuju
-                  this.setData({
-                      shuju : old_data.concat(new_data)
-                      })
-                  })
-            }
+          ])).orderBy('time','desc').get().then(async res => {
+                let new_data = res.data
+                let old_data = this.data.shuju
+                this.setData({
+                    shuju : old_data.concat(new_data)
+                    })
+                })
+          }
+      })
+      .catch(err=>{//请求失败
+        console.log('请求失败',err)
         })
-        .catch(err=>{//请求失败
-          console.log('请求失败',err)
-          })
-      }else{
-        db.collection('logs').where(
+    }else{
+      db.collection('logs').where(
+        _.and([
+          {
+            ifread:false,
+          },
+          {
+            is_delete:false,
+          }
+        ])).count().then(async res =>{
+      let total = res.total;
+      // 计算需分几次取
+      const batchTimes = Math.ceil(total / MAX_LIMIT)
+      // 承载所有读操作的 promise 的数组
+      for (let i = 0; i < batchTimes; i++) {
+        await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
           _.and([
             {
               ifread:false,
@@ -286,36 +453,22 @@ Page({
             {
               is_delete:false,
             }
-          ])).count().then(async res =>{
-        let total = res.total;
-        // 计算需分几次取
-        const batchTimes = Math.ceil(total / MAX_LIMIT)
-        // 承载所有读操作的 promise 的数组
-        for (let i = 0; i < batchTimes; i++) {
-          await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
-            _.and([
-              {
-                ifread:false,
-              },
-              {
-                is_delete:false,
-              }
-            ])).orderBy('time','desc').get().then(async res => {
-                  let new_data = res.data
-                  let old_data = this.data.shuju
-                  console.log(res.data[0]._openid)
-                  console.log('是这个吗')
-                  this.setData({
-                      shuju : old_data.concat(new_data)
-                      })
-                  })
-            }
+          ])).orderBy('time','desc').get().then(async res => {
+                let new_data = res.data
+                let old_data = this.data.shuju
+                console.log(res.data[0]._openid)
+                this.setData({
+                    shuju : old_data.concat(new_data)
+                    })
+                })
+          }
+      })
+      .catch(err=>{//请求失败
+        console.log('请求失败',err)
         })
-        .catch(err=>{//请求失败
-          console.log('请求失败',err)
-          })
-      }}
-  },
+    }
+   },
+
   //监听picker的滚动事件
   bindMultiPickerColumnChange: function(e) {
     //获取年份
