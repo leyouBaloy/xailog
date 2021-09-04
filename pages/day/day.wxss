@@ -23,8 +23,8 @@
 } 
 .remove{  
   width: 240rpx;  
-  height: 300rpx;  
-  background-color: rgb(45, 92, 146); 
+  height: 290rpx;  
+  background-color: rgb(206, 45, 58); 
   color: white; 
   position: absolute;  
   top: 0;  
