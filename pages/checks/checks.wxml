@@ -25,9 +25,14 @@
             {{Y}}-{{M}}-{{D}} {{h}}:{{m}}
         </view>
     </view>
-    <view wx:if="{{list.fileIDs !=[]}}" >
-        <image mode='widthFix' class="image"bindtap="imgYu" data-list="{{item}}" data-src="{{list.fileIDs}}"  wx:for="{{list.fileIDs}}" wx:for-item="item" src="{{item}}"></image>
+    <view wx:if="{{imgIDs !=[]}}" >
+        <image mode='widthFix' class="image"bindtap="imgYu" bindlongpress="saveImage" data-list="{{item}}" data-src="{{imgIDs}}" wx:for="{{imgIDs}}" wx:for-item="item" src="{{item}}"></image>
     </view>
+    <view wx:if="{{otherIDs !=[]}}" >
+        <image mode='widthFix' class="image"bindlongpress="saveImage" data-list="{{item}}" data-src="{{otherIDs}}" wx:for="{{otherIDs}}" wx:for-item="item" src="cloud://aigroup-5gsmkvvy34505c6a.6169-aigroup-5gsmkvvy34505c6a-1307246575/excel.png"></image>
+    </view>
+
+    <!-- <loading hidden="{{ loadingHidden }}">加载中...</loading> -->
 </view>
 <!-- 评论区 -->
 <view class="box">

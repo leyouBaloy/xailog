@@ -16,6 +16,9 @@
     "van-uploader": "@vant/weapp/uploader/index",
     "van-tabbar": "@vant/weapp/tabbar/index",
     "van-tabbar-item": "@vant/weapp/tabbar-item/index",
-    "van-toast": "@vant/weapp/toast/index"
+    "van-toast": "@vant/weapp/toast/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-grid-item": "@vant/weapp/grid-item/index"
     }
 }

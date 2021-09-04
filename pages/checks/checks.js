@@ -1,4 +1,5 @@
 import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
+
 const app = getApp()
 
 Page({
@@ -18,7 +19,8 @@ Page({
       value:'',
       name:'',
       t:0,
-      safeArea: (app.globalData.screenHeight-app.globalData.safeBottom+44)
+      safeArea: (app.globalData.screenHeight-app.globalData.safeBottom+44),
+      dialogShow: false
     },
   
   onLoad: function (options) {
@@ -48,6 +50,21 @@ Page({
               isstar:res.data.ifstar,
               openid:res.data._openid
           })
+          let imgIDs = [];
+          let otherIDs = [];
+          for(var i of res.data.fileIDs){
+                let split = i.split(".")
+              if(split[split.length-1]=="jpg" || split[split.length-1]=="png"){
+                  imgIDs.push(i);
+              }
+              else{
+                  otherIDs.push(i);
+              }
+          }
+          this.setData({
+            imgIDs:imgIDs,
+            otherIDs:otherIDs
+        })
           var date_2 = new Date(this.data.list.time);
           var date=new Date(this.data.list.create_time);
           this.setData({
@@ -254,5 +271,30 @@ imgYu:function(event){
   current: imgList, // 当前显示图片的http链接
   urls:src  // 需要预览的图片http链接列表
   })
-  }
+  },
+saveImage(event){
+wx.cloud.downloadFile({
+  fileID:event.currentTarget.dataset.list,
+  success: res => {
+    // 返回临时文件路径
+    let split = res.tempFilePath.split("/")
+    wx.getFileSystemManager().saveFile({
+      tempFilePath: res.tempFilePath, // 传入一个本地临时文件路径, http://tmp/开头的
+      filePath:  wx.env.USER_DATA_PATH +'/'+split[split.length-1], //保存到用户目录/abc文件中，此处文件名自定义，因为tempFilePath对应的是一大长串字符
+      success(res) {
+        console.log('save ->', res) // res.savedFilePath 为一个本地缓存文件路径
+        wx.showToast({
+          title: '文件已保存至：' + res.savedFilePath,
+          icon: 'none',
+          duration: 3000
+        })
+      },
+      fail(res){
+        console.log(res)
+      }
+    })
+  },
+  fail: console.error
+})
+}
 })
