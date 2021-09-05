@@ -5,7 +5,7 @@
         <view class="text">报告数量排名</view>
         <view class="more">更多</view>
     </view>
-    <view class="item2" bindtap="dzcspm">
+    <view class="item2" bindtap="xxxspm">
         <image src="../../images/dzpm.png" mode="widthFix"></image>
         <view class="text">小昕星数排名</view>
         <view class="more">更多</view>

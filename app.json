@@ -13,7 +13,8 @@
   "pages/checks/checks",  
   "pages/day/day",
   "pages/xiangxi/xiangxi",
-  "pages/bgslpm/bgslpm"
+  "pages/bgslpm/bgslpm",
+  "pages/stars/stars"
 ],  
 "window":{  
   "backgroundTextStyle":"light",  

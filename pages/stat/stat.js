@@ -9,9 +9,11 @@ Page({
           url: '../../pages/bgslpm/bgslpm',
         })
     },
-    dzcspm(){
+    xxxspm(){
         console.log("点我干啥(点赞次数排名)");
-        wx.showToast({ title: '正在开发中~', icon: 'none' })
+        wx.navigateTo({
+            url: '../../pages/stars/stars',
+          })
     }
 })
 
