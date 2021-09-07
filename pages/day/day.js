@@ -662,7 +662,8 @@ Page({
           fail: console.log
         })
         this.setData({
-          value1:0
+          value1:0,
+          time2:0
         });
       this.onLoad()
         // on confirm
