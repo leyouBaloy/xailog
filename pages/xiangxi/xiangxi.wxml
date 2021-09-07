@@ -18,7 +18,7 @@
 <!-- 商品卡片 -->
 <block wx:key="item" wx:for="{{shuju}}" wx:for-item="item">
   <scroll-view scroll-y="{{isScroll}}" style='height:300rpx'>
-        <van-card data-id='{{item._id}}' bindtap="detail">
+        <van-card  class='kuandu' data-id='{{item._id}}' bindtap="detail">
           <view slot="title" wx:for="{{nameall}}" wx:for-item="item2">
             <view wx:if="{{item._openid==item2._openid}}" class="setting"> <image class="touxiang" src="{{item2.avatar}}"></image><text style="font-weight:bold">{{item2.name}}</text></view>
           </view>

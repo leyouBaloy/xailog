@@ -123,11 +123,13 @@ Page({
   },
   onPullDownRefresh:function(){
     //显示顶部刷新图标
-        wx.showLoading({
-          title:"刷新中......"
-        });
+    wx.showLoading();
       //要刷新请求服务器的方法
-       this.onLoad();
+       this.onLoad(),
+       this.setData({
+        value1:0,
+        time2:0,
+        })
        console.log("shuxin")
      //隐藏导航栏加载框
        wx.hideLoading();

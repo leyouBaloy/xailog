@@ -6,6 +6,10 @@
 .scroll-view_H{
   white-space: nowrap;
 }
+.kuandu{ 
+  width:100%; 
+} 
+
 
 .td {
     min-width: 675rpx;

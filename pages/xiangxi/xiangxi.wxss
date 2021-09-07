@@ -6,6 +6,9 @@
 .scroll-view_H{
   white-space: nowrap;
 }
+.kuandu{ 
+  width:100%; 
+} 
 
 .wei{
   margin-right: 100rpx;

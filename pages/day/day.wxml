@@ -1,7 +1,7 @@
 <wxs src="/pages/day/filter.wxs" module="filters"/>
 
 <!-- 下拉菜单 -->
-
+<van-dialog id="van-dialog" />
 <van-dropdown-menu>
   <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" data-time1="{{time1}}" data-time2="{{time2}}" block round bind:change="try" />
   <van-dropdown-item id="item" title="{{ itemTitle }}">
@@ -19,7 +19,7 @@
 <block wx:key="item" wx:for="{{shuju}}" wx:for-item="item">
   <scroll-view scroll-y="{{isScroll}}" style='height:300rpx'> 
     <view data-index='{{index}}' class="order-item" bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx">  
-        <van-card data-id='{{item._id}}' bindtap="detail">
+        <van-card class='kuandu' data-id='{{item._id}}' bindtap="detail">
           <view slot="title" wx:for="{{nameall}}" wx:for-item="item2">
             <view wx:if="{{item._openid==item2._openid}}" class="setting"> <image class="touxiang" src="{{item2.avatar}}"></image><text style="font-weight:bold">{{item2.name}}</text></view>
             <!-- <view wx:else></view> -->

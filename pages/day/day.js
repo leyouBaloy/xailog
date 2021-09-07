@@ -10,6 +10,7 @@ const _ = db.command
 import Dialog from '@vant/weapp/dialog/dialog'; 
 
 
+
 //获取年
 for (let i = 2021; i <= date.getFullYear() + 5; i++) {
   years.push("" + i);
@@ -127,14 +128,17 @@ Page({
         })
         
   },
-  //下拉刷新
+
+  //触发下拉刷新
   onPullDownRefresh:function(){
     //显示顶部刷新图标
-        wx.showLoading({
-          title:"刷新中......"
-        });
+    wx.showLoading();
       //要刷新请求服务器的方法
-       this.onLoad();
+       this.onLoad(),
+       this.setData({
+        value1:0,
+        time2:0,
+        })
        console.log("shuxin")
      //隐藏导航栏加载框
        wx.hideLoading();
@@ -640,31 +644,43 @@ Page({
   }, 
 
   delItem: function (e) {
-    console.log('删除')
     var id = e.currentTarget.dataset.id;
     var open= e.currentTarget.dataset.open;
     var openid = wx.getStorageSync('openid');
-    console.log(id)
     if(open==openid){
-      db.collection('logs').doc(id).update({
-      data: {
-          is_delete:true
-      },
-      success: console.log,
-      fail: console.log
+    Dialog.confirm({
+      title: '标题',
+      message: '弹窗内容',
     })
-    this.setData({
-      value1:0
-    });
-  }else{
-    console.log('不能删除别人的')
-    this.setData({
-      value1:0
-    });
-  }
-  this.onLoad()
-  
+      .then(() => {
+        console.log('删除')
+        db.collection('logs').doc(id).update({
+          data: {
+              is_delete:true
+          },
+          success: console.log,
+          fail: console.log
+        })
+        this.setData({
+          value1:0
+        });
+      this.onLoad()
+        // on confirm
+      })
+      .catch(() => {
+        // on cancel
+      });
+    }else{
+      Dialog.alert({
+        title: '失败',
+        message: '不能删除别人的'
+       }).then(() => {
+        // on close
+       });
+    }
+   
 },
+
 
     onReady: function () {},
     onShow: function () {},
