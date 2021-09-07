@@ -35,11 +35,11 @@ Page({
             .where({_openid: wx.getStorageSync('openid')})
             .get()
             .then(resss=>{
-              wx.setStorageSync('user', resss)
+              wx.setStorageSync('user', resss.data[0])
             })
           }
           else{
-            wx.setStorageSync('user', ress)
+            wx.setStorageSync('user', ress.data[0])
           }
         })
         wx.switchTab({

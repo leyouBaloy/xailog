@@ -26,9 +26,13 @@ Page({
   onLoad: function (options) {
       // var user_id=options.id
       this.setData({
-        targets:options.kind,
         userid: wx.getStorageSync('openid')
     })
+    if (!this.data.targets){
+      this.setData({
+        targets:options.kind
+    })
+    }
     wx.cloud.database().collection('mine').where({
       _openid:this.data.userid
     })
@@ -121,6 +125,20 @@ Page({
       })
       
   },
+  //下拉刷新
+  onPullDownRefresh:function(){
+    //显示顶部刷新图标
+        wx.showLoading({
+          title:"刷新中......"
+        });
+      //要刷新请求服务器的方法
+       this.onLoad()
+       console.log("shuxin")
+     //隐藏导航栏加载框
+       wx.hideLoading();
+      //停止下拉事件
+       wx.stopPullDownRefresh();
+},
   find:function (I) { 
     for (var i=0;i<I.data.length;i++ ){
       if ( I.data[i].target==""){
@@ -222,10 +240,7 @@ wx.cloud.database().collection('comment').add({
   })
   .get()
   .then(res =>{
-    this.find(res)
-    this.setData({
-      release:this.data.release
-    })
+    this.onLoad()
     })
 
 },
