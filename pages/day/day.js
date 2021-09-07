@@ -649,8 +649,8 @@ Page({
     var openid = wx.getStorageSync('openid');
     if(open==openid){
     Dialog.confirm({
-      title: '标题',
-      message: '弹窗内容',
+      title: '删除',
+      message: '确定要删除吗',
     })
       .then(() => {
         console.log('删除')
