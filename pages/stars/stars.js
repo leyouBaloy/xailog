@@ -47,20 +47,20 @@ Page({
         const dbc = wx.cloud.database().command;
 
         wx.cloud.database().collection("logs")
-            .where(dbc.or({is_delete:false},{ifstar:true}))
+            .where(dbc.and({is_delete:false},{ifstar:true}))
             .get().then(res=>{
+              for(var i of ress.data){
+                  i.allStars = 0;
+                  i.monthStars = 0;
+              }
               // that.setData({star_logs:res.data});
               console.log("查询到的logs",res.data);
               console.log("查询到的mine",ress.data);
               for(var log of res.data){
                 for(var mine of ress.data){
-                  if(!mine.allStars){
-                    mine.allStars = 0;
-                    mine.monthStars = 0;
-                  };
                   if(log._openid==mine._openid){
                     let _date = new Date(log.time)
-                  let _month = _date.getMonth();
+                    let _month = _date.getMonth();
                   
                   mine.allStars += 1;
                   if(_month == currentMonth){
