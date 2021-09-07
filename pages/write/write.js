@@ -10,7 +10,7 @@ Page({
     //日志内容
     content: "",
     //附件
-    accept:'all',//上传内容格式，video
+    accept:'image',//上传内容格式，video
     fileList: [], //上传文件临时存储
     fileIDs: [],//文件上传后获取云数据中的位置
     reject: [],//用于uploadfilepromise的promise判断是否上传图片成功
@@ -52,7 +52,7 @@ afterRead(event) {
   // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
   //更新 fileList
   for(let val of file){
-    val.name = val.url.replace("http://tmp/","")
+    val.name = val.url.replace(/\//g,"").replace(":","")
   };
   this.setData({fileList: file});
   console.log("fileList的值",this.data.fileList)
@@ -126,8 +126,9 @@ submit() {
 
 },
 uploadFilePromise(fileName, url) {
+  console.log("filename是"+fileName)
   return wx.cloud.uploadFile({
-    cloudPath: fileName,
+    cloudPath: 'appendix/'+fileName,
     filePath: url
   })},
 
