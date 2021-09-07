@@ -11,10 +11,10 @@
             <td style="font-weight: bold;" class="td_center">总小昕星</td>
             <td style="font-weight: bold;" class="td_center"></td>
         </tr>
-        <tr wx:for="{{cnt_table}}" wx:for-item="i">
-            <td>{{i[0]}}</td>
-            <td class="td_center">{{i[1]}}</td>
-            <td class="td_center">{{i[2]}}</td>
+        <tr wx:for="{{mineWithStar}}" wx:for-item="i">
+            <td>{{i.name}}</td>
+            <td class="td_center">{{i.monthStars}}</td>
+            <td class="td_center">{{i.allStars}}</td>
             <td class="td_center">更多</td>
         </tr>
     </table>
