@@ -6,7 +6,7 @@ Page({
     show: false,
     date: "",
     datestamp:1,
-    mindate: new Date(newDate.setDate(newDate.getDate()-1)).getTime(),
+    mindate: new Date(newDate.setDate(newDate.getDate()-2)).getTime(),
     maxdate: new Date().getTime(),
     //日志内容
     content: "",
