@@ -22,9 +22,9 @@
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
     "lazyloadPlaceholderEnable": false,
-    "useMultiFrameRuntime": false,
-    "useApiHook": false,
-    "useApiHostProcess": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -45,7 +45,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.19.2",
-  "appid": "wxa13ae6cb26f1dc5d",
+  "appid": "wx5ec78f767e73f7f5",
   "projectname": "xailog",
   "debugOptions": {
     "hidedInDevtools": []

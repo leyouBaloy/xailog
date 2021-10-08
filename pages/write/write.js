@@ -1,11 +1,12 @@
 
+var newDate = new Date();
 Page({
   data: {
     //日历
     show: false,
     date: "",
     datestamp:1,
-    mindate: new Date(2021,6,1).getTime(),
+    mindate: new Date(newDate.setDate(newDate.getDate()-1)).getTime(),
     maxdate: new Date().getTime(),
     //日志内容
     content: "",

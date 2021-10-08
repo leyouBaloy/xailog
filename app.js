@@ -3,7 +3,7 @@ App({
   onLaunch() {
     // 初始化云开发环境
     wx.cloud.init({
-        env: 'aigroup-5gsmkvvy34505c6a' //云开发环境id
+        env: 'env-8gi24uylfeb71c40' //云开发环境id
     })
 
     // 获取openid写入缓存
