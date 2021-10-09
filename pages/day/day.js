@@ -663,7 +663,7 @@ Page({
           fail: console.log
         })
         this.setData({
-          value1:0,
+          value1:1,
           time2:0
         });
       this.onLoad()
