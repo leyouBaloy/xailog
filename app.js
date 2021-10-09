@@ -11,7 +11,7 @@ App({
       wx.cloud.callFunction({
         name: "login",
         success(res) {
-          wx.setStorageSync('openid', res.result.userInfo.openId)
+          wx.setStorageSync('openid', res.result.openid)
         }
       })
     }
