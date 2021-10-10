@@ -11,8 +11,16 @@ App({
       wx.cloud.callFunction({
         name: "login",
         success(res) {
-          wx.setStorageSync('openid', res.result.userInfo.openId)
+          wx.setStorageSync('openid', res.result.openid)
         }
+      }).then(res => {
+        wx.cloud.database().collection('mine').where({
+          _openid: res.result.openid
+        })
+        .get()
+        .then(res=>{
+          wx.setStorageSync('user', res.data[0])
+        })
       })
     }
 

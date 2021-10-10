@@ -37,7 +37,7 @@ Page({
       { text: '我的日志', value: 0 },
       { text: '全部日志', value: 1 },
     ],
-    value1: 0,
+    value1: 1,
     // 缓存信息
     openid:null,
     userInfo:null,
@@ -80,6 +80,7 @@ Page({
       })
     var that = this
     var openid = wx.getStorageSync('openid');
+    
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -94,7 +95,7 @@ Page({
       db.collection('logs').where(
             _.and([
               {
-                _openid:openid,
+                is_public:true,
               },
               {
                 is_delete:false,
@@ -108,7 +109,7 @@ Page({
           await db.collection('logs').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where(
             _.and([
               {
-                _openid:openid,
+                is_public:true,
               },
               {
                 is_delete:false,
@@ -136,7 +137,7 @@ Page({
       //要刷新请求服务器的方法
        this.onLoad(),
        this.setData({
-        value1:0,
+        value1:1,
         time2:0,
         })
        console.log("shuxin")
@@ -159,6 +160,8 @@ Page({
     var time1 = e.currentTarget.dataset.time1
     var time2 = e.currentTarget.dataset.time2
     var openid = wx.getStorageSync('openid');
+    console.log(openid)
+    console.log('openid*********')
     if(time2==0){
     if(value==0){
       db.collection('logs').where(
@@ -221,7 +224,6 @@ Page({
           ])).orderBy('time','desc').get().then(async res => {
                 let new_data = res.data
                 let old_data = this.data.shuju
-                console.log(res.data[0]._openid)
                 this.setData({
                     shuju : old_data.concat(new_data)
                     })
@@ -439,7 +441,6 @@ Page({
       shuju:[],
       time2:0
     });
-    console.log(changshi)
     if(changshi==0){
       db.collection('logs').where(
         _.and([
@@ -501,7 +502,7 @@ Page({
           ])).orderBy('time','desc').get().then(async res => {
                 let new_data = res.data
                 let old_data = this.data.shuju
-                console.log(res.data[0]._openid)
+                console.log(new_data)
                 this.setData({
                     shuju : old_data.concat(new_data)
                     })
@@ -649,7 +650,7 @@ Page({
     var openid = wx.getStorageSync('openid');
     if(open==openid){
     Dialog.confirm({
-      title: '删除',
+      title: '删除', 
       message: '确定要删除吗',
     })
       .then(() => {
@@ -662,7 +663,7 @@ Page({
           fail: console.log
         })
         this.setData({
-          value1:0,
+          value1:1,
           time2:0
         });
       this.onLoad()
