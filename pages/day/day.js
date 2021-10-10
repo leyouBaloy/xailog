@@ -114,7 +114,7 @@ Page({
               {
                 is_delete:false,
               }
-            ])).orderBy('time','desc').get().then(async res => {
+            ])).orderBy('time','desc').orderBy('create_time','desc').get().then(async res => {
             let new_data = res.data
             let old_data = that.data.shuju
             that.setData({
@@ -161,7 +161,6 @@ Page({
     var time2 = e.currentTarget.dataset.time2
     var openid = wx.getStorageSync('openid');
     console.log(openid)
-    console.log('openid*********')
     if(time2==0){
     if(value==0){
       db.collection('logs').where(
@@ -186,7 +185,7 @@ Page({
             {
               is_delete:false,
             }
-          ])).orderBy('time','desc').get().then(async res => {
+          ])).orderBy('time','desc').orderBy('create_time','desc').get().then(async res => {
                 let new_data = res.data
                 let old_data = this.data.shuju
                 this.setData({
@@ -221,7 +220,7 @@ Page({
             {
               is_delete:false,
             }
-          ])).orderBy('time','desc').get().then(async res => {
+          ])).orderBy('time','desc').orderBy('create_time','desc').get().then(async res => {
                 let new_data = res.data
                 let old_data = this.data.shuju
                 this.setData({
@@ -263,7 +262,7 @@ Page({
               {
                 is_delete:false,
               }
-            ])).orderBy('time','desc').get().then(async res => {
+            ])).orderBy('time','desc').orderBy('create_time','desc').get().then(async res => {
                   let new_data = res.data
                   let old_data = this.data.shuju
                   this.setData({
@@ -304,7 +303,7 @@ Page({
               {
                 is_delete:false,
               }
-            ])).orderBy('time','desc').get().then(async res => {
+            ])).orderBy('time','desc').orderBy('create_time','desc').get().then(async res => {
                   let new_data = res.data
                   let old_data = this.data.shuju
                   console.log(res.data[0]._openid)
@@ -374,7 +373,7 @@ Page({
             {
               is_delete:false,
             }
-          ])).orderBy('time','desc').get().then(async res => {
+          ])).orderBy('time','desc').orderBy('create_time','desc').get().then(async res => {
                 let new_data = res.data
                 let old_data = this.data.shuju
                 this.setData({
@@ -415,7 +414,7 @@ Page({
             {
               is_delete:false,
             }
-          ])).orderBy('time','desc').get().then(async res => {
+          ])).orderBy('time','desc').orderBy('create_time','desc').get().then(async res => {
                 let new_data = res.data
                 let old_data = this.data.shuju
                 console.log(res.data[0]._openid)
@@ -464,7 +463,7 @@ Page({
             {
               is_delete:false,
             }
-          ])).orderBy('time','desc').get().then(async res => {
+          ])).orderBy('time','desc').orderBy('create_time','desc').get().then(async res => {
                 let new_data = res.data
                 let old_data = this.data.shuju
                 this.setData({
@@ -499,7 +498,7 @@ Page({
             {
               is_delete:false,
             }
-          ])).orderBy('time','desc').get().then(async res => {
+          ])).orderBy('time','desc').orderBy('create_time','desc').get().then(async res => {
                 let new_data = res.data
                 let old_data = this.data.shuju
                 console.log(new_data)
