@@ -4,8 +4,8 @@ Page({
   data: {
     //日历
     show: false,
-    date: "",
-    datestamp:1,
+    date: `${newDate.getMonth() + 1}月${newDate.getDate()}日`,
+    datestamp:Date.parse(newDate),
     mindate: new Date(newDate.setDate(newDate.getDate()-2)).getTime(),
     maxdate: new Date().getTime(),
     //日志内容
