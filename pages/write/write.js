@@ -5,7 +5,7 @@ Page({
     //日历
     show: false,
     date: `${newDate.getMonth() + 1}月${newDate.getDate()}日`,
-    datestamp:Date.parse(newDate),
+    datestamp: Date.parse(String(newDate.getFullYear())+"-"+String(newDate.getMonth())+"-"+String(newDate.getDate())),
     mindate: new Date(newDate.setDate(newDate.getDate()-2)).getTime(),
     maxdate: new Date().getTime(),
     //日志内容
@@ -18,7 +18,6 @@ Page({
     // 公开
     checked: true,
   },
-
   // 日历
   onDisplay() {
     this.setData({ show: true });
