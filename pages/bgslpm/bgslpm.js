@@ -58,12 +58,13 @@ Page({
         let tmp_cnt_by_month = 0;
         let tmp_cnt_by_day = 0;
         let _names = [];
-        wx.cloud.database().collection("logs")
-        .where({is_delete:false})
-        .get()
+        // wx.cloud.database().collection("logs")
+        // .where({is_delete:false})
+        // .get()
+        wx.cloud.callFunction({name: "query"})
         .then(res => {
-          console.log("查询logs成功", res)
-          for (var val of res.data){
+          console.log("查询logs成功", res.result)
+          for (var val of res.result){
             openids.add(val._openid);
           };
           openids = [...openids]; //转成数组
@@ -73,7 +74,7 @@ Page({
           // 一个巨大的循环openid
           for (var openid of openids){
             // 再统计cnt_by_month和cnt_by_day
-            for (var data of res.data){
+            for (var data of res.result){
               if(openid==data._openid){
                 let _date = new Date(data.time);
                 let _year = _date.getFullYear();
