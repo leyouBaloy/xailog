@@ -8,8 +8,7 @@ const book = db.collection('logs');
 const MAX_LIMIT = 20;
 const _ = db.command
 import Dialog from '@vant/weapp/dialog/dialog'; 
-
-
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 
 //获取年
 for (let i = 2021; i <= date.getFullYear() + 5; i++) {
@@ -682,6 +681,72 @@ Page({
    
 },
 
+//点赞小昕星
+good:function(e){
+  this.setData({
+    userid: wx.getStorageSync('openid')
+})
+  var id = e.currentTarget.dataset.id;
+  var star = e.currentTarget.dataset.star;
+  var openid = wx.getStorageSync('openid');
+
+  if(this.data.userInfo.is_admin==true){
+    if(star==false){
+      console.log('good!!!')
+      db.collection('logs').doc(id).update({
+        data: {
+            ifstar:true
+        },
+        success: console.log,
+        fail: console.log
+      })
+    }else{
+      console.log('sad!!!')
+      db.collection('logs').doc(id).update({
+        data: {
+            ifstar:false
+        },
+        success: console.log,
+        fail: console.log
+      })
+    }
+  }else{
+    console.log('no_admin')
+    Toast.fail('只有管理员才能点击');
+  }
+},
+
+//已读未读
+read:function(e){
+  this.setData({
+    userid: wx.getStorageSync('openid')
+})
+  var id = e.currentTarget.dataset.id;
+  var read = e.currentTarget.dataset.read;
+  var openid = wx.getStorageSync('openid');
+
+  if(this.data.userInfo.is_admin==true){
+    if(read==false){
+      db.collection('logs').doc(id).update({
+        data: {
+            ifread:true
+        },
+        success: console.log,
+        fail: console.log
+      })
+    }else{
+      db.collection('logs').doc(id).update({
+        data: {
+            ifread:false
+        },
+        success: console.log,
+        fail: console.log
+      })
+    }
+  }else{
+    Toast.fail('只有管理员才能点击');
+  }
+},
 
     onReady: function () {},
     onShow: function () {},

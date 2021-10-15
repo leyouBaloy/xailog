@@ -33,9 +33,23 @@
             <van-tag plain type="danger" wx:else="{{item.ifread}}">未读</van-tag>
             <van-tag plain type="danger" wx:if="{{item.ifstar}}">小昕星</van-tag>
           </view> 
-      </van-card>
+      </van-card>  
       <view class="remove" bindtap="delItem" data-id="{{item._id}}" data-open="{{item._openid}}">删除</view>
     </view>
 </scroll-view> 
+
+<!-- 已读未读 -->
+<van-toast id="van-toast" />
+<view  wx:if="{{item.ifread == true}}">
+<image  bindtap="read" data-id="{{item._id}}" data-read="{{item.ifread}}" src="../../images/agree-a.png"></image></view>
+<view wx:elif="{{item.ifread == false}}">
+<image bindtap="read"  data-id="{{item._id}}"  data-read="{{item.ifread}}" src="../../images/agree.png" ></image></view>
+
+<!-- 小昕星 -->
+<van-toast id="van-toast" />
+<view  wx:if="{{item.ifstar == true}}">
+<image  bindtap="good" data-id="{{item._id}}" data-star="{{item.ifstar}}" src="../../images/dz_2.png"></image></view>
+<view wx:elif="{{item.ifstar == false}}">
+<image bindtap="good"  data-id="{{item._id}}"  data-star="{{item.ifstar}}" src="../../images/good.png" ></image></view>
 </block> 
 
