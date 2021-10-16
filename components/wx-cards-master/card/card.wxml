@@ -15,7 +15,7 @@
   <view wx:if="{{isImg}}" class='img'>
     <image mode='widthFix' src='{{img}}'></image>
   </view>
-  <view class='text'>
+  <view class='text' bindtap='handledetail'>
     {{context}}
   </view>
   <view class='buttons'>

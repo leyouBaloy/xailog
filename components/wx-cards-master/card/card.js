@@ -65,7 +65,11 @@ Component({
 
     handleDelete() {
       this.triggerEvent('delete');
-    }
+    },
+
+    handledetail() {
+      this.triggerEvent('detail');
+    },
 
     // ignore the function since the share button be hidden
     // handleShare() {

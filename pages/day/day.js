@@ -58,15 +58,22 @@ Page({
   },
 
   onLoad: function() {
-    wx.cloud.callFunction({name: "listLogs"})
-    .then(res => {
-      console.log("调用云函数的结果",res.result.list)
-      that.setData({listLogs: res.result.list})
-    })
     this.setData({
       openid: wx.getStorageSync('openid'),
       userInfo: wx.getStorageSync('user')
     });
+
+    wx.cloud.callFunction({
+      name: "listLogs",
+      data:{
+        userInfo:this.data.userInfo
+      }
+    })
+    .then(res => {
+      console.log("调用云函数的结果",res.result.list)
+      that.setData({listLogs: res.result.list})
+    })
+   
     db.collection('mine').count().then(async res =>{
       let total = res.total;
       // 计算需分几次取
@@ -593,59 +600,6 @@ Page({
     wx.navigateTo({url: '/pages/checks/checks?kind='+kind})
   },
 
-  //左滑删除的代码
-  drawStart: function (e) { 
-    // console.log("drawStart");   
-    var touch = e.touches[0] 
- 
-    for(var index in this.data.shuju) { 
-      var item = this.data.shuju[index] 
-      item.right = 0 
-    } 
-    this.setData({ 
-      shuju: this.data.shuju, 
-      startX: touch.clientX, 
-    }) 
- 
-  }, 
-  drawMove: function (e) { 
-    var touch = e.touches[0] 
-    var item = this.data.shuju[e.currentTarget.dataset.index] 
-    var disX = this.data.startX - touch.clientX 
-     
-    if (disX >= 20) { 
-      if (disX > this.data.delBtnWidth) { 
-        disX = this.data.delBtnWidth 
-      } 
-      item.right = disX 
-      this.setData({ 
-        isScroll: false, 
-        shuju: this.data.shuju 
-      }) 
-    } else { 
-      item.right = 0 
-      this.setData({ 
-        isScroll: true, 
-        shuju: this.data.shuju 
-      }) 
-    } 
-  },   
-  drawEnd: function (e) { 
-    var item = this.data.shuju[e.currentTarget.dataset.index] 
-    if (item.right >= this.data.delBtnWidth/2) { 
-      item.right = this.data.delBtnWidth 
-      this.setData({ 
-        isScroll: true, 
-        shuju: this.data.shuju, 
-      }) 
-    } else { 
-      item.right = 0 
-      this.setData({ 
-        isScroll: true, 
-        shuju: this.data.shuju, 
-      }) 
-    } 
-  }, 
 
   delItem: function (e) {
     var id = e.currentTarget.dataset.id;
@@ -692,6 +646,9 @@ good:function(e){
     userid: wx.getStorageSync('openid')
 })
   var id = e.currentTarget.dataset.id;
+  console.log('id00')
+  console.log(id)
+
   var star = e.currentTarget.dataset.star;
   var openid = wx.getStorageSync('openid');
 
@@ -701,17 +658,19 @@ good:function(e){
       db.collection('logs').doc(id).update({
         data: {
             ifstar:true
-        },
-        success: console.log,
-        fail: console.log
-      })
-    }else{
+        }}).then(res=>{
+          Toast.success('点赞成功') 
+        }).catch(res=>{
+          Toast.fail('点赞失败') 
+        })
+      }
+    else{
       console.log('sad!!!')
       db.collection('logs').doc(id).update({
         data: {
             ifstar:false
         },
-        success: console.log,
+        success: Toast.fail('点赞成功') ,
         fail: console.log
       })
     }
@@ -732,6 +691,7 @@ read:function(e){
 
   if(this.data.userInfo.is_admin==true){
     if(read==false){
+      console.log('已读')
       db.collection('logs').doc(id).update({
         data: {
             ifread:true
@@ -740,6 +700,7 @@ read:function(e){
         fail: console.log
       })
     }else{
+      console.log('未读')
       db.collection('logs').doc(id).update({
         data: {
             ifread:false

@@ -1,8 +1,16 @@
 <!-- 转换时间戳为日期 -->
 <wxs src="/pages/day/filter.wxs" module="filters"/>
 
+<!-- 只看我的，开关形式 
+<van-cell-group inset>
+<van-cell title="只看我的">
+  <van-switch  size="20px" checked="{{switch_checked}}" bind:change="change_switch"></van-switch>
+</van-cell>
+</van-cell-group>-->
 <!-- 日志卡片 -->
 <block wx:key="item" wx:for="{{listLogs}}" wx:for-item="item">
+  <van-dialog id="van-dialog" />
+  <van-toast id="van-toast" />
   <card
     isImg="{{false}}"
     headerImg="{{item.mine_info[0].avatar}}"
@@ -10,16 +18,20 @@
     time="{{filters.formatDate(item.time)}}"
     context="{{item.content}}"
     moreText=""
-   
 
+    bind:detail="detail"
     isShowLike="{{true}}"
-    isLiked="{{false}}"
+    isLiked='{{item.ifstar}}'
     isShowUnlike="{{true}}"
-    isUnLiked="{{false}}"
+    isUnLiked="{{item.ifread}}"
     isShowDelete='{{true}}'
-    bind:like='handleLike'
-    bind:unlike='handleUnlike'
-    bind:delete='handleDelete'></card>
+    data-id='{{item._id}}'
+    data-star='{{item.ifstar}}'
+    data-read='{{item.ifread}}'
+    data-open='{{item._openid}}'
+    bind:like='good'
+    bind:unlike='read'
+    bind:delete='delItem'></card>
 </block>
 
 
