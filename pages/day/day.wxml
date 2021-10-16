@@ -1,55 +1,24 @@
 <wxs src="/pages/day/filter.wxs" module="filters"/>
+<van>{{listLog[0]}}</van>
+<block wx:key="item" wx:for="{{listLogs}}" wx:for-item="item">
+  <card
+    headerImg=""
+    title='Mastering Pizza'
+    time='September 25, 2019'
+    context='{{item.content}}'
+    moreText="Pizza remains America's favorite food, but one that many people hesitate to make at home. In Mastering Pizza, award-winning chef Marc Vetri tackles the topic with his trademark precision, making perfect pizza available to anyone. \n\nThe recipes—gleaned from years spent researching recipes in Italy and perfecting them in America—have a variety of base doughs of different hydration levels, which allow home cooks to achieve the same results with a regular kitchen oven as they would with a professional pizza oven. \n\nThe book covers popular standards like Margherita and Carbonara while also featuring unexpected toppings such as mussels and truffles—and even a dessert pizza made with Nutella. \n\nWith transporting imagery from Italy and hardworking step-by-step photos to demystify the process, Mastering Pizza will help you make pizza as delicious as you find in Italy."
+    tag='标签一'
+    tagColor='blue'
+    isShowLike="{{true}}"
+    isLiked="{{false}}"
+    likeNumber='{{10}}'
+    isShowUnlike="{{true}}"
+    isUnLiked="{{false}}"
+    unlikeNumber='{{2}}'
+    isShowDelete='{{true}}'
+    bind:like='handleLike'
+    bind:unlike='handleUnlike'
+    bind:delete='handleDelete'></card>
+</block>
 
-<!-- 下拉菜单 -->
-<van-dialog id="van-dialog" />
-<van-dropdown-menu>
-  <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" data-time1="{{time1}}" data-time2="{{time2}}" block round bind:change="try" />
-  <van-dropdown-item id="item" title="{{ itemTitle }}">
-    <van-cell title="选择时间" is-link > 
-    <picker mode="multiSelector" data-changshi="{{changshi}}" block round bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">  
-          <input value='{{time}}' placeholder='' disabled/>  
-        </picker>  
-      </van-cell> 
-      <van-cell title="全部日期"  data-changshi="{{changshi}}" block round  bind:click="quanbu" is-link> 
-      </van-cell> 
-</van-dropdown-item>
-</van-dropdown-menu>
-
-<!-- 商品卡片 -->
-<block wx:key="item" wx:for="{{shuju}}" wx:for-item="item">
-  <scroll-view scroll-y="{{isScroll}}" style='height:300rpx'> 
-    <view data-index='{{index}}' class="order-item" bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx">  
-        <van-card class='kuandu' data-id='{{item._id}}' bindtap="detail">
-          <view slot="title" wx:for="{{nameall}}" wx:for-item="item2">
-            <view wx:if="{{item._openid==item2._openid}}" class="setting"> <image class="touxiang" src="{{item2.avatar}}"></image><text style="font-weight:bold">{{item2.name}}</text></view>
-            <!-- <view wx:else></view> -->
-          </view>
-          <view slot="desc" class='td' >    
-            {{item.content}}
-          </view>
-          <view slot="footer">
-            <text>{{filters.formatDate(item.time)}}</text>
-            <van-tag plain type="danger" wx:if="{{item.ifread}}">已读</van-tag>
-            <van-tag plain type="danger" wx:else="{{item.ifread}}">未读</van-tag>
-            <van-tag plain type="danger" wx:if="{{item.ifstar}}">小昕星</van-tag>
-          </view> 
-      </van-card>  
-      <view class="remove" bindtap="delItem" data-id="{{item._id}}" data-open="{{item._openid}}">删除</view>
-    </view>
-</scroll-view> 
-
-<!-- 已读未读 -->
-<van-toast id="van-toast" />
-<view  wx:if="{{item.ifread == true}}">
-<image  bindtap="read" data-id="{{item._id}}" data-read="{{item.ifread}}" src="../../images/agree-a.png"></image></view>
-<view wx:elif="{{item.ifread == false}}">
-<image bindtap="read"  data-id="{{item._id}}"  data-read="{{item.ifread}}" src="../../images/agree.png" ></image></view>
-
-<!-- 小昕星 -->
-<van-toast id="van-toast" />
-<view  wx:if="{{item.ifstar == true}}">
-<image  bindtap="good" data-id="{{item._id}}" data-star="{{item.ifstar}}" src="../../images/dz_2.png"></image></view>
-<view wx:elif="{{item.ifstar == false}}">
-<image bindtap="good"  data-id="{{item._id}}"  data-star="{{item.ifstar}}" src="../../images/good.png" ></image></view>
-</block> 
 

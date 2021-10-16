@@ -58,6 +58,11 @@ Page({
   },
 
   onLoad: function() {
+    wx.cloud.callFunction({name: "listLogs"})
+    .then(res => {
+      console.log("调用云函数的结果",res.result.list)
+      that.setData({listLogs: res.result.list})
+    })
     this.setData({
       openid: wx.getStorageSync('openid'),
       userInfo: wx.getStorageSync('user')
