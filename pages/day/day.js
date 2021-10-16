@@ -54,26 +54,44 @@ Page({
     delBtnWidth:160,
     isScroll:true,
     windowHeight:0,
-    nameall:[]
+    nameall:[],
+    // 最重要的数据listLogs，日志数组
+    listLogs:[]
   },
-
-  onLoad: function() {
-    this.setData({
-      openid: wx.getStorageSync('openid'),
-      userInfo: wx.getStorageSync('user')
-    });
-
+  // 封装好的加载数据函数
+  get_listLogs(){
+    wx.showLoading({title:"加载中"})
     wx.cloud.callFunction({
-      name: "listLogs",
+      name: "testListLogs",
       data:{
-        userInfo:this.data.userInfo
+        userInfo:this.data.userInfo,
+        skip_num:this.data.listLogs.length
       }
     })
     .then(res => {
       console.log("调用云函数的结果",res.result.list)
-      that.setData({listLogs: res.result.list})
+      this.setData({listLogs: this.data.listLogs.concat(res.result.list)})
+      wx.hideLoading()
+      wx.showToast({title: '加载成功',})
     })
+    .catch(res=>{
+      console.log("加载失败",res)
+      wx.hideLoading()
+      wx.showToast({title: '加载失败',})
+    })
+  },
+
+  // onload函数
+  onLoad: function() {
+    // 用户数据写入this.data
+    this.setData({
+      openid: wx.getStorageSync('openid'),
+      userInfo: wx.getStorageSync('user'),
+    });
+    // 加载第一次数据
+    this.get_listLogs()
    
+
     db.collection('mine').count().then(async res =>{
       let total = res.total;
       // 计算需分几次取
@@ -156,6 +174,11 @@ Page({
        wx.hideLoading();
       //停止下拉事件
        wx.stopPullDownRefresh();
+   
+},
+// 触底刷新
+onReachBottom: function () {
+  this.get_listLogs()
 },
 
   //获取未读还是全部
