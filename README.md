@@ -51,12 +51,13 @@
 ```javascript
 safeArea: (app.globalData.screenHeight-app.globalData.safeBottom+44)
 ```
-
-效果：
-
-![./readmeimgs/1.png](C:\Users\华为\Desktop\XAIlog\1.png)
-
-### 获取openid
-
+# 从缓存中获取用户的openid
 `wx.getStorageSync('openid')`
 
+# 卡片组件
+
+github地址：https://github.com/katherine0325/wx-cards
+
+使用方法详情请见/components/wx-cards-master/README.md
+
+另外，leyoubaloy修改源码文件，在card中增加了`isImg`属性，表示是否显示图片

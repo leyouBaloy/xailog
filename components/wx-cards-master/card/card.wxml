@@ -12,7 +12,7 @@
       <icon-button type='more' style='display: none;'></icon-button>
     </view>
   </view>
-  <view class='img'>
+  <view wx:if="{{isImg}}" class='img'>
     <image mode='widthFix' src='{{img}}'></image>
   </view>
   <view class='text'>

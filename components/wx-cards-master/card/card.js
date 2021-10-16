@@ -7,6 +7,10 @@ Component({
     headerImg: String,
     title: String,
     time: String,
+    isImg: {
+      type: Boolean,
+      observer: function () { this.setData({ isImg: this.properties.isImg }); }
+    },
     img: String,
     context: String,
     moreText: String,
