@@ -87,6 +87,7 @@ Page({
     this.setData({
       openid: wx.getStorageSync('openid'),
       userInfo: wx.getStorageSync('user'),
+      listLogs:[]
     });
     // 加载第一次数据
     this.get_listLogs()
@@ -665,36 +666,36 @@ onReachBottom: function () {
 
 //点赞小昕星
 good:function(e){
+  console.log("现在的点赞情况",e.detail.isLiked)
   this.setData({
     userid: wx.getStorageSync('openid')
 })
   var id = e.currentTarget.dataset.id;
-  console.log('id00')
-  console.log(id)
-
-  var star = e.currentTarget.dataset.star;
   var openid = wx.getStorageSync('openid');
 
   if(this.data.userInfo.is_admin==true){
-    if(star==false){
-      console.log('good!!!')
+    if(e.detail.isLiked){
       db.collection('logs').doc(id).update({
         data: {
             ifstar:true
         }}).then(res=>{
-          Toast.success('点赞成功') 
+          Toast.success('点赞成功')
+          console.log('修改为点赞')
         }).catch(res=>{
-          Toast.fail('点赞失败') 
+          Toast.fail('点赞失败')
+          console.log('修改点赞失败')
         })
       }
     else{
-      console.log('sad!!!')
       db.collection('logs').doc(id).update({
         data: {
             ifstar:false
         },
-        success: Toast.fail('点赞成功') ,
-        fail: console.log
+        success: function(){
+          Toast.fail('取消点赞')
+          console.log("取消点赞成功")
+        } ,
+        fail: function(){console.log("取消点赞失败！")}
       })
     }
   }else{
@@ -713,23 +714,21 @@ read:function(e){
   var openid = wx.getStorageSync('openid');
 
   if(this.data.userInfo.is_admin==true){
-    if(read==false){
-      console.log('已读')
+    if(e.detail.isReaded){
       db.collection('logs').doc(id).update({
         data: {
             ifread:true
         },
-        success: console.log,
-        fail: console.log
+        success: function(){console.log('修改为已读')},
+        fail: function(){console.log('修改已读失败！')}
       })
     }else{
-      console.log('未读')
       db.collection('logs').doc(id).update({
         data: {
             ifread:false
         },
-        success: console.log,
-        fail: console.log
+        success: function(){console.log('修改为未读')},
+        fail: function(){console.log('修改未读失败！')}
       })
     }
   }else{

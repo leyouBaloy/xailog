@@ -22,15 +22,15 @@
     bind:detail="detail"
     isShowLike="{{true}}"
     isLiked='{{item.ifstar}}'
-    isShowUnlike="{{true}}"
-    isUnLiked="{{item.ifread}}"
+    isShowRead="{{true}}"
+    isReaded="{{item.ifread}}"
     isShowDelete='{{true}}'
     data-id='{{item._id}}'
     data-star='{{item.ifstar}}'
     data-read='{{item.ifread}}'
     data-open='{{item._openid}}'
     bind:like='good'
-    bind:unlike='read'
+    bind:read='read'
     bind:delete='delItem'></card>
 </block>
 

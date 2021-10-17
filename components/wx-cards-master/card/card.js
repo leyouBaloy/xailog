@@ -19,13 +19,14 @@ Component({
       type: Boolean,
       observer: function () { this.setData({ isLiked: this.properties.isLiked }); }
     },
+    isShowRead: Boolean,
+    isReaded: {
+      type: Boolean,
+      observer: function () { this.setData({ isReaded: this.properties.isReaded }); }
+    },
     likeNumber: Number,
     isShowUnlike: Boolean,
     unlikeNumber: Number,
-    isUnliked: {
-      type: Boolean,
-      observer: function () { this.setData({ isUnliked: this.properties.isUnliked }); }
-    },
     isShowDelete: Boolean,
     tag: String,
     tagColor: String,
@@ -42,7 +43,7 @@ Component({
   data: {
     isMoreText: false,
     isLiked: false,
-    isUnlike: false,
+    isReaded: false,
   },
 
   /**
@@ -54,13 +55,13 @@ Component({
     },
 
     handleLike() {
-      this.setData({ isLiked: !this.data.isLiked, likeNumber: this.data.likeNumber++ });
+      this.setData({ isLiked: !this.data.isLiked});
       this.triggerEvent('like', {isLiked: this.data.isLiked});
     },
 
-    handleUnlike() {
-      this.setData({ isUnliked: !this.data.isUnliked });
-      this.triggerEvent('unlike', {isUnliked: this.data.isUnliked});
+    handleRead() {
+      this.setData({ isReaded: !this.data.isReaded});
+      this.triggerEvent('read', {isReaded: this.data.isReaded});
     },
 
     handleDelete() {
