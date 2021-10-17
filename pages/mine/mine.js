@@ -13,11 +13,7 @@ Page({
       dialogShow: false,
       userMessage:"",
       },
-      guanli() {
-        wx.navigateTo({
-          url: '/pages/guanli/guan'
-        })
-      },
+      
     onLoad: function (options) {
       this.setData({
         openid: wx.getStorageSync('openid'),
@@ -25,11 +21,19 @@ Page({
       })
         
     },
+    /*管理员账号可直接在日志里看到未公开的内容，
+    无需从管理员页面内进入
     xiangxi: function (options) {
       wx.navigateTo({
         url: '/pages/xiangxi/xiangxi'
       })
     },
+    guanli() {
+      wx.navigateTo({
+        url: '/pages/guanli/guan'
+      })
+    },
+    */
     changeAvatar() {
       Dialog.confirm({
         message: '是否更新头像为当前微信头像\n(需重新授权)',
