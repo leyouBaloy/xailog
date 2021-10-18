@@ -56,8 +56,42 @@ Page({
     windowHeight:0,
     nameall:[],
     // 最重要的数据listLogs，日志数组
-    listLogs:[]
+    listLogs:[],
+    mine_listLogs:[],
+    tab:0,
+
   },
+  // 切换tab
+  onChangeTab(event) {
+    if(event.detail.name == "全部日志")
+    {this.setData({tab:0})}
+    if(event.detail.name == "我的日志")
+    {this.setData({tab:1})}
+  },
+  // 封装好的加载"我的日志"数据函数
+  get_mine_listLogs(){
+    wx.showLoading({title:"加载中"})
+    wx.cloud.callFunction({
+      name: "listLogs",
+      data:{
+        userInfo:this.data.userInfo,
+        skip_num:this.data.mine_listLogs.length,
+        type:"mine",
+      }
+    })
+    .then(res => {
+      console.log("调用云函数的结果",res.result.list)
+      this.setData({mine_listLogs: this.data.mine_listLogs.concat(res.result.list)})
+      wx.hideLoading()
+      wx.showToast({title: '加载成功',})
+    })
+    .catch(res=>{
+      console.log("加载失败",res)
+      wx.hideLoading()
+      wx.showToast({title: '加载失败',})
+    })
+  },
+
   // 封装好的加载数据函数
   get_listLogs(){
     wx.showLoading({title:"加载中"})
@@ -87,10 +121,12 @@ Page({
     this.setData({
       openid: wx.getStorageSync('openid'),
       userInfo: wx.getStorageSync('user'),
-      listLogs:[]
+      listLogs:[],
+      mine_listLogs:[],
     });
     // 加载第一次数据
-    this.get_listLogs()
+    this.get_listLogs(),
+    this.get_mine_listLogs(),
    
 
     db.collection('mine').count().then(async res =>{
@@ -179,7 +215,10 @@ Page({
 },
 // 触底刷新
 onReachBottom: function () {
-  this.get_listLogs()
+  if(this.data.tab == 0)
+  {this.get_listLogs()}
+  if(this.data.tab == 1)
+  {this.get_mine_listLogs()}
 },
 
   //获取未读还是全部

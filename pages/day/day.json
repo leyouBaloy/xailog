@@ -13,7 +13,9 @@
     "van-swipe-cell": "@vant/weapp/swipe-cell/index",
     "van-dialog": "@vant/weapp/dialog/index",
     "van-toast": "@vant/weapp/toast/index",
-    "card": "/components/wx-cards-master/card/card"
+    "card": "/components/wx-cards-master/card/card",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index"
      
   }
 

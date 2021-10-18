@@ -9,7 +9,8 @@ const logs = cloud.database().collection('logs')
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  if (event.userInfo.is_admin) {
+  if (event.type=="mine")
+  {
     var logs_lst = await logs.aggregate().sort({
       time: -1,
       create_time: -1
@@ -20,21 +21,39 @@ exports.main = async (event, context) => {
       as: "mine_info"
     }).match({
       is_delete: false,
+      _openid: event.userInfo._openid,
     }).end()
     return logs_lst
-  } else {
-    var logs_lst = await logs.aggregate().sort({
-      time: -1,
-      create_time: -1
-    }).lookup({
-      from: "mine",
-      localField: "_openid",
-      foreignField: "_openid",
-      as: "mine_info"
-    }).match({
-      is_delete: false,
-      is_public: true
-    }).end()
-    return logs_lst
+  }
+  else
+  {
+    if (event.userInfo.is_admin) {
+      var logs_lst = await logs.aggregate().sort({
+        time: -1,
+        create_time: -1
+      }).lookup({
+        from: "mine",
+        localField: "_openid",
+        foreignField: "_openid",
+        as: "mine_info"
+      }).match({
+        is_delete: false,
+      }).end()
+      return logs_lst
+    } else {
+      var logs_lst = await logs.aggregate().sort({
+        time: -1,
+        create_time: -1
+      }).lookup({
+        from: "mine",
+        localField: "_openid",
+        foreignField: "_openid",
+        as: "mine_info"
+      }).match({
+        is_delete: false,
+        is_public: true
+      }).end()
+      return logs_lst
+    }
   }
 }
