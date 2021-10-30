@@ -59,6 +59,10 @@ Page({
     listLogs:[],
     mine_listLogs:[],
     tab:0,
+    release:[],
+    t:0,
+    comment:{},
+    show_2: false,
 
   },
   // 切换tab
@@ -107,6 +111,7 @@ Page({
       this.setData({listLogs: this.data.listLogs.concat(res.result.list)})
       wx.hideLoading()
       wx.showToast({title: '加载成功',})
+      console.log(this.data.listLogs)
     })
     .catch(res=>{
       console.log("加载失败",res)
@@ -773,6 +778,104 @@ read:function(e){
   }else{
     Toast.fail('只有管理员才能点击');
   }
+},
+note:function(e){
+  this.setData({
+    t:0
+  })
+  var id = e.currentTarget.dataset.id;
+  let p="comment."+id
+  this.setData({
+    release:[]
+  })
+  wx.cloud.database().collection('comment')
+  .where({
+    orign:id
+  })
+  .get()
+  .then(res =>{
+    let that=this
+    this.find(res)
+    this.setData({
+      [p]:that.data.release
+    })
+  })
+},
+find:function (I) { 
+  for (var i=0;i<I.data.length;i++ ){
+    if ( I.data[i].target==""){
+      if(!(I.data[i] in this.data.release)){
+        let p='release['+this.data.t+']'
+        this.setData({
+          [p]:I.data[i],
+          t:this.data.t+1
+        })
+      }
+      this.cirl(I,I.data[i])
+    }
+  }
+}, 
+cirl:function(I,i){
+  for(var j=0;j<I.data.length;j++){
+    if((I.data[j].target==i._id)&(!(I.data[j] in this.data.release))){
+      let p="release["+this.data.t+"]"
+      this.setData({
+        [p]:I.data[j],
+        t:this.data.t+1
+      })
+      this.cirl(I,I.data[j])
+    }
+    
+  }
+},
+reply(e){
+  this.setData({
+      show_2:false,
+      t:0,
+      release:[]
+    })
+    var id = this.data.orign;
+    let p="comment."+id
+    wx.cloud.database().collection('comment').add({
+      // data 传入需要局部更新的数据
+      data: {
+        // 表示将 done 字段置为 true
+        name:this.data.userInfo.name,
+        content:e.detail.value.input,
+        orign:this.data.orign,
+        target:this.data.value,
+        time:new Date().getTime()
+      }
+    })
+    Toast.success('回复成功！');
+    wx.cloud.database().collection('comment')
+    .where({
+      orign:this.data.orign
+    })
+    .get()
+    .then(res =>{
+      this.find(res)
+      this.setData({
+        [p]:this.data.release
+      })
+    })
+
+},
+open_2: function (event) {
+  this.setData({
+      show_2: true,
+      value:event.detail.value,
+      orign:event.currentTarget.dataset.id
+  })
+  
+  wx.cloud.database().collection('comment')
+    .doc(this.data.value)
+    .get()
+    .then(res=>{
+      this.setData({
+        name:res.data.name
+    })
+    })
 },
 
     onReady: function () {},

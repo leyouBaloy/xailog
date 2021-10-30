@@ -14,7 +14,7 @@
         title="{{item.mine_info[0].name}}"
         time="{{filters.formatDate(item.time)}}"
         context="{{item.content}}"
-        moreText=""
+        moreText="{{comment[item._id]}}"
 
         bind:detail="detail"
         isShowLike="{{true}}"
@@ -28,7 +28,10 @@
         data-open='{{item._openid}}'
         bind:like='good'
         bind:read='read'
-        bind:delete='delItem'></card>
+        bind:delete='delItem'
+        bind:MoreText='note'
+        bind:open_show='open_2'
+        ></card>
     </block>
   </van-tab>
   <van-tab title="我的日志">
@@ -60,6 +63,28 @@
     </block>
   </van-tab>
 </van-tabs>
+<mp-half-screen-dialog
+  bindbuttontap="buttontap"
+  show="{{show_2}}"
+  maskClosable="{{false}}"
+  title="请回复"
+>
+<view  slot='desc' class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+    <form  bindsubmit="reply">
+        <view class="page-section">
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__bd" style="margin: 30rpx 0" >
+                        <textarea class="weui-textarea" name="input" placeholder="请输入文本"  value='@{{name}}' style="height: 5em" />
+                    </view>
+                </view>
+            </view>
+        </view>
 
+        <view class="btn-area">
+            <button class="weui-btn" type="primary" formType="submit" >确定</button>
+        </view>
+    </form>
+</view></mp-half-screen-dialog>
 
 

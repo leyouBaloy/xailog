@@ -15,7 +15,8 @@
     "van-toast": "@vant/weapp/toast/index",
     "card": "/components/wx-cards-master/card/card",
     "van-tab": "@vant/weapp/tab/index",
-    "van-tabs": "@vant/weapp/tabs/index"
+    "van-tabs": "@vant/weapp/tabs/index",
+    "mp-half-screen-dialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog"
      
   }
 

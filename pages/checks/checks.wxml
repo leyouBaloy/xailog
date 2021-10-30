@@ -43,7 +43,8 @@
                     暂无评论
                 </view>
                 <view class="comment_text" wx:else >
-                    <view bindtap="open_2" data-value="{{item._id}}"  wx:for="{{release}}" ><font style="color: #2e4e7e;">{{item.name}}：</font>{{item.content}}
+                    <view bindtap="open_2" data-value="{{item._id}}"  wx:for="{{release}}" ><font style="color: #2e4e7e;">
+                    {{item.name}}：</font>{{item.content}}
                     </view>
                 </view>
             </view>

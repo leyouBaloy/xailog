@@ -13,7 +13,7 @@ Component({
     },
     img: String,
     context: String,
-    moreText: String,
+    moreText: Array,
     isShowLike: Boolean,
     isLiked: {
       type: Boolean,
@@ -44,6 +44,7 @@ Component({
     isMoreText: false,
     isLiked: false,
     isReaded: false,
+    open_show:false
   },
 
   /**
@@ -52,8 +53,12 @@ Component({
   methods: {
     showMoreText() {
       this.setData({ isMoreText: !this.data.isMoreText });
+      this.triggerEvent('MoreText', {isMoreText: this.data.isMoreText});
     },
-
+    open_2(event){
+      this.setData({ open_show: !this.data.open_show });
+      this.triggerEvent('open_show', {open_show: this.data.open_show,value:event.currentTarget.dataset.value});
+    },
     handleLike() {
       this.setData({ isLiked: !this.data.isLiked});
       this.triggerEvent('like', {isLiked: this.data.isLiked});

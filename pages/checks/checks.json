@@ -1,6 +1,6 @@
 
 {
-  "enablePullDownRefresh": true,
+  "enablePullDownRefresh": false,
   "component": true,
   "usingComponents": {
     "mp-toptips": "weui-miniprogram/toptips/toptips",

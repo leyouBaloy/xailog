@@ -31,11 +31,18 @@
       <!-- TODO should show the share button in the futrue -->
       <!-- <icon-button type='share' bindtap='handleShare'></icon-button> -->
     </view>
-    <view style='transform:rotate({{isMoreText ? 180 : 0}}deg);' bindtap='showMoreText'>
+    <view style='transform:rotate({{isMoreText ? 180 : 0}}deg);' bindtap='showMoreText' >
       <icon-button type='explain'></icon-button>
     </view>
   </view>
   <view class='more-text {{isMoreText ? "explain-text" : ""}}'>
-    <text>{{moreText}}</text>
+    <view  class="comment_text" wx:if='{{moreText.length == 0}}'>
+          暂无评论
+    </view>
+    <view class="comment_text" wx:else>
+        <view bindtap="open_2" data-value="{{item._id}}" wx:for="{{moreText}}" >
+        <font style="color: #2e4e7e;">{{item.name}}：</font>{{item.content}}
+        </view>
+    </view>
   </view>
 </view>

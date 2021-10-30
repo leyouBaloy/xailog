@@ -126,19 +126,19 @@ Page({
       
   },
   //下拉刷新
-  onPullDownRefresh:function(){
-    //显示顶部刷新图标
-        wx.showLoading({
-          title:"刷新中......"
-        });
-      //要刷新请求服务器的方法
-       this.onLoad()
-       console.log("shuxin")
-     //隐藏导航栏加载框
-       wx.hideLoading();
-      //停止下拉事件
-       wx.stopPullDownRefresh();
-},
+//   onPullDownRefresh:function(){
+//     //显示顶部刷新图标
+//         wx.showLoading({
+//           title:"刷新中......"
+//         });
+//       //要刷新请求服务器的方法
+//        this.onLoad()
+//        console.log("shuxin")
+//      //隐藏导航栏加载框
+//        wx.hideLoading();
+//       //停止下拉事件
+//        wx.stopPullDownRefresh();
+// },
   find:function (I) { 
     for (var i=0;i<I.data.length;i++ ){
       if ( I.data[i].target==""){
