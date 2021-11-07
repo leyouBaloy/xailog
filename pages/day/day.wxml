@@ -5,7 +5,7 @@
 <van-tabs swipeable bind:click="onChangeTab">
   <van-tab title="全部日志">
     <!-- 日志卡片 -->
-    <block wx:key="item" wx:for="{{listLogs}}" wx:for-item="item">
+    <block wx:key="item" wx:for="{{listLogs}}" wx:for-item="item" wx:for-index="idx" >
       <van-dialog id="van-dialog" />
       <van-toast id="van-toast" />
       <card
@@ -30,13 +30,14 @@
         bind:read='read'
         bind:delete='delItem'
         bind:MoreText='note'
+        data-idx='{{idx}}'
         bind:open_show='open_2'
         ></card>
     </block>
   </van-tab>
   <van-tab title="我的日志">
-   <!-- 日志卡片 -->
-   <block wx:key="item" wx:for="{{mine_listLogs}}" wx:for-item="item">
+   <!-- 我的日志卡片 -->
+   <block wx:key="item" wx:for="{{mine_listLogs}}" wx:for-item="item" wx:for-index="idx" >
       <van-dialog id="van-dialog" />
       <van-toast id="van-toast" />
       <card
@@ -57,6 +58,7 @@
         data-star='{{item.ifstar}}'
         data-read='{{item.ifread}}'
         data-open='{{item._openid}}'
+        data-idx='{{idx}}'
         bind:like='good'
         bind:read='read'
         bind:delete='delItem'></card>

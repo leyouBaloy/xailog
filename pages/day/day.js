@@ -132,7 +132,6 @@ Page({
     // 加载第一次数据
     this.get_listLogs(),
     this.get_mine_listLogs(),
-   
 
     db.collection('mine').count().then(async res =>{
       let total = res.total;
@@ -711,12 +710,13 @@ onReachBottom: function () {
 //点赞小昕星
 good:function(e){
   console.log("现在的点赞情况",e.detail.isLiked)
+
   this.setData({
     userid: wx.getStorageSync('openid')
 })
   var id = e.currentTarget.dataset.id;
   var openid = wx.getStorageSync('openid');
-
+  var idx = e.currentTarget.dataset.idx;
   if(this.data.userInfo.is_admin==true){
     if(e.detail.isLiked){
       db.collection('logs').doc(id).update({
@@ -729,6 +729,12 @@ good:function(e){
           Toast.fail('点赞失败')
           console.log('修改点赞失败')
         })
+        // this.data.listLogs[idx].ifstar : true
+        let idx_='listLogs['+idx+'].ifstar'
+          this.setData({
+            [idx_]:true
+          })
+
       }
     else{
       db.collection('logs').doc(id).update({
@@ -741,6 +747,10 @@ good:function(e){
         } ,
         fail: function(){console.log("取消点赞失败！")}
       })
+      let idx_='listLogs['+idx+'].ifstar'
+          this.setData({
+            [idx_]:false
+          })
     }
   }else{
     console.log('no_admin')
@@ -756,6 +766,7 @@ read:function(e){
   var id = e.currentTarget.dataset.id;
   var read = e.currentTarget.dataset.read;
   var openid = wx.getStorageSync('openid');
+  var idx= e.currentTarget.dataset.idx;
 
   if(this.data.userInfo.is_admin==true){
     if(e.detail.isReaded){
@@ -766,6 +777,10 @@ read:function(e){
         success: function(){console.log('修改为已读')},
         fail: function(){console.log('修改已读失败！')}
       })
+      let idx_='listLogs['+idx+'].ifread'
+          this.setData({
+            [idx_]:true
+          })
     }else{
       db.collection('logs').doc(id).update({
         data: {
@@ -774,6 +789,10 @@ read:function(e){
         success: function(){console.log('修改为未读')},
         fail: function(){console.log('修改未读失败！')}
       })
+      let idx_='listLogs['+idx+'].ifread'
+          this.setData({
+            [idx_]:false
+          })
     }
   }else{
     Toast.fail('只有管理员才能点击');
