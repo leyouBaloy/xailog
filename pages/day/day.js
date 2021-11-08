@@ -730,11 +730,16 @@ good:function(e){
           console.log('修改点赞失败')
         })
         // this.data.listLogs[idx].ifstar : true
-        let idx_='listLogs['+idx+'].ifstar'
-          this.setData({
-            [idx_]:true
-          })
-
+        if(this.data.tab == 0)
+            {let idx_='listLogs['+idx+'].ifstar'
+              this.setData({
+                [idx_]:true
+              })}
+        if(this.data.tab == 1)
+            {let idx_='mine_listLogs['+idx+'].ifstar'
+              this.setData({
+                [idx_]:true
+              })}
       }
     else{
       db.collection('logs').doc(id).update({
@@ -747,10 +752,16 @@ good:function(e){
         } ,
         fail: function(){console.log("取消点赞失败！")}
       })
-      let idx_='listLogs['+idx+'].ifstar'
-          this.setData({
-            [idx_]:false
-          })
+      if(this.data.tab == 0)
+            {let idx_='listLogs['+idx+'].ifstar'
+              this.setData({
+                [idx_]:false
+              })}
+        if(this.data.tab == 1)
+            {let idx_='mine_listLogs['+idx+'].ifstar'
+              this.setData({
+                [idx_]:false
+              })}
     }
   }else{
     console.log('no_admin')
@@ -777,10 +788,16 @@ read:function(e){
         success: function(){console.log('修改为已读')},
         fail: function(){console.log('修改已读失败！')}
       })
-      let idx_='listLogs['+idx+'].ifread'
-          this.setData({
-            [idx_]:true
-          })
+      if(this.data.tab == 0)
+            {let idx_='listLogs['+idx+'].ifread'
+              this.setData({
+                [idx_]:true
+              })}
+        if(this.data.tab == 1)
+            {let idx_='mine_listLogs['+idx+'].ifread'
+              this.setData({
+                [idx_]:true
+              })}
     }else{
       db.collection('logs').doc(id).update({
         data: {
@@ -789,10 +806,16 @@ read:function(e){
         success: function(){console.log('修改为未读')},
         fail: function(){console.log('修改未读失败！')}
       })
-      let idx_='listLogs['+idx+'].ifread'
+      if(this.data.tab == 0)
+        {let idx_='listLogs['+idx+'].ifread'
           this.setData({
             [idx_]:false
-          })
+          })}
+      if(this.data.tab == 1)
+          {let idx_='mine_listLogs['+idx+'].ifread'
+            this.setData({
+              [idx_]:false
+            })}
     }
   }else{
     Toast.fail('只有管理员才能点击');
