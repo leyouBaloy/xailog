@@ -6,7 +6,7 @@ Page({
     show: false,
     date: `${newDate.getMonth() + 1}月${newDate.getDate()}日`,
     datestamp: Date.parse(String(newDate.getFullYear())+"-"+String(newDate.getMonth()+1)+"-"+String(newDate.getDate())),
-    mindate: new Date(newDate.setDate(newDate.getDate()-2)).getTime(),
+    mindate: new Date(newDate.setDate(newDate.getDate()-1)).getTime(),
     maxdate: new Date().getTime(),
     //日志内容
     content: "",
