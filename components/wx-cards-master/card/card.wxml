@@ -36,7 +36,7 @@
     </view>
   </view>
   <view class='more-text {{isMoreText ? "explain-text" : ""}}'>
-    <view  class="comment_text" wx:if='{{moreText.length == 0}}'>
+    <view  bindtap="open" class="comment_text" wx:if='{{moreText.length == 0}}'>
           暂无评论
     </view>
     <view class="comment_text" wx:else>

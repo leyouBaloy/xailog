@@ -903,6 +903,46 @@ reply(e){
     })
 
 },
+open: function (event) {
+  this.setData({
+      show: true,
+      orign:event.currentTarget.dataset.id
+  })
+},
+submitForm(e) {
+  this.setData({ 
+    show:false,
+    userMessage:'',
+    t:0,
+    release:[]
+  })
+  var id = this.data.orign;
+  let p="comment."+id
+  wx.cloud.database().collection('comment').add({
+    // data 传入需要局部更新的数据
+    data: {
+      // 表示将 done 字段置为 true
+      name:this.data.userInfo.name,
+      content:e.detail.value.input,
+      orign:this.data.orign,
+      target:'',
+      time:new Date().getTime()
+    }})
+    Toast.success('评论成功！');
+    wx.cloud.database().collection('comment')
+    .where({
+      orign:this.data.orign
+    })
+    .get()
+    .then(res =>{
+
+      this.find(res)
+      this.setData({
+        [p]:this.data.release
+      })
+      })
+  
+  },
 open_2: function (event) {
   this.setData({
       show_2: true,

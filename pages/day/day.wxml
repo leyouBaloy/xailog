@@ -32,6 +32,7 @@
         bind:MoreText='note'
         data-idx='{{idx}}'
         bind:open_show='open_2'
+        bind:open_show2='open'
         ></card>
     </block>
   </van-tab>
@@ -46,7 +47,7 @@
         title="{{item.mine_info[0].name}}"
         time="{{filters.formatDate(item.time)}}"
         context="{{item.content}}"
-        moreText=""
+        moreText="{{comment[item._id]}}" 
 
         bind:detail="detail"
         isShowLike="{{true}}"
@@ -61,7 +62,11 @@
         data-idx='{{idx}}'
         bind:like='good'
         bind:read='read'
-        bind:delete='delItem'></card>
+        bind:delete='delItem'
+        bind:MoreText='note' 
+        bind:open_show='open_2' 
+        bind:open_show2='open' 
+        ></card> 
     </block>
   </van-tab>
 </van-tabs>
@@ -78,6 +83,29 @@
                 <view class="weui-cell weui-cell_input">
                     <view class="weui-cell__bd" style="margin: 30rpx 0" >
                         <textarea class="weui-textarea" name="input" placeholder="请输入文本"  value='@{{name}}' style="height: 5em" />
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="btn-area">
+            <button class="weui-btn" type="primary" formType="submit" >确定</button>
+        </view>
+    </form>
+</view></mp-half-screen-dialog>
+<mp-half-screen-dialog 
+  bindbuttontap="buttontap"
+  show="{{show}}"
+  maskClosable="{{false}}" 
+  title="请留言" 
+>
+<view  slot='desc' class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+    <form  bindsubmit="submitForm">
+        <view class="page-section">
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__bd" style="margin: 30rpx 0" >
+                        <textarea class="weui-textarea" name="input" placeholder="请输入文本"  value='{{userMessage}}' style="height: 5em" />
                     </view>
                 </view>
             </view>

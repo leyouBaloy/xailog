@@ -44,7 +44,9 @@ Component({
     isMoreText: false,
     isLiked: false,
     isReaded: false,
-    open_show:false
+    open_show:false,
+    open_show2:false,
+
   },
 
   /**
@@ -58,6 +60,10 @@ Component({
     open_2(event){
       this.setData({ open_show: !this.data.open_show });
       this.triggerEvent('open_show', {open_show: this.data.open_show,value:event.currentTarget.dataset.value});
+    },
+    open(){
+      this.setData({ open_show2: !this.data.open_show2 });
+      this.triggerEvent('open_show2', {open_show2: this.data.open_show2});
     },
     handleLike() {
       this.setData({ isLiked: !this.data.isLiked});
