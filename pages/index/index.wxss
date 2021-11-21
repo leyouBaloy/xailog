@@ -37,3 +37,13 @@
   margin-top: 10px;
   text-align: center;
 }
+
+.write_button {
+  position: relative;
+}
+
+.write_button ul {
+  position: absolute;
+  transform: translate(-50%,0);
+  left: 50%;
+}

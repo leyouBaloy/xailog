@@ -11,7 +11,7 @@
     <view style="width: 90%;height:640rpx;overflow:hidden;margin: 0 auto 40rpx;">
       <calendar id="calendar" config="{{calendarConfig}}" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek" bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate" bind:afterCalendarRender="afterCalendarRender"></calendar>
       </view >
-    <button class="item" bindtap="writelog">写日志</button>
+    <view class="write_button"><ul><button class="item" bindtap="writelog">写日志</button></ul></view>
       <view></view>
 
     </view>
