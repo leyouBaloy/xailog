@@ -2,13 +2,19 @@
 <view class="bottom_shadow">　</view>
 <view class="title" style="top: {{statusBarHeight}}px;">XAI 日报</view>
 <view class="container">
-    <button wx:if="{{!userInfo}}" class="item" bindtap="Login">授权登录</button>
-    <view wx:else>
-      <view style="text-align: center;"><image class="avatarUrl" src="{{userInfo.avatarUrl}}"></image></view>
-      <view class="nickname">{{userInfo.nickName}}</view>
-      <button style="margin-top: 30px;" class="item" bindtap="writelog">写日志</button>
-      
+  <button wx:if="{{!userInfo}}" class="item" bindtap="Login">授权登录</button>
+  <view wx:else>
+    <view style="text-align: center;">
+      <image class="avatarUrl" src="{{userInfo.avatarUrl}}"></image>
     </view>
-</view>
+    <view class="nickname">{{userInfo.nickName}}</view>
+    <view style="width: 90%;height:640rpx;overflow:hidden;margin: 0 auto 40rpx;">
+      <calendar id="calendar" config="{{calendarConfig}}" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek" bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate" bind:afterCalendarRender="afterCalendarRender"></calendar>
+      </view >
+    <button class="item" bindtap="writelog">写日志</button>
+      <view></view>
 
+    </view>
+
+</view>
 <view class="bottom_text">XAI 工作室</view>
