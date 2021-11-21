@@ -22,7 +22,7 @@ Page({
   data: {
     timeSeries:[],
     calendarConfig: {// 日历
-      theme: 'elegant'
+      theme: 'default'
     },
     userInfo: null,
     statusBarHeight: app.globalData.statusBarHeight,
