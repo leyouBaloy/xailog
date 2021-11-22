@@ -28,6 +28,7 @@ Component({
     isShowUnlike: Boolean,
     unlikeNumber: Number,
     isShowDelete: Boolean,
+    isShowComment: Boolean,
     tag: String,
     tagColor: String,
     // ignore the property since hide the share button
@@ -41,7 +42,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    isMoreText: false,
+    isMoreText: true,
     isLiked: false,
     isReaded: false,
     open_show:false,
