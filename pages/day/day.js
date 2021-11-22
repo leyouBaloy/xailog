@@ -62,6 +62,7 @@ Page({
     release:[],
     t:0,
     comment:{},
+    flags:{},
     show_2: false,
 
   },
@@ -109,6 +110,10 @@ Page({
     .then(res => {
       console.log("调用云函数的结果",res.result.list)
       this.setData({listLogs: this.data.listLogs.concat(res.result.list)})
+      var i;
+      for(i in this.data.listLogs){
+        this.auto(this.data.listLogs[i]._id)
+      }
       wx.hideLoading()
       wx.showToast({title: '加载成功',})
       console.log(this.data.listLogs)
@@ -821,15 +826,12 @@ read:function(e){
     Toast.fail('只有管理员才能点击');
   }
 },
-note:function(e){
-  this.setData({
-    t:0
-  })
-  var id = e.currentTarget.dataset.id;
+
+auto:function(e){
+  var id = e;
   let p="comment."+id
-  this.setData({
-    release:[]
-  })
+  let q="flags."+id
+  
   wx.cloud.database().collection('comment')
   .where({
     orign:id
@@ -837,13 +839,29 @@ note:function(e){
   .get()
   .then(res =>{
     let that=this
+    this.setData({
+      release:[]
+    })
     this.find(res)
     this.setData({
       [p]:that.data.release
     })
+    if(this.data.release.length==0){
+      this.setData({
+        [q]:false
+      })
+    }
+    else{
+      this.setData({
+        [q]:true
+      })
+    }
   })
 },
 find:function (I) { 
+  this.setData({
+    t:0
+  })
   for (var i=0;i<I.data.length;i++ ){
     if ( I.data[i].target==""){
       if(!(I.data[i] in this.data.release)){
@@ -878,6 +896,7 @@ reply(e){
     })
     var id = this.data.orign;
     let p="comment."+id
+    let q="flags."+id
     wx.cloud.database().collection('comment').add({
       // data 传入需要局部更新的数据
       data: {
@@ -900,6 +919,16 @@ reply(e){
       this.setData({
         [p]:this.data.release
       })
+      if(this.data.release.length==0){
+        this.setData({
+          [q]:false
+        })
+      }
+      else{
+        this.setData({
+          [q]:true
+        })
+      }
     })
 
 },
@@ -918,6 +947,7 @@ submitForm(e) {
   })
   var id = this.data.orign;
   let p="comment."+id
+  let q="flags."+id
   wx.cloud.database().collection('comment').add({
     // data 传入需要局部更新的数据
     data: {
@@ -928,7 +958,6 @@ submitForm(e) {
       target:'',
       time:new Date().getTime()
     }})
-    Toast.success('评论成功！');
     wx.cloud.database().collection('comment')
     .where({
       orign:this.data.orign
@@ -940,7 +969,18 @@ submitForm(e) {
       this.setData({
         [p]:this.data.release
       })
+      if(this.data.release.length==0){
+        this.setData({
+          [q]:false
+        })
+      }
+      else{
+        this.setData({
+          [q]:true
+        })
+      }
       })
+      Toast.success('评论成功！');
   
   },
 open_2: function (event) {

@@ -14,6 +14,10 @@ Component({
     img: String,
     context: String,
     moreText: Array,
+    isMoreText:{
+      type: Boolean,
+      observer: function () { this.setData({ isMoreText: this.properties.isMoreText }); }
+    },
     isShowLike: Boolean,
     isLiked: {
       type: Boolean,
@@ -42,7 +46,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    isMoreText: true,
     isLiked: false,
     isReaded: false,
     open_show:false,

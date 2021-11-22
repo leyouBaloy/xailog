@@ -22,6 +22,7 @@
         isShowRead="{{true}}"
         isReaded="{{item.ifread}}"
         isShowDelete='{{true}}'
+        isMoreText='{{flags[item._id]}}'
         data-id='{{item._id}}'
         data-star='{{item.ifstar}}'
         data-read='{{item.ifread}}'
@@ -29,7 +30,6 @@
         bind:like='good'
         bind:read='read'
         bind:delete='delItem'
-        bind:MoreText='note'
         data-idx='{{idx}}'
         bind:open_show='open_2'
         bind:open_show2='open'
