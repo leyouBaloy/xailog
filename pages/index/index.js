@@ -22,7 +22,7 @@ Page({
   data: {
     timeSeries:[],
     calendarConfig: {// 日历
-      theme: 'default'
+      theme: 'elegant'
     },
     userInfo: null,
     statusBarHeight: app.globalData.statusBarHeight,
@@ -105,7 +105,7 @@ Page({
     let time = new Date(item.time)
     let year = time.getFullYear()
     let month = time.getMonth() + 1
-    let date = time.getDate()
+    let date = time.getDate()+1
     return {year:year,month:month,date:date}
 }
   
