@@ -99,9 +99,10 @@ Page({
 
   // 封装好的加载数据函数
   get_listLogs(){
+    // console.log(this.data.userInfo)
     wx.showLoading({title:"加载中"})
     wx.cloud.callFunction({
-      name: "testListLogs",
+      name: "listLogs",
       data:{
         userInfo:this.data.userInfo,
         skip_num:this.data.listLogs.length
