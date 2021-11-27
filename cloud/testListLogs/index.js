@@ -9,22 +9,23 @@ const logs = cloud.database().collection('logs')
 
 // 云函数入口函数
 exports.main = async (event, context) => {
+  var match_con = {}  // 筛选条件
   if (event.type=="mine"){
-    var match_con = {
+    match_con = {
       is_delete: false,
       _openid: event.userInfo._openid
     }
   }
   else{
-    if (event.is_admin){
-      var match_con = {
+    if (event.userInfo.is_admin){
+      match_con = {
         is_delete: false,
       }
     }
     else{
-      var match_con = {
+      match_con = {
         is_delete: false,
-        is_public: true
+        is_public: true,
       }
     }
   }
