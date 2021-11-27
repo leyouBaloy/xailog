@@ -77,7 +77,7 @@ Page({
   get_mine_listLogs(){
     wx.showLoading({title:"加载中"})
     wx.cloud.callFunction({
-      name: "listLogs",
+      name: "testListLogs",
       data:{
         userInfo:this.data.userInfo,
         skip_num:this.data.mine_listLogs.length,
@@ -102,7 +102,7 @@ Page({
     // console.log(this.data.userInfo)
     wx.showLoading({title:"加载中"})
     wx.cloud.callFunction({
-      name: "listLogs",
+      name: "testListLogs",
       data:{
         userInfo:this.data.userInfo,
         skip_num:this.data.listLogs.length
