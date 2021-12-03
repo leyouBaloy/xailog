@@ -35,6 +35,7 @@ Page({
       console.log("mine",this.data.mine_listLogs)
 
     this.setData({
+      userInfo: wx.getStorageSync('user'),
       openid: wx.getStorageSync('openid'),
       mine_listLogs:[],
     });
@@ -54,7 +55,7 @@ Page({
     
     wx.showLoading({title:"加载中"})
     wx.cloud.callFunction({
-    name: "listLogs",
+    name: "testListLogs",
     data:{
       userInfo:{_openid:this_id},
       skip_num:this.data.mine_listLogs.length,
