@@ -11,7 +11,7 @@
             <td style="font-weight: bold;" class="td_center">今日报告</td>
             <td style="font-weight: bold;" class="td_center"></td>
         </tr>
-        <tr wx:for="{{cnt_table}}" wx:for-item="i">
+        <tr wx:for="{{cnt_table}}" wx:for-item="i" bindtap="personal" data-id='{{i[3]}}'>
             <td>{{i[0]}}</td>
             <td class="td_center">{{i[1]}}</td>
             <td class="td_center">{{i[2]}}</td>

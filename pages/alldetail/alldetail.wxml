@@ -1,0 +1,37 @@
+<!-- 转换时间戳为日期 -->
+<wxs src="/pages/day/filter.wxs" module="filters"/>
+
+<!-- <van-tabs swipeable bind:click="onChangeTab">
+<van-tab title="个人主页"> -->
+   <block wx:key="item" wx:for="{{mine_listLogs}}" wx:for-item="item" wx:for-index="idx" >
+      <van-dialog id="van-dialog" />
+      <van-toast id="van-toast" />
+      <card
+        isImg="{{false}}"
+        headerImg="{{item.mine_info[0].avatar}}"
+        title="{{item.mine_info[0].name}}"
+        time="{{filters.formatDate(item.time)}}"
+        context="{{item.content}}"
+        moreText="{{comment[item._id]}}" 
+
+        bind:detail="detail"
+        isShowLike="{{true}}"
+        isLiked='{{item.ifstar}}'
+        isShowRead="{{true}}"
+        isReaded="{{item.ifread}}"
+        isShowDelete='{{true}}'
+        data-id='{{item._id}}'
+        data-star='{{item.ifstar}}'
+        data-read='{{item.ifread}}'
+        data-open='{{item._openid}}'
+        data-idx='{{idx}}'
+        bind:like='good'
+        bind:read='read'
+        bind:delete='delItem'
+        bind:MoreText='note' 
+        bind:open_show='open_2' 
+        bind:open_show2='open' 
+        ></card> 
+    </block>
+<!-- </van-tab>
+</van-tabs> -->

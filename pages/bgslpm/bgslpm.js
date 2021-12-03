@@ -118,7 +118,7 @@ Page({
             // console.log("this.data", this.data)
             for(var j=0;j<this.data.openids.length;j++){
               // console.log("this.data.openid[j]的值", this.data.openids[j]);
-              outer_arr.push([this.data.names[j], this.data.cnt_by_month[j], this.data.cnt_by_day[j]]);
+              outer_arr.push([this.data.names[j], this.data.cnt_by_month[j], this.data.cnt_by_day[j],this.data.openids[j]]);
             }
             this.setData({cnt_table:outer_arr});
             console.log("outer_arr/cnt_table的值", outer_arr);
@@ -131,4 +131,10 @@ Page({
       })
         
         },
+
+      personal: function(e) {
+        var id = e.currentTarget.dataset.id //这里的id是数据库中的_openid
+        console.log(id)
+        wx.navigateTo({url: '/pages/alldetail/alldetail?id='+id})
+      },
 })

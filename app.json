@@ -12,9 +12,9 @@
   "pages/admins/admins",  
   "pages/checks/checks",  
   "pages/day/day",
-  "pages/xiangxi/xiangxi",
   "pages/bgslpm/bgslpm",
-  "pages/stars/stars"
+  "pages/stars/stars",
+  "pages/alldetail/alldetail"
 ],  
 "window":{  
   "backgroundTextStyle":"light",  

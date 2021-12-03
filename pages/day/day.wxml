@@ -17,6 +17,7 @@
         moreText="{{comment[item._id]}}"
 
         bind:detail="detail"
+        bind:personal="personal"
         isShowLike="{{true}}"
         isLiked='{{item.ifstar}}'
         isShowRead="{{true}}"

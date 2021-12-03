@@ -40,6 +40,7 @@ Component({
     //   type: Boolean,
     //   value: true,
     // }
+    
   },
 
   /**
@@ -85,6 +86,10 @@ Component({
 
     handledetail() {
       this.triggerEvent('detail');
+    },
+
+    handlepersonal(){
+      this.triggerEvent('personal');
     },
 
     // ignore the function since the share button be hidden
