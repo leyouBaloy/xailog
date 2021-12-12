@@ -90,7 +90,7 @@ Page({
       }
     })
     .then(res=>{
-      // console.log(res)
+      console.log(res)
       var timeSeries = res.result.data.map((item)=>this.turn(item))
       const calendar = that.selectComponent('#calendar').calendar
       console.log("时间序列",timeSeries)
@@ -105,7 +105,7 @@ Page({
     let time = new Date(item.time)
     let year = time.getFullYear()
     let month = time.getMonth() + 1
-    let date = time.getDate()+1
+    let date = time.getDate()
     return {year:year,month:month,date:date}
 }
   

@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
   })
   .field({time:true})
   .orderBy('time','desc')
-  .skip(1)
+  .skip(0)
   .limit(50)
   .get()
   return timeSeries
