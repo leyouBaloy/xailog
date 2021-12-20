@@ -61,3 +61,7 @@ github地址：https://github.com/katherine0325/wx-cards
 使用方法详情请见/components/wx-cards-master/README.md
 
 另外，leyoubaloy修改源码文件，在card中增加了`isImg`属性，表示是否显示图片
+
+
+        bind:open_show='open_2'   回复评论
+        bind:open_show2='open'    暂无评论的时候写评论
