@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="bottom_shadow">　</view>
-<view class="title" style="top: {{statusBarHeight}}px;">XAI 日报</view>
+<view class="title" style="top: {{statusBarHeight}}px;">每天进步一点点</view>
 <view class="container">
   <button wx:if="{{!userInfo}}" class="item" bindtap="Login">授权登录</button>
   <view wx:else>
