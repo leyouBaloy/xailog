@@ -30,6 +30,6 @@
 
 
 <!-- 提交 -->
-<button class="item" style="margin-top:30px" bindtap="submit">提交</button>
+<button class="item" style="margin-top:30px" bindtap="submit" disabled="{{disabled}}">{{button_text}}</button>
 
 

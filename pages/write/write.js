@@ -18,10 +18,12 @@ Page({
     reject: [], //用于uploadfilepromise的promise判断是否上传图片成功
     // 公开
     checked: true,
+    disabled: false, //按钮禁用
+    button_text: "提交",
   },
   onLoad: function (options) {
-    var test = new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
-    console.log("test",test)
+    // var test = new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
+    // console.log("test",test)
 
   },
   // 日历
@@ -95,8 +97,13 @@ Page({
 
   // 提交
   submit() {
-    // 先上传附件
     var that = this;
+    // 改变按钮
+    that.setData({
+      disabled: true,
+      button_text: "已提交"
+    })
+    // 上传附件
     let fileList = this.data.fileList;
     if (that.data.date.length == 0 || that.data.content == 0) {
       wx.showToast({
@@ -104,6 +111,7 @@ Page({
         icon: 'none'
       });
     } else {
+      wx.showLoading({title:"提交中"})
       const uploadTasks = fileList.map(item => this.uploadFilePromise(item.name, item.url));
       console.log("submit里的uploadTaks内容", uploadTasks);
       Promise.all(uploadTasks)
@@ -133,6 +141,7 @@ Page({
             })
             .then(res => {
               console.log("添加数据库成功", res);
+              wx.hideLoading({}) // 关闭提示
               wx.switchTab({
                 url: '/pages/day/day',
               })
@@ -142,6 +151,7 @@ Page({
             })
         })
         .catch(e => {
+          wx.hideLoading({}) // 关闭提示
           wx.showToast({
             title: '上传失败',
             icon: 'none'
