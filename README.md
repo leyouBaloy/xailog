@@ -65,3 +65,11 @@ github地址：https://github.com/katherine0325/wx-cards
 
         bind:open_show='open_2'   回复评论
         bind:open_show2='open'    暂无评论的时候写评论
+
+# 显示日志的逻辑
+
+有两个数组`listLogs`和`mine_listLogs`分别显示全部日志和我的日志。
+
+管理员的`listLogs`包含所有日志，而普通用户只包含公开日志。管理员和普通用户的`mine_listLogs`相同，都只包含自己的公开的和未公开的日志。
+
+两个数组都通过云函数`listLogs`更新。

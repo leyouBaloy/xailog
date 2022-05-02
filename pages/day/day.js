@@ -13,73 +13,54 @@ import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 Page({
   data: {
     // 缓存信息
-    openid:null,
+    myopenid:null,
     userInfo:null,
     // 其它
     time: '',
     // 最重要的数据listLogs，日志数组
     listLogs:[],
     mine_listLogs:[],
-    tab:0,
     release:[],
     t:0,
     comment:{},
     flags:{},
     show_2: false,
-
+    // 只看我的
+    onlyMe: false,
   },
-  // 切换tab
-  onChangeTab(event) {
-    if(event.detail.name == "全部日志")
-    {this.setData({tab:0})}
-    if(event.detail.name == "我的日志")
-    {this.setData({tab:1})}
+  // 切换“只看我的”
+  onChangeOnlyMe({ detail }) {
+    this.setData({ onlyMe: detail });
+    if(this.data.mine_listLogs.length==0 || this.data.listLogs.length==0){
+      this.onPullDownRefresh()
+    }
   },
-  // 封装好的加载"我的日志"数据函数
-  get_mine_listLogs(){
-    wx.showLoading({title:"加载中"})
-    wx.cloud.callFunction({
-      name: "testListLogs",
-      data:{
-        userInfo:this.data.userInfo,
-        skip_num:this.data.mine_listLogs.length,
-        type:"mine",
-      }
-    })
-    .then(res => {
-      console.log("调用云函数的结果",res.result.list)
-      this.setData({mine_listLogs: this.data.mine_listLogs.concat(res.result.list)})
-      wx.hideLoading()
-      wx.showToast({title: '加载成功',})
-    })
-    .catch(res=>{
-      console.log("加载失败",res)
-      wx.hideLoading()
-      wx.showToast({title: '加载失败',})
-    })
-  },
-
   // 封装好的加载数据函数
   get_listLogs(){
     // console.log(this.data.userInfo)
     wx.showLoading({title:"加载中"})
     wx.cloud.callFunction({
-      name: "testListLogs",
+      name: "listLogs",
       data:{
+        type: this.data.onlyMe ? "mine": "all",
         userInfo:this.data.userInfo,
-        skip_num:this.data.listLogs.length
+        skip_num:this.data.onlyMe ? this.data.mine_listLogs.length: this.data.listLogs.length
       }
     })
     .then(res => {
-      console.log("调用云函数的结果",res.result.list)
-      this.setData({listLogs: this.data.listLogs.concat(res.result.list)})
-      var i;
-      for(i in this.data.listLogs){
-        this.auto(this.data.listLogs[i]._id)
+      console.log("云函数listLogs结果：",res.result.list)
+      // 展开评论
+      for(var i in res.result.list){
+        this.auto(res.result.list[i]._id)
+      }
+      // 拼接数组
+      if(this.data.onlyMe){
+        this.setData({mine_listLogs: this.data.mine_listLogs.concat(res.result.list)})
+      }else{
+        this.setData({listLogs: this.data.listLogs.concat(res.result.list)})
       }
       wx.hideLoading()
       wx.showToast({title: '加载成功',})
-      console.log(this.data.listLogs)
     })
     .catch(res=>{
       console.log("加载失败",res)
@@ -92,15 +73,13 @@ Page({
   onLoad: function() {
     // 用户数据写入this.data
     this.setData({
-      openid: wx.getStorageSync('openid'),
+      myopenid: wx.getStorageSync('openid'),
       userInfo: wx.getStorageSync('user'),
       listLogs:[],
       mine_listLogs:[],
     });
     // 加载第一次数据
-    this.get_listLogs(),
-    this.get_mine_listLogs()
-        
+    this.get_listLogs()
   },
 
   //触发下拉刷新
@@ -118,10 +97,8 @@ Page({
 },
 // 触底刷新
 onReachBottom: function () {
-  if(this.data.tab == 0)
-  {this.get_listLogs()}
-  if(this.data.tab == 1)
-  {this.get_mine_listLogs()}
+  this.get_listLogs()
+
 },
 
 
@@ -200,12 +177,12 @@ good:function(e){
           console.log('修改点赞失败')
         })
         // this.data.listLogs[idx].ifstar : true
-        if(this.data.tab == 0)
+        if(!this.data.onlyMe)
             {let idx_='listLogs['+idx+'].ifstar'
               this.setData({
                 [idx_]:true
               })}
-        if(this.data.tab == 1)
+        if(this.data.onlyMe)
             {let idx_='mine_listLogs['+idx+'].ifstar'
               this.setData({
                 [idx_]:true
@@ -222,12 +199,12 @@ good:function(e){
         } ,
         fail: function(){console.log("取消点赞失败！")}
       })
-      if(this.data.tab == 0)
+      if(!this.data.onlyMe)
             {let idx_='listLogs['+idx+'].ifstar'
               this.setData({
                 [idx_]:false
               })}
-        if(this.data.tab == 1)
+        if(this.data.onlyMe)
             {let idx_='mine_listLogs['+idx+'].ifstar'
               this.setData({
                 [idx_]:false
@@ -258,12 +235,12 @@ read:function(e){
         success: function(){console.log('修改为已读')},
         fail: function(){console.log('修改已读失败！')}
       })
-      if(this.data.tab == 0)
+      if(!this.data.onlyMe)
             {let idx_='listLogs['+idx+'].ifread'
               this.setData({
                 [idx_]:true
               })}
-        if(this.data.tab == 1)
+        if(this.data.onlyMe)
             {let idx_='mine_listLogs['+idx+'].ifread'
               this.setData({
                 [idx_]:true
@@ -276,12 +253,12 @@ read:function(e){
         success: function(){console.log('修改为未读')},
         fail: function(){console.log('修改未读失败！')}
       })
-      if(this.data.tab == 0)
+      if(!this.data.onlyMe)
         {let idx_='listLogs['+idx+'].ifread'
           this.setData({
             [idx_]:false
           })}
-      if(this.data.tab == 1)
+      if(this.data.onlyMe)
           {let idx_='mine_listLogs['+idx+'].ifread'
             this.setData({
               [idx_]:false

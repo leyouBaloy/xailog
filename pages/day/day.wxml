@@ -1,76 +1,44 @@
 <!-- 转换时间戳为日期 -->
 <wxs src="/pages/day/filter.wxs" module="filters"/>
 
-<!-- tabs -->
-<van-tabs swipeable bind:click="onChangeTab">
-  <van-tab title="全部日志">
-    <!-- 日志卡片 -->
-    <block wx:key="item" wx:for="{{listLogs}}" wx:for-item="item" wx:for-index="idx" >
-      <van-dialog id="van-dialog" />
-      <van-toast id="van-toast" />
-      <card
-        isImg="{{false}}"
-        headerImg="{{item.mine_info[0].avatar}}"
-        title="{{item.mine_info[0].name}}"
-        time="{{filters.formatDate(item.time)}}"
-        context="{{item.content}}"
-        moreText="{{comment[item._id]}}"
+<!-- 单元格 -->
+<van-cell title="全部日志" value="只看我的">
+    <view slot="right-icon"><van-switch checked="{{ onlyMe }}" bind:change="onChangeOnlyMe" size="20px" /></view>
+</van-cell>
+<!-- 日志卡片 -->
+<block wx:key="item" wx:for="{{onlyMe ? mine_listLogs:listLogs}}" wx:for-item="item" wx:key="key" wx:for-index="idx">
+    <!-- 与删除功能相关 -->
+    <van-dialog id="van-dialog" />
+    <van-toast id="van-toast" />
+    <card
+    isImg="{{false}}"
+    headerImg="{{item.mine_info[0].avatar}}"
+    title="{{item.mine_info[0].name}}"
+    time="{{filters.formatDate(item.time)}}"
+    context="{{item.fileIDs.length==0 ? item.content: item.content+'[图片]'}}"
+    moreText="{{comment[item._id]}}"
 
-        bind:detail="detail"
-        bind:personal="personal"
-        isShowLike="{{true}}"
-        isLiked='{{item.ifstar}}'
-        isShowRead="{{true}}"
-        isReaded="{{item.ifread}}"
-        isShowDelete='{{true}}'
-        isMoreText='{{flags[item._id]}}'
-        data-id='{{item._id}}'
-        data-star='{{item.ifstar}}'
-        data-read='{{item.ifread}}'
-        data-open='{{item._openid}}'
-        bind:like='good'
-        bind:read='read'
-        bind:delete='delItem'
-        data-idx='{{idx}}'
-        bind:open_show='open_2'
-        bind:open_show2='open'
-        ></card>
-    </block>
-  </van-tab>
-  <van-tab title="我的日志">
-   <!-- 我的日志卡片 -->
-   <block wx:key="item" wx:for="{{mine_listLogs}}" wx:for-item="item" wx:for-index="idx" >
-      <van-dialog id="van-dialog" />
-      <van-toast id="van-toast" />
-      <card
-        isImg="{{false}}"
-        headerImg="{{item.mine_info[0].avatar}}"
-        title="{{item.mine_info[0].name}}"
-        time="{{filters.formatDate(item.time)}}"
-        context="{{item.content}}"
-        moreText="{{comment[item._id]}}" 
+    bind:detail="detail"
+    bind:personal="personal"
+    isShowLike="{{true}}"
+    isLiked='{{item.ifstar}}'
+    isShowRead="{{true}}"
+    isReaded="{{item.ifread}}"
+    isShowDelete='{{true}}'
+    isMoreText='{{flags[item._id]}}'
+    data-id='{{item._id}}'
+    data-star='{{item.ifstar}}'
+    data-read='{{item.ifread}}'
+    data-open='{{item._openid}}'
+    bind:like='good'
+    bind:read='read'
+    bind:delete='delItem'
+    data-idx='{{idx}}'
+    bind:open_show='open_2'
+    bind:open_show2='open'
+    ></card>
+</block>
 
-        bind:detail="detail"
-        isShowLike="{{true}}"
-        isLiked='{{item.ifstar}}'
-        isShowRead="{{true}}"
-        isReaded="{{item.ifread}}"
-        isShowDelete='{{true}}'
-        data-id='{{item._id}}'
-        data-star='{{item.ifstar}}'
-        data-read='{{item.ifread}}'
-        data-open='{{item._openid}}'
-        data-idx='{{idx}}'
-        bind:like='good'
-        bind:read='read'
-        bind:delete='delItem'
-        bind:MoreText='note' 
-        bind:open_show='open_2' 
-        bind:open_show2='open' 
-        ></card> 
-    </block>
-  </van-tab>
-</van-tabs>
 <mp-half-screen-dialog
   bindbuttontap="buttontap"
   show="{{show_2}}"
