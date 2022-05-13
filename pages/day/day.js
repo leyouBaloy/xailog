@@ -28,6 +28,21 @@ Page({
     // 只看我的
     onlyMe: false,
   },
+  // 发送订阅消息
+  sendSubscribeMessege(touser,content){
+    wx.cloud.callFunction({
+        name: "sendSubscribeMessege",
+        data:{
+            touser,
+            userInfo: wx.getStorageSync('user'),
+            content
+        }
+    }).then(res=>{
+        console.log(res)
+    }).catch(res=>{
+        console.log(res)
+    })
+},
   // 切换“只看我的”
   onChangeOnlyMe({ detail }) {
     this.setData({ onlyMe: detail });
@@ -351,6 +366,7 @@ reply(e){
       }
     })
     Toast.success('回复成功！');
+    this.sendSubscribeMessege("_openid",e.detail.value.input) // 发送订阅消息
     wx.cloud.database().collection('comment')
     .where({
       orign:this.data.orign

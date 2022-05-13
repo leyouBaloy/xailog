@@ -22,10 +22,67 @@ Page({
     button_text: "提交",
   },
   onLoad: function (options) {
-    // var test = new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
-    // console.log("test",test)
-
+    var that = this ;
+    // wx.getSetting({
+    //     withSubscriptions: true,
+    //     success (res) {
+    //       console.log("subscriptionsSetting",res.subscriptionsSetting)
+    //     // 如果没有订阅消息通知，提醒
+    //     if(res.subscriptionsSetting.itemSettings['a5AX-3vtvGHxGXAGDhagAq-hE5Vp4d0w0sqm3o-bFII']!='accept'){
+    //         that.remindSubscribe()
+    //     }
+    //     else{
+    //         that.remindSubscribe()
+    //     }
+    //     }
+    //   })
+    that.remindSubscribe()
+    
   },
+  remindSubscribe(){
+    var that = this
+    wx.showModal({
+        title: '温馨提示',
+        content: '为了您能及时收到日志留言，请允许订阅消息通知。',
+        confirmText:"同意",
+        cancelText:"拒绝",
+        success: function (res) {
+            if (res.confirm) {
+                console.log('用户点击确定');
+                //调用订阅
+                that.requestSubscribe();
+            } else if (res.cancel) {
+                console.log('用户点击取消');
+                ///显示第二个弹说明一下
+                wx.showModal({
+                    title: '温馨提示',
+                    content: '拒绝后您将无法收到通知',
+                    confirmText:"知道了",
+                    showCancel:false,
+                    success: function (res) {
+                    ///点击知道了的后续操作 
+                    ///如跳转首页面 
+                    }
+                });
+            }
+        }
+    });
+  },
+   //   订阅消息
+   requestSubscribe(){
+	wx.requestSubscribeMessage({
+        tmplIds: ['a5AX-3vtvGHxGXAGDhagAq-hE5Vp4d0w0sqm3o-bFII'],
+        success :(res)=>{
+          console.log("订阅消息 成功 "+res);
+         },
+        fail :(errCode,errMessage) =>{ 
+          console.log("订阅消息 失败 "+errCode+" message "+errMessage);
+        },
+        complete:(errMsg)=>{
+          console.log("订阅消息 完成 "+errMsg);
+        }
+      });
+    },
   // 日历
   onDisplay() {
     this.setData({
@@ -179,4 +236,6 @@ Page({
     });
     console.log("开关checked的值", this.data.checked)
   },
+   
 })
+
