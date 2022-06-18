@@ -8,7 +8,7 @@
         <tr>
             <td style="font-weight: bold;">姓名</td>
             <td style="font-weight: bold;" class="td_center">本月报告</td>
-            <td style="font-weight: bold;" class="td_center">今日报告</td>
+            <td style="font-weight: bold;" class="td_center">昨日报告</td>
             <td style="font-weight: bold;" class="td_center"></td>
         </tr>
         <tr wx:for="{{data}}" wx:for-item="i" bindtap="personal" data-id='{{i._openid}}'>

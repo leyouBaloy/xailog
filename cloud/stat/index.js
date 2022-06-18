@@ -7,6 +7,7 @@ const _ = db.command
 const $ = db.command.aggregate
 
 var newdate = new Date()
+var prepreDayStamp = new Date(newdate.getFullYear(),newdate.getMonth(),newdate.getDate()-2).getTime()
 var preDayStamp = new Date(newdate.getFullYear(),newdate.getMonth(),newdate.getDate()-1).getTime()
 var preMonthStamp = new Date(newdate.getFullYear(),newdate.getMonth()-1,newdate.getDate()).getTime()
 
@@ -21,7 +22,7 @@ exports.main = async (event, context) => {
         _id: '$_openid',
         countByMonth:$.sum(1),
         countByDay:$.sum($.cond({
-            if: $.gt(['$time',preDayStamp]),
+            if: $.and([$.gt(['$time',prepreDayStamp]), $.lte(['$time',preDayStamp])]),
             then:1,
             else:0
         })),
