@@ -94,10 +94,32 @@ Page({
   },
 
   tmpTest(){
+    wx.showLoading({
+      title: '导出中',
+    })
     wx.cloud.callFunction({
         name: "exportLogs",
         complete: res => {
             console.log("云函数exportLogs结果：",res)
+            // console.log(res.fileList[0].tempFileURL)
+            wx.cloud.getTempFileURL({fileList:[res.result.fileID]}).then(res => {
+                wx.hideLoading()
+                Dialog.alert({
+                    title: '已生成临时链接，点击确认复制',
+                    message: res.fileList[0].tempFileURL,
+                  }).then(() => {
+                    wx.setClipboardData({
+                        data: res.fileList[0].tempFileURL,
+                        success(res) {
+                          wx.showToast({
+                            title: "复制成功"
+                          })
+                        }
+                      })
+                  });
+                
+                
+            })
         }
       })
   }
