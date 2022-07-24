@@ -91,6 +91,15 @@ Page({
       else{
         Toast.fail('请输入名字后确定');
       }
+  },
+
+  tmpTest(){
+    wx.cloud.callFunction({
+        name: "exportLogs",
+        complete: res => {
+            console.log("云函数exportLogs结果：",res)
+        }
+      })
   }
 
 
