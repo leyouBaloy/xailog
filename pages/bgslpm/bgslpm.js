@@ -45,7 +45,9 @@ Page({
         wx.cloud.callFunction({name: "stat",})
         .then(res=>{
           console.log("调用云函数统计查询结果",res.result)
-          this.setData({data:res.result})
+        //   一个非常蠢的过滤
+        let jieguo = res.result.filter((ele) => ele.name != '王志宽' && ele.name != '刘航源' && ele.name != '李珊' && ele.name != '陈晓莹')
+          this.setData({data:jieguo})
         })
         .catch(res=>{
           console.log("云函数调用失败",res)
