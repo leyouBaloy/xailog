@@ -2,25 +2,25 @@
 
 首页：写日志
 
-![image-20250209170553020](.\imagesForREADME\image-20250209170553020.png)
+![image-20250209170553020](./imagesForREADME/image-20250209170553020.png)
 
-![image-20250209170655847](.\imagesForREADME\image-20250209170655847.png)
+![image-20250209170655847](./imagesForREADME/image-20250209170655847.png)
 
 个人页面：修改头像名、管理
 
 日志窗口（仅管理员）
 
-![image-20250209170720166](.\imagesForREADME\image-20250209170720166.png)
+![image-20250209170720166](./imagesForREADME/image-20250209170720166.png)
 
 日志查看：筛选，查看详情 
 
-![image-20250209170800376](.\imagesForREADME\image-20250209170800376.png)
+![image-20250209170800376](./imagesForREADME/image-20250209170800376.png)
 
-![image-20250209170825819](.\imagesForREADME\image-20250209170825819.png)
+![image-20250209170825819](./imagesForREADME/image-20250209170825819.png)
 
 统计:日志数量或“小昕星”统计
 
-![image-20250209170832706](.\imagesForREADME\image-20250209170832706.png)
+![image-20250209170832706](./imagesForREADME/image-20250209170832706.png)
 
 # 技术架构
 
